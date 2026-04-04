@@ -1,0 +1,10 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Add Horizontal Scroll to StudentTable",
+			"type": "shell",
+			"command": "echo 'Adding horizontal scroll to StudentTable.js for mobile responsiveness'"
+		}
+	]
+}

@@ -1,0 +1,263 @@
+import React, { useEffect, useState } from "react";
+import { Input, Button } from "@windmill/react-ui";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import {
+  useCreateBranchMutation,
+  useGetAllBranchQuery,
+  useUpdateBranchMutation,
+  useDeleteBranchMutation,
+} from "../../features/branch/branch";
+
+export default function Branch() {
+  const [editingId, setEditingId] = useState(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
+  const [createBranch] = useCreateBranchMutation();
+  const [updateBranch] = useUpdateBranchMutation();
+  const [deleteBranch] = useDeleteBranchMutation();
+  const { data, isLoading, isError, error } = useGetAllBranchQuery();
+
+  const [branchList, setBranchList] = useState([]);
+
+  useEffect(() => {
+    if (data?.data) {
+      setBranchList(data.data);
+    } else {
+      setBranchList([]);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isError) {
+      console.error("Branch fetch error:", error);
+      toast.error(error?.data?.message || "Failed to load branches");
+    }
+  }, [isError, error]);
+
+  const onSubmit = async (formData) => {
+    const payload = {
+      name: formData.name?.trim(),
+    };
+
+    if (!payload.name) {
+      toast.error("Branch name is required");
+      return;
+    }
+
+    try {
+      if (editingId) {
+        const res = await updateBranch({
+          id: editingId,
+          data: payload,
+        }).unwrap();
+        if (res?.success) {
+          toast.success(res.message || "Branch updated successfully");
+          reset();
+          setEditingId(null);
+        } else {
+          toast.error(res?.message || "Failed to update branch");
+        }
+      } else {
+        const res = await createBranch(payload).unwrap();
+        if (res?.success) {
+          toast.success(res.message || "Branch created successfully");
+          reset();
+        } else {
+          toast.error(res?.message || "Failed to create branch");
+        }
+      }
+    } catch (err) {
+      console.error("Branch save error:", err);
+      toast.error(err?.data?.message || "Operation failed");
+    }
+  };
+
+  const startEdit = (item) => {
+    setEditingId(item.id);
+    setValue("name", item.branch || item.name || item.Branch || "");
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    reset();
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this branch?")) return;
+
+    try {
+      const res = await deleteBranch(id).unwrap();
+      if (res?.success) {
+        toast.success(res.message || "Branch deleted");
+      } else {
+        toast.error(res?.message || "Failed to delete branch");
+      }
+    } catch (err) {
+      console.error("Delete branch error:", err);
+      toast.error(err?.data?.message || "Deletion failed");
+    }
+  };
+
+  return (
+    <div className="w-full px-3 sm:px-4 py-4 sm:py-6 bg-gray-50 max-w-screen-2xl mx-auto">
+      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 mb-5 sm:mb-6">
+        <p className="text-xs font-semibold uppercase tracking-wide text-brandRed">
+          Office Settings
+        </p>
+        <h4 className="mt-2 text-2xl sm:text-3xl font-semibold text-gray-900">
+          Branch Management
+        </h4>
+        <p className="mt-1 text-sm sm:text-base text-gray-500">
+          Add, update, and manage office branches.
+        </p>
+        {/* <p className="text-sm text-gray-600">
+          Add, edit, and delete branch names using API.
+        </p> */}
+      </div>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mb-5 sm:mb-6 grid grid-cols-1 md:grid-cols-3 gap-3 rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6"
+      >
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Branch Name
+          </label>
+          <Input
+            type="text"
+            placeholder="Enter branch name"
+            className="w-full rounded-xl border-gray-200 bg-gray-50 text-sm"
+            {...register("name", { required: "Branch name is required" })}
+          />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-2">
+          <Button
+            type="submit"
+            className="bg-brandRed text-white w-full rounded-xl"
+          >
+            {editingId ? "Update" : "Add"}
+          </Button>
+          {editingId && (
+            <Button
+              onClick={cancelEdit}
+              type="button"
+              className="bg-gray-400 text-white w-full sm:w-auto rounded-xl"
+            >
+              Cancel
+            </Button>
+          )}
+        </div>
+      </form>
+
+      <div className="hidden sm:block overflow-x-auto rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <table className="w-full text-sm text-left text-gray-700">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="px-4 py-3">#</th>
+              <th className="px-4 py-3">Branch Name</th>
+              <th className="px-4 py-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {isLoading ? (
+              <tr>
+                <td colSpan={3} className="px-4 py-3 text-center text-gray-500">
+                  Loading branches...
+                </td>
+              </tr>
+            ) : branchList?.length > 0 ? (
+              branchList.map((item, index) => (
+                <tr
+                  key={item.id || index}
+                  className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                >
+                  <td className="px-4 py-2">{index + 1}</td>
+                  <td className="px-4 py-2">
+                    {item.branch || item.name || item.Branch || "-"}
+                  </td>
+                  <td className="px-4 py-2 flex gap-2">
+                    <Button
+                      size="small"
+                      layout="outline"
+                      onClick={() => startEdit(item)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      size="small"
+                      layout="outline"
+                      className="text-red-600 border-red-300 hover:text-red-700"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3} className="px-4 py-4 text-center text-gray-500">
+                  No branches found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="sm:hidden space-y-3">
+        {isLoading ? (
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6 text-center text-sm text-gray-500">
+            Loading branches...
+          </div>
+        ) : branchList?.length > 0 ? (
+          branchList.map((item, index) => (
+            <div
+              key={item.id || index}
+              className="rounded-2xl bg-white border border-gray-100 shadow-sm p-4"
+            >
+              <p className="text-xs uppercase tracking-wide text-gray-500">
+                Branch #{index + 1}
+              </p>
+              <h3 className="mt-1 text-base font-semibold text-gray-900 break-words">
+                {item.branch || item.name || item.Branch || "-"}
+              </h3>
+
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => startEdit(item)}
+                  className="rounded-xl border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(item.id)}
+                  className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6 text-center text-sm text-gray-500">
+            No branches found.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
