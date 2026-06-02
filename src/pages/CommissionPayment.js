@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import {
   Modal,
   ModalHeader,
@@ -114,7 +114,7 @@ function CommissionPayment() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             {/* Header Section */}
             <div>
-              <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandRed">
+              <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandBlue">
                 Commission
               </p>
               <h4 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -142,7 +142,7 @@ function CommissionPayment() {
                           type="text"
                           {...register("amount")}
                           onKeyDown={handleEnter}
-                          className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                          className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                         />
                         {errors.amount && (
                           <p className="text-red-500 text-sm mt-1">
@@ -158,7 +158,7 @@ function CommissionPayment() {
                           type="text"
                           {...register("purpose")}
                           onKeyDown={handleEnter}
-                          className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                          className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                         />
                         {errors.purpose && (
                           <p className="text-red-500 text-sm mt-1">
@@ -174,7 +174,7 @@ function CommissionPayment() {
                         <select
                           {...register("branch")}
                           onKeyDown={handleEnter}
-                          className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                          className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                         >
                           <option value="">Select Branch</option>
                           {branchLoading && (
@@ -213,7 +213,7 @@ function CommissionPayment() {
                     <div className="mt-6 flex justify-end gap-2">
                       <Button
                         type="submit"
-                        className="btn w-full rounded-2xl bg-gradient-to-r from-brandRed to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
+                        className="btn w-full rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
                       >
                         Save
                       </Button>
@@ -229,7 +229,7 @@ function CommissionPayment() {
                 onClick={() => {
                   setIsModalOpen(true);
                 }}
-                className="rounded-2xl bg-gradient-to-r from-brandRed to-red-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-red-100 transition hover:shadow-xl sm:text-base"
+                className="rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-red-100 transition hover:shadow-xl sm:text-base"
               >
                 + Request Commission
               </button>
@@ -243,7 +243,7 @@ function CommissionPayment() {
               <span
                 className={`cursor-pointer rounded-2xl px-4 py-3 text-center transition-all duration-300 ${
                   isInProgress
-                    ? "bg-gradient-to-r from-brandRed to-red-500 text-brandRed shadow-lg shadow-red-100"
+                    ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
                     : "bg-white text-gray-700 hover:bg-red-50"
                 }`}
                 onClick={() => setActiveTab("inProgress")}
@@ -253,7 +253,7 @@ function CommissionPayment() {
               <span
                 className={`cursor-pointer rounded-2xl px-4 py-3 text-center transition-all duration-300 ${
                   !isInProgress
-                    ? "bg-gradient-to-r from-brandRed to-red-500 text-brandRed shadow-lg shadow-red-100"
+                    ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
                     : "bg-white text-gray-700 hover:bg-red-50"
                 }`}
                 onClick={() => setActiveTab("paid")}

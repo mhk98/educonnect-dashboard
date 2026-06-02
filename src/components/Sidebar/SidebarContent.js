@@ -1,4 +1,4 @@
-// import React from "react";
+﻿// import React from "react";
 // import routes from "../../routes/sidebar";
 // import { NavLink, Route } from "react-router-dom";
 // import * as Icons from "../../icons";
@@ -41,7 +41,7 @@
 //               >
 //                 <Route path={route.path} exact={route.exact}>
 //                   <span
-//                     className="absolute inset-y-0 left-0 w-1 bg-brandRed rounded-tr-lg rounded-br-lg"
+//                     className="absolute inset-y-0 left-0 w-1 bg-brandBlue rounded-tr-lg rounded-br-lg"
 //                     aria-hidden="true"
 //                   ></span>
 //                 </Route>
@@ -58,7 +58,7 @@
 //       </ul>
 
 //       {/* <div className="px-6 my-6">
-//         <Button className="w-full" style={{ backgroundColor: "#C71320" }}>
+//         <Button className="w-full" style={{ backgroundColor: "#1B2E6B" }}>
 //           <Link
 //             to="/create-account"
 //             className="flex items-center justify-center"
@@ -83,10 +83,9 @@ import { NavLink, Route } from "react-router-dom";
 import * as Icons from "../../icons";
 import SidebarSubmenu from "./SidebarSubmenu";
 import { Link } from "react-router-dom/cjs/react-router-dom";
-import logo2 from "../../assets/img/logo2.png";
 import logo from "../../assets/img/logo.png";
 import { SidebarContext } from "../../context/SidebarContext";
-import { PanelLeftClose, PanelLeftOpen, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 
 function Icon({ icon, ...props }) {
   const IconComp = Icons[icon];
@@ -103,8 +102,7 @@ function SidebarContent({ isMobile = false, onNavigate }) {
   const [q, setQ] = useState("");
 
   // ✅ NEW: collapse state (desktop)
-  const { isSidebarCollapsed, toggleSidebarCollapsed } =
-    useContext(SidebarContext);
+  const { isSidebarCollapsed } = useContext(SidebarContext);
 
   // ✅ role filter first
   const roleFilteredRoutes = useMemo(() => {
@@ -163,81 +161,29 @@ function SidebarContent({ isMobile = false, onNavigate }) {
 
   return (
     <MotionAside
-      className={`h-screen flex-shrink-0 ${
+      className={`flex-shrink-0 ${
         isMobile
-          ? "overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-soft"
-          : "border-r border-gray-100 bg-white/95"
+          ? "h-screen overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-soft"
+          : "h-full bg-white"
       }`}
       animate={{ width: isMobile ? 255 : isSidebarCollapsed ? 90 : 255 }}
       transition={{ type: "spring", stiffness: 260, damping: 26 }}
     >
-      <div
-        className={`flex h-full flex-col text-gray-500 dark:text-gray-400 ${
-          isMobile ? "py-3" : "py-4"
-        }`}
-      >
-        {/* ✅ Logo + Collapse Toggle */}
-        <div className="px-3 sm:px-4 flex items-center justify-between">
-          <Link
-            to="/app/dashboard"
-            onClick={onNavigate}
-            className="flex items-center gap-3"
-          >
-            {isSidebarCollapsed ? (
-              <img
-                src={logo2}
-                alt="Logo"
-                className="transition-all duration-300  w-16 h-10"
-              />
-            ) : (
-              <img
-                src={logo}
-                alt="Logo"
-                className="transition-all duration-300  w-[130px] h-[32px]"
-              />
-            )}
-          </Link>
+      <div className="flex h-full flex-col text-gray-500">
 
-          {/* <button
-            type="button"
-            onClick={toggleSidebarCollapsed}
-            className={`h-10 w-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center transition-all duration-300 ${
-              isSidebarCollapsed ? "ml-0" : ""
-            }`}
-            title={isSidebarCollapsed ? "Expand" : "Collapse"}
-          >
-            <Icon icon="MenuIcon" className="w-5 h-5" />
-          </button> */}
-
-          {isMobile ? (
+        {/* Mobile: logo + close button */}
+        {isMobile && (
+          <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
+            <Link to="/app/dashboard" onClick={onNavigate}>
+              <img src={logo} alt="Logo" className="object-contain" style={{ height: "80px", width: "auto", maxWidth: "160px" }} />
+            </Link>
             <button
               onClick={onNavigate}
-              className="h-10 w-10 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-100 flex items-center justify-center transition"
+              className="h-8 w-8 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-100 flex items-center justify-center"
               type="button"
-              aria-label="Close sidebar"
             >
-              <X size={18} />
+              <X size={16} />
             </button>
-          ) : (
-            <button
-              onClick={toggleSidebarCollapsed}
-              className="h-12 w-12 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center transition"
-              type="button"
-              title={isSidebarCollapsed ? "Expand" : "Collapse"}
-            >
-              {isSidebarCollapsed ? (
-                <PanelLeftOpen size={20} />
-              ) : (
-                <PanelLeftClose size={20} />
-              )}
-            </button>
-          )}
-        </div>
-
-        {isMobile && (
-          <div className="px-4 mt-2">
-            <p className="text-sm font-bold text-gray-900">Edu Anchor</p>
-            <p className="text-xs text-gray-400">Control Panel</p>
           </div>
         )}
 
@@ -285,7 +231,7 @@ function SidebarContent({ isMobile = false, onNavigate }) {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              className={`${isMobile ? "mt-4 px-3" : "mt-4 px-4"}`}
+              className={`${isMobile ? "mt-3 px-3" : "mt-4 px-3"}`}
             >
               <div className="relative">
                 <span
@@ -306,7 +252,7 @@ function SidebarContent({ isMobile = false, onNavigate }) {
             text-gray-800 dark:text-gray-100
             placeholder:text-gray-400 dark:placeholder:text-gray-500
             outline-none
-            focus:border-brandRed/60 focus:ring-4 focus:ring-brandRed/10
+            focus:border-brandBlue/60 focus:ring-4 focus:ring-brandBlue/10
             transition
           "
                 />
@@ -344,7 +290,7 @@ function SidebarContent({ isMobile = false, onNavigate }) {
 
         <ul
           className={`flex-1 overflow-y-auto ${
-            isMobile ? "mt-4 px-2 pb-3" : "mt-4"
+            isMobile ? "mt-3 px-2 pb-3" : "mt-3 px-2"
           }`}
         >
           {filteredRoutes.map((route) =>
@@ -359,7 +305,7 @@ function SidebarContent({ isMobile = false, onNavigate }) {
               />
             ) : (
               <li
-                className={`relative ${isMobile ? "px-1 py-1" : "px-4 py-2"}`}
+                className={`relative ${isMobile ? "px-1 py-0.5" : "px-1 py-0.5"}`}
                 key={route.name}
               >
                 <NavLink
@@ -376,14 +322,14 @@ function SidebarContent({ isMobile = false, onNavigate }) {
                   ${!isMobile && isSidebarCollapsed ? "justify-center" : ""}`}
                   activeClassName={
                     isMobile
-                      ? "text-indigo-600 bg-indigo-50"
+                      ? "text-blue-700 bg-blue-50"
                       : "text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800"
                   }
                 >
                   <Route path={route.path} exact={route.exact}>
                     <span
                       className={`absolute inset-y-0 left-0 w-1 ${
-                        isMobile ? "bg-indigo-500" : "bg-brandRed"
+                        isMobile ? "bg-blue-600" : "bg-brandBlue"
                       } rounded-tr-lg rounded-br-lg`}
                       aria-hidden="true"
                     />
@@ -408,12 +354,19 @@ function SidebarContent({ isMobile = false, onNavigate }) {
           ) : null}
         </ul>
 
-        {isMobile && (
-          <div className="mx-3 mt-auto rounded-xl border border-gray-200 bg-gray-50 px-3 py-3">
-            <p className="text-xs text-gray-400">Signed in as</p>
-            <p className="truncate text-sm font-semibold text-gray-900">
+        <div className="mx-4 mb-2 border-t border-gray-100" />
+
+        {(!isSidebarCollapsed || isMobile) && (
+          <div className="mx-3 mb-3 rounded-xl bg-gray-50 px-3 py-2 border border-gray-100">
+            <p className="text-xs uppercase tracking-widest text-gray-400 "><small>Signed in as</small></p>
+            <p className="truncate text-sm font-semibold text-gray-800 mt-0.5">
               {`${firstName} ${lastName}`.trim() || userRole || "User"}
             </p>
+          </div>
+        )}
+        {isSidebarCollapsed && !isMobile && (
+          <div className="mx-auto mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-brandBlue text-xs font-bold text-white">
+            {(firstName?.charAt(0) || userRole?.charAt(0) || "U").toUpperCase()}
           </div>
         )}
       </div>

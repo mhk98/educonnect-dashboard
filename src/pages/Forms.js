@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 
 import CTA from '../components/CTA'
 import PageTitle from '../components/Typography/PageTitle'
@@ -108,9 +108,9 @@ function Forms() {
         <Label>
           <span>Icon left</span>
           {/* <!-- focus-within sets the color for the icon when input is focused --> */}
-          <div className="relative text-gray-500 focus-within:text-brandRed dark:focus-within:text-brandRed-400">
+          <div className="relative text-gray-500 focus-within:text-brandBlue dark:focus-within:text-brandBlue-400">
             <input
-              className="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-brandRed-400 focus:outline-none focus:shadow-outline-brandRed dark:focus:shadow-outline-gray form-input"
+              className="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-brandBlue-400 focus:outline-none focus:shadow-outline-brandBlue dark:focus:shadow-outline-gray form-input"
               placeholder="Jane Doe"
             />
             <div className="absolute inset-y-0 flex items-center ml-3 pointer-events-none">
@@ -122,9 +122,9 @@ function Forms() {
         <Label className="mt-4">
           <span className="text-gray-700 dark:text-gray-400">Icon right</span>
           {/* <!-- focus-within sets the color for the icon when input is focused --> */}
-          <div className="relative text-gray-500 focus-within:text-brandRed dark:focus-within:text-brandRed-400">
+          <div className="relative text-gray-500 focus-within:text-brandBlue dark:focus-within:text-brandBlue-400">
             <input
-              className="block w-full pr-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-brandRed-400 focus:outline-none focus:shadow-outline-brandRed dark:focus:shadow-outline-gray form-input"
+              className="block w-full pr-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-brandBlue-400 focus:outline-none focus:shadow-outline-brandBlue dark:focus:shadow-outline-gray form-input"
               placeholder="Jane Doe"
             />
             <div className="absolute inset-y-0 right-0 flex items-center mr-3 pointer-events-none">
@@ -142,10 +142,10 @@ function Forms() {
           <span>Button left</span>
           <div className="relative">
             <input
-              className="block w-full pl-20 mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-brandRed-400 focus:outline-none focus:shadow-outline-brandRed dark:focus:shadow-outline-gray form-input"
+              className="block w-full pl-20 mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-brandBlue-400 focus:outline-none focus:shadow-outline-brandBlue dark:focus:shadow-outline-gray form-input"
               placeholder="Jane Doe"
             />
-            <button className="absolute inset-y-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-brandRed border border-transparent rounded-l-md active:bg-brandRed hover:bg-brandRed-700 focus:outline-none focus:shadow-outline-brandRed dark:focus:shadow-outline-gray">
+            <button className="absolute inset-y-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-brandBlue border border-transparent rounded-l-md active:bg-brandBlue hover:bg-brandBlue-700 focus:outline-none focus:shadow-outline-brandBlue dark:focus:shadow-outline-gray">
               Click
             </button>
           </div>
@@ -153,12 +153,12 @@ function Forms() {
 
         <Label className="mt-4">
           <span>Button right</span>
-          <div className="relative text-gray-500 focus-within:text-brandRed">
+          <div className="relative text-gray-500 focus-within:text-brandBlue">
             <input
-              className="block w-full pr-20 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-brandRed-400 focus:outline-none focus:shadow-outline-brandRed dark:focus:shadow-outline-gray form-input"
+              className="block w-full pr-20 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-brandBlue-400 focus:outline-none focus:shadow-outline-brandBlue dark:focus:shadow-outline-gray form-input"
               placeholder="Jane Doe"
             />
-            <button className="absolute inset-y-0 right-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-brandRed border border-transparent rounded-r-md active:bg-brandRed hover:bg-brandRed-700 focus:outline-none focus:shadow-outline-brandRed">
+            <button className="absolute inset-y-0 right-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-brandBlue border border-transparent rounded-r-md active:bg-brandBlue hover:bg-brandBlue-700 focus:outline-none focus:shadow-outline-brandBlue">
               Click
             </button>
           </div>

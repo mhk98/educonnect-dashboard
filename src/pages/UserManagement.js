@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import UserManagementFilter from "../components/UserManagement/UserManagementFilter";
 
 import { Input } from "@windmill/react-ui";
@@ -283,7 +283,7 @@ function UserManagement() {
                     </button>
                     <button
                       type="submit"
-                      className="w-full sm:w-auto px-4 py-2 bg-brandRed text-white rounded hover:bg-brandRed"
+                      className="w-full sm:w-auto px-4 py-2 bg-brandBlue text-white rounded hover:bg-brandBlue"
                     >
                       Save
                     </button>
@@ -298,7 +298,7 @@ function UserManagement() {
               onClick={() => {
                 document.getElementById("user_add_modal").showModal();
               }}
-              className="w-full sm:w-auto px-4 py-2 bg-brandRed text-white rounded-md text-sm md:text-base hover:bg-brandRed-700 transition"
+              className="w-full sm:w-auto px-4 py-2 bg-brandBlue text-white rounded-md text-sm md:text-base hover:bg-brandBlue-700 transition"
             >
               + Add New User
             </button>

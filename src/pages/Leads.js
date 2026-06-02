@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { Modal, ModalHeader, ModalBody, Button } from "@windmill/react-ui";
 import { useForm } from "react-hook-form";
 import {
@@ -359,7 +359,7 @@ function Leads() {
       {/* Header */}
       <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 mb-5 sm:mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-brandRed">
+          <p className="text-xs font-semibold uppercase tracking-wide text-brandBlue">
             CRM
           </p>
           <h4 className="mt-2 text-2xl sm:text-3xl font-semibold text-gray-900">
@@ -483,7 +483,7 @@ function Leads() {
 
         {/* <div className="flex items-end gap-2">
           <Button
-            className="w-full bg-brandRed text-white"
+            className="w-full bg-brandBlue text-white"
             onClick={clearFilters}
           >
             Clear
@@ -545,7 +545,7 @@ function Leads() {
 
         <div className="flex items-end gap-2">
           <Button
-            className="w-full bg-brandRed text-white rounded-xl"
+            className="w-full bg-brandBlue text-white rounded-xl"
             onClick={() => {
               setSelectedType("");
               setTodayCallDate("");
@@ -886,7 +886,7 @@ function Leads() {
                         ${
                           currentPage === 1
                             ? "bg-brandDisable cursor-not-allowed"
-                            : "bg-brandRed hover:bg-brandHover"
+                            : "bg-brandBlue hover:bg-brandHover"
                         }`}
             >
               ← Prev
@@ -905,7 +905,7 @@ function Leads() {
                         ${
                           currentPage * itemsPerPage >= data.meta.total
                             ? "bg-brandDisable cursor-not-allowed"
-                            : "bg-brandRed hover:bg-brandHover"
+                            : "bg-brandBlue hover:bg-brandHover"
                         }`}
             >
               Next →
@@ -1260,7 +1260,7 @@ function Leads() {
               </button>
               <button
                 type="submit"
-                className="w-full sm:w-auto px-4 py-2 bg-brandRed text-white rounded-xl hover:bg-brandRed"
+                className="w-full sm:w-auto px-4 py-2 bg-brandBlue text-white rounded-xl hover:bg-brandBlue"
               >
                 Save
               </button>
@@ -1424,7 +1424,7 @@ function Leads() {
               <Button
                 type="submit"
                 className="w-full sm:w-auto"
-                style={{ backgroundColor: "#C71320" }}
+                style={{ backgroundColor: "#1B2E6B" }}
               >
                 Save
               </Button>

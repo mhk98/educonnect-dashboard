@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input, Button } from "@windmill/react-ui";
 import toast from "react-hot-toast";
@@ -174,7 +174,7 @@ function RequestPayment({ id }) {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Submit Request
                 </Button>
@@ -215,7 +215,7 @@ function RequestPayment({ id }) {
                   {payment.refundCondition}
                 </td>
                 <td className="p-3 whitespace-nowrap">{payment?.status}</td>
-                <td className="p-3 whitespace-nowrap flex gap-3 text-brandRed">
+                <td className="p-3 whitespace-nowrap flex gap-3 text-brandBlue">
                   <LiaEditSolid
                     fontSize={20}
                     onClick={() => {
@@ -264,7 +264,7 @@ function RequestPayment({ id }) {
                         <Button
                           type="submit"
                           className="btn"
-                          style={{ backgroundColor: "#C71320" }}
+                          style={{ backgroundColor: "#1B2E6B" }}
                         >
                           Save
                         </Button>

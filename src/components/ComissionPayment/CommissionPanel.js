@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 
 const commissionList = [
   {
@@ -38,7 +38,7 @@ const CommissionPanel = () => {
             onClick={() => setSelected(item)}
             className={`border rounded-md p-4 mb-3 cursor-pointer ${
               selected.id === item.id
-                ? "bg-brandRed-50 border-brandRed"
+                ? "bg-brandBlue-50 border-brandBlue"
                 : "bg-white"
             }`}
           >
@@ -51,7 +51,7 @@ const CommissionPanel = () => {
             <p className="text-sm mt-1 text-gray-700">{item.company}</p>
             <p className="text-sm mt-1">
               <span className="font-semibold">Commission Amount is </span>
-              <span className="text-brandRed-700 font-bold">INR {item.amount}</span>
+              <span className="text-brandBlue-700 font-bold">INR {item.amount}</span>
             </p>
             <p className="text-sm mt-1">
               <span className="font-semibold">Created On:</span> {item.createdOn}
@@ -65,13 +65,13 @@ const CommissionPanel = () => {
         {/* Pagination */}
         <div className="flex justify-between items-center mt-2 flex-wrap gap-3">
           <div className="flex items-center space-x-2">
-            <button className="px-2 py-1 bg-brandRed text-white text-sm rounded">
+            <button className="px-2 py-1 bg-brandBlue text-white text-sm rounded">
               &lt;
             </button>
-            <span className="px-3 py-1 bg-brandRed text-white text-sm rounded">
+            <span className="px-3 py-1 bg-brandBlue text-white text-sm rounded">
               1
             </span>
-            <button className="px-2 py-1 bg-brandRed text-white text-sm rounded">
+            <button className="px-2 py-1 bg-brandBlue text-white text-sm rounded">
               &gt;
             </button>
           </div>
@@ -94,20 +94,20 @@ const CommissionPanel = () => {
         <p className="text-sm text-gray-700 mb-2">{selected.company}</p>
         <p className="text-sm mb-4">
           <span className="font-semibold">Commission Amount is </span>
-          <span className="text-brandRed-700 font-bold">INR {selected.amount}</span>
+          <span className="text-brandBlue-700 font-bold">INR {selected.amount}</span>
         </p>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          <button className="border border-brandRed text-brandRed text-sm px-3 py-1 rounded">
+          <button className="border border-brandBlue text-brandBlue text-sm px-3 py-1 rounded">
             Download Invoice
           </button>
-          <button className="border border-brandRed text-brandRed text-sm px-3 py-1 rounded">
+          <button className="border border-brandBlue text-brandBlue text-sm px-3 py-1 rounded">
             View Payment Remarks
           </button>
-          <button className="border border-brandRed text-brandRed text-sm px-3 py-1 rounded">
+          <button className="border border-brandBlue text-brandBlue text-sm px-3 py-1 rounded">
             View Note
           </button>
-          <button className="border border-brandRed text-brandRed text-sm px-3 py-1 rounded">
+          <button className="border border-brandBlue text-brandBlue text-sm px-3 py-1 rounded">
             Download Note
           </button>
         </div>

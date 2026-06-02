@@ -1,4 +1,4 @@
-import { User2Icon } from "lucide-react";
+﻿import { User2Icon } from "lucide-react";
 import { BiTask } from "react-icons/bi";
 import { FaWallet, FaChartLine, FaUsers } from "react-icons/fa";
 import { MdFollowTheSigns } from "react-icons/md";
@@ -41,28 +41,28 @@ const stats = [
   {
     title: "Total Students",
     value: "244",
-    icon: <FaUsers />, // 👥 multiple users
+    icon: <FaUsers />, // ðŸ‘¥ multiple users
     color: "bg-blue-100 text-blue-600",
     desc: "All Students",
   },
   {
     title: "Total Tasks",
     value: "44",
-    icon: <BiTask />, // 📋 tasks
+    icon: <BiTask />, // ðŸ“‹ tasks
     color: "bg-green-100 text-green-600",
     desc: "Completed Tasks",
   },
   {
     title: "Total Leads",
     value: "349",
-    icon: <FaChartLine />, // 📈 leads growth
+    icon: <FaChartLine />, // ðŸ“ˆ leads growth
     color: "bg-indigo-100 text-indigo-600",
     desc: "All Leads",
   },
   {
     title: "Follow Ups",
     value: "7",
-    icon: <MdFollowTheSigns />, // 🔁 follow up
+    icon: <MdFollowTheSigns />, // ðŸ” follow up
     color: "bg-yellow-100 text-yellow-600",
     desc: "Pending Follow-ups",
   },
@@ -102,10 +102,10 @@ const DashboardStats = () => {
     });
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       <div
-        className="group bg-white border border-slate-200 rounded-2xl p-4 sm:p-5
-          shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100
+          hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
       >
         {/* Top */}
         <div className="flex items-center justify-between">
@@ -128,8 +128,7 @@ const DashboardStats = () => {
         <p className="text-xs text-slate-400 mt-1">Total Students</p>
       </div>
       <div
-        className="group bg-white border border-slate-200 rounded-2xl p-4 sm:p-5
-          shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
       >
         {/* Top */}
         <div className="flex items-center justify-between">
@@ -156,8 +155,7 @@ const DashboardStats = () => {
         </p>
       </div>
       <div
-        className="group bg-white border border-slate-200 rounded-2xl p-4 sm:p-5
-          shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
       >
         {/* Top */}
         <div className="flex items-center justify-between">
@@ -184,8 +182,7 @@ const DashboardStats = () => {
         </p>
       </div>
       <div
-        className="group bg-white border border-slate-200 rounded-2xl p-4 sm:p-5
-          shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
       >
         {/* Top */}
         <div className="flex items-center justify-between">

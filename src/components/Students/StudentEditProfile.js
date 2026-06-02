@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { FaRegCopy } from "react-icons/fa";
 import Profile from "./Profile";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
@@ -81,7 +81,7 @@ const StudentEditProfile = () => {
           <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center">
             <button
               onClick={handleCopy}
-              className="flex-1 border border-brandRed text-brandRed hover:bg-brandRed-50 px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
+              className="flex-1 border border-brandBlue text-brandBlue hover:bg-brandBlue-50 px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
             >
               <span>Student Platform</span>
               <FaRegCopy />
@@ -97,7 +97,7 @@ const StudentEditProfile = () => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isProfile ? "bg-brandRed text-white" : "bg-gray-200"
+                isProfile ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               1
@@ -111,7 +111,7 @@ const StudentEditProfile = () => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isApplications ? "bg-brandRed text-white" : "bg-gray-200"
+                isApplications ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               2
@@ -125,7 +125,7 @@ const StudentEditProfile = () => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isDocuments ? "bg-brandRed text-white" : "bg-gray-200"
+                isDocuments ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               3
@@ -142,7 +142,7 @@ const StudentEditProfile = () => {
         >
           <div
             className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-              isFinance ? "bg-brandRed text-white" : "bg-gray-200"
+              isFinance ? "bg-brandBlue text-white" : "bg-gray-200"
             }`}
           >
             4

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input, Button } from "@windmill/react-ui";
 import toast from "react-hot-toast";
@@ -146,13 +146,13 @@ function PendingPayment({ id }) {
             <p
               onClick={() => setActiveTab("online")}
               className={`cursor-pointer py-4 px-2 text-sm sm:text-base font-semibold transition-all ${
-                activeTab === "online" ? "text-brandRed" : "text-gray-800"
+                activeTab === "online" ? "text-brandBlue" : "text-gray-800"
               }`}
             >
               Online Payment
             </p>
             {activeTab === "online" && (
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandRed" />
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandBlue" />
             )}
           </div>
 
@@ -160,13 +160,13 @@ function PendingPayment({ id }) {
             <p
               onClick={() => setActiveTab("offline")}
               className={`cursor-pointer py-4 px-2 text-sm sm:text-base font-semibold transition-all ${
-                activeTab === "offline" ? "text-brandRed" : "text-gray-800"
+                activeTab === "offline" ? "text-brandBlue" : "text-gray-800"
               }`}
             >
               Offline Payment
             </p>
             {activeTab === "offline" && (
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandRed" />
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandBlue" />
             )}
           </div>
         </div>
@@ -221,7 +221,7 @@ function PendingPayment({ id }) {
                       <Button
                         type="submit"
                         className="btn"
-                        style={{ backgroundColor: "#C71320" }}
+                        style={{ backgroundColor: "#1B2E6B" }}
                       >
                         Pay Online
                       </Button>
@@ -319,7 +319,7 @@ function PendingPayment({ id }) {
                         <Button
                           type="submit"
                           className="btn"
-                          style={{ backgroundColor: "#C71320" }}
+                          style={{ backgroundColor: "#1B2E6B" }}
                         >
                           Pay Offline
                         </Button>

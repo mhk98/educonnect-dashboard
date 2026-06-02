@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { Modal, ModalHeader, ModalBody } from "@windmill/react-ui";
 import { useForm, Controller } from "react-hook-form";
 import {
@@ -118,7 +118,7 @@ function Client({ id }) {
       <div className="w-full px-4 py-6 bg-gray-50">
         <div className="card">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+            <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
               <FaInfoCircle className="w-5 h-5" />
               Client Information
             </div>
@@ -151,7 +151,7 @@ function Client({ id }) {
                 setIsModalOpen(true);
                 setConsultationId(consultation.id);
               }}
-              className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+              className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
             >
               Request Edit
             </button>

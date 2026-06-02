@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 
 import PageTitle from '../components/Typography/PageTitle'
 import SectionTitle from '../components/Typography/SectionTitle'
@@ -49,8 +49,8 @@ function Cards() {
         <InfoCard title="New sales" value="376">
           <RoundIcon
             icon={CartIcon}
-            iconColorClass="text-brandRed dark:text-brandRed-100"
-            bgColorClass="bg-brandRed-100 dark:bg-brandRed"
+            iconColorClass="text-brandBlue dark:text-brandBlue-100"
+            bgColorClass="bg-brandBlue-100 dark:bg-brandBlue"
             className="mr-4"
           />
         </InfoCard>
@@ -79,7 +79,7 @@ function Cards() {
           </CardBody>
         </Card>
 
-        <Card colored className="text-white bg-brandRed">
+        <Card colored className="text-white bg-brandBlue">
           <CardBody>
             <p className="mb-4 font-semibold">Colored card</p>
             <p>

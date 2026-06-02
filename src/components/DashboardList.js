@@ -107,7 +107,7 @@ const DashboardList = () => {
       </div>
 
       {/* Notice */}
-      <div className="bg-white rounded-none border border-slate-200 p-4 sm:p-5 min-h-[300px]">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sm:p-5 min-h-[300px]">
         <div className="flex justify-between items-center mb-4 sm:mb-5">
           <h2 className="text-sm sm:text-base font-semibold text-slate-700">
             Notice from Head Office

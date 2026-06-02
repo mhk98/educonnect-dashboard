@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineGrading } from "react-icons/md";
 import { Modal, ModalHeader, ModalBody, Button } from "@windmill/react-ui";
@@ -59,7 +59,7 @@ const Tests = ({ id }) => {
     <div className="p-4 space-y-6  mx-auto">
       <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <MdOutlineGrading className="w-5 h-5" />
             IELTS
           </div>
@@ -72,7 +72,7 @@ const Tests = ({ id }) => {
               });
               setIsModalOpen(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -267,7 +267,7 @@ const Tests = ({ id }) => {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>

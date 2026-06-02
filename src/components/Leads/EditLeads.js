@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
 import Client from "./Client";
@@ -51,7 +51,7 @@ const EditLeads = () => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isClient ? "bg-brandRed text-white" : "bg-gray-200"
+                isClient ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               1
@@ -65,7 +65,7 @@ const EditLeads = () => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isHistory ? "bg-brandRed text-white" : "bg-gray-200"
+                isHistory ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               2
@@ -79,7 +79,7 @@ const EditLeads = () => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isDocuments ? "bg-brandRed text-white" : "bg-gray-200"
+                isDocuments ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               3

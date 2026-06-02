@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input, Button } from "@windmill/react-ui";
 import toast from "react-hot-toast";
@@ -252,7 +252,7 @@ function SuperAdminStatement() {
               </div>
               <div className="col-span-2">
                 <p className="text-xs uppercase text-gray-500">Invoice</p>
-                <div className="font-semibold text-brandRed">
+                <div className="font-semibold text-brandBlue">
                   <Invoice
                     invoiceData={{
                       invoiceNo: invoiceNo,
@@ -332,7 +332,7 @@ function SuperAdminStatement() {
             className={`w-full rounded-2xl px-5 py-3 font-semibold text-white transition ${
               currentPage === 1
                 ? "bg-brandDisable cursor-not-allowed"
-                : "bg-brandRed shadow-md shadow-red-100 hover:bg-brandHover"
+                : "bg-brandBlue shadow-md shadow-red-100 hover:bg-brandHover"
             }`}
           >
             ← Prev
@@ -348,7 +348,7 @@ function SuperAdminStatement() {
             className={`w-full rounded-2xl px-5 py-3 font-semibold text-white transition ${
               currentPage * itemsPerPage >= data.meta.total
                 ? "bg-brandDisable cursor-not-allowed"
-                : "bg-brandRed shadow-md shadow-red-100 hover:bg-brandHover"
+                : "bg-brandBlue shadow-md shadow-red-100 hover:bg-brandHover"
             }`}
           >
             Next →
@@ -395,12 +395,12 @@ function SuperAdminStatement() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
               Balance
             </p>
-            <div className="mt-3 flex items-center gap-1 text-2xl font-bold text-brandRed">
+            <div className="mt-3 flex items-center gap-1 text-2xl font-bold text-brandBlue">
               <TbCurrencyTaka className="text-3xl" /> {balance}
             </div>
 
             {/* Register New Student */}
-            {/* <button className="px-4 py-2 bg-brandRed text-white rounded-md text-sm md:text-base hover:bg-brandRed-700 transition">
+            {/* <button className="px-4 py-2 bg-brandBlue text-white rounded-md text-sm md:text-base hover:bg-brandBlue-700 transition">
             ADD MONEY
           </button> */}
           </div>
@@ -448,7 +448,7 @@ function SuperAdminStatement() {
                     </span>
                   </td>
                   <td className={tdClass}>{payment.paymentStatus}</td>
-                  <td className={`${tdClass} font-semibold text-brandRed`}>
+                  <td className={`${tdClass} font-semibold text-brandBlue`}>
                     <Invoice
                       invoiceData={{
                         invoiceNo: invoiceNo,
@@ -510,7 +510,7 @@ function SuperAdminStatement() {
                             <Input
                               type="number"
                               {...register("amount")}
-                              className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                              className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                             />
                             {errors.amount && (
                               <p className="text-red-500 text-sm mt-1">
@@ -526,7 +526,7 @@ function SuperAdminStatement() {
                             <Input
                               type="text"
                               {...register("purpose")}
-                              className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                              className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                             />
                             {errors.purpose && (
                               <p className="text-red-500 text-sm mt-1">
@@ -542,7 +542,7 @@ function SuperAdminStatement() {
                             <Input
                               type="text"
                               {...register("comment")}
-                              className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                              className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                             />
                             {errors.comment && (
                               <p className="text-red-500 text-sm mt-1">
@@ -557,7 +557,7 @@ function SuperAdminStatement() {
                             </label>
                             <select
                               {...register("status")}
-                              className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                              className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                             >
                               <option value="">Select Status</option>
                               <option value="PAID">PAID</option>
@@ -574,7 +574,7 @@ function SuperAdminStatement() {
                         <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 mt-6">
                           <Button
                             type="submit"
-                            className="btn w-full rounded-2xl bg-gradient-to-r from-brandRed to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
+                            className="btn w-full rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
                           >
                             Save
                           </Button>
@@ -610,7 +610,7 @@ function SuperAdminStatement() {
           ${
             currentPage === 1
               ? "bg-brandDisable cursor-not-allowed"
-              : "bg-brandRed hover:bg-brandHover shadow-md shadow-red-100"
+              : "bg-brandBlue hover:bg-brandHover shadow-md shadow-red-100"
           }`}
               >
                 ← Prev
@@ -629,7 +629,7 @@ function SuperAdminStatement() {
           ${
             currentPage * itemsPerPage >= data.meta.total
               ? "bg-brandDisable cursor-not-allowed"
-              : "bg-brandRed hover:bg-brandHover shadow-md shadow-red-100"
+              : "bg-brandBlue hover:bg-brandHover shadow-md shadow-red-100"
           }`}
               >
                 Next →
@@ -834,7 +834,7 @@ export default SuperAdminStatement;
 //         <div className="mb-4 grid lg:grid-cols-2 xl:grid-cols-2 grid-cols-1">
 //           <div className="flex items-center sm:flex-row gap-3">
 //             <p>Balances:</p>
-//             <button className="px-4 py-2 flex items-center bg-white text-brandRed border-2 border-brandRed rounded-md text-sm md:text-base transition">
+//             <button className="px-4 py-2 flex items-center bg-white text-brandBlue border-2 border-brandBlue rounded-md text-sm md:text-base transition">
 //               <TbCurrencyTaka /> {balance}
 //             </button>
 //           </div>
@@ -879,7 +879,7 @@ export default SuperAdminStatement;
 //                   {payment?.paymentStatus}
 //                 </td>
 
-//                 <td className="p-3 whitespace-nowrap text-brandRed cursor-pointer">
+//                 <td className="p-3 whitespace-nowrap text-brandBlue cursor-pointer">
 //                   <Invoice
 //                     invoiceData={{
 //                       invoiceNo: invoiceNoFor(payment),
@@ -908,7 +908,7 @@ export default SuperAdminStatement;
 
 //                 <td className="p-3 whitespace-nowrap">
 //                   {canEditDelete(payment) ? (
-//                     <div className="flex gap-3 text-brandRed">
+//                     <div className="flex gap-3 text-brandBlue">
 //                       <LiaEditSolid
 //                         fontSize={20}
 //                         onClick={() => openModal(payment)}
@@ -1051,7 +1051,7 @@ export default SuperAdminStatement;
 //               <Button
 //                 type="submit"
 //                 className="btn"
-//                 style={{ backgroundColor: "#C71320" }}
+//                 style={{ backgroundColor: "#1B2E6B" }}
 //                 disabled={isUpdating}
 //               >
 //                 {isUpdating ? "Saving..." : "Save"}

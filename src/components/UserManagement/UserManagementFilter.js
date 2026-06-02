@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from "react";
+﻿// import React, { useEffect, useState } from "react";
 // import {
 //   Input,
 //   Label,
@@ -150,7 +150,7 @@
 //         <div className="flex items-end gap-2">
 //           <Button
 //             onClick={handleClearSearch}
-//             className="w-full bg-brandRed text-white"
+//             className="w-full bg-brandBlue text-white"
 //           >
 //             Clear
 //           </Button>
@@ -257,7 +257,7 @@
 //           ${
 //             page === 1
 //               ? "bg-brandDisable cursor-not-allowed"
-//               : "bg-brandRed hover:bg-brandHover"
+//               : "bg-brandBlue hover:bg-brandHover"
 //           }`}
 //               >
 //                 Prev
@@ -270,7 +270,7 @@
 //           ${
 //             page * limit >= data.meta.total
 //               ? "bg-brandDisable cursor-not-allowed"
-//               : "bg-brandRed hover:bg-brandHover"
+//               : "bg-brandBlue hover:bg-brandHover"
 //           }`}
 //               >
 //                 Next
@@ -381,7 +381,7 @@
 //               )}
 //             </div>
 //             <div className="flex justify-end">
-//               <Button type="submit" className="bg-brandRed text-white">
+//               <Button type="submit" className="bg-brandBlue text-white">
 //                 Save
 //               </Button>
 //             </div>
@@ -547,7 +547,7 @@ const UserManagementFilter = () => {
         <div className="flex items-end gap-2 md:col-span-2">
           <Button
             onClick={handleClearSearch}
-            className="w-full bg-brandRed text-white"
+            className="w-full bg-brandBlue text-white"
           >
             Clear
           </Button>
@@ -593,7 +593,7 @@ const UserManagementFilter = () => {
                     <button
                       type="button"
                       onClick={() => openEditModal(user)}
-                      className="rounded-full bg-white p-2 text-brandRed shadow-sm"
+                      className="rounded-full bg-white p-2 text-brandBlue shadow-sm"
                       aria-label={`Edit ${user.FirstName || "user"}`}
                     >
                       <LiaEditSolid />
@@ -682,7 +682,7 @@ const UserManagementFilter = () => {
                         <button
                           type="button"
                           onClick={() => openEditModal(user)}
-                          className="cursor-pointer text-brandRed"
+                          className="cursor-pointer text-brandBlue"
                           aria-label={`Edit ${user.FirstName || "user"}`}
                         >
                           <LiaEditSolid />
@@ -746,7 +746,7 @@ const UserManagementFilter = () => {
           ${
             page === 1
               ? "bg-brandDisable cursor-not-allowed"
-              : "bg-brandRed hover:bg-brandHover"
+              : "bg-brandBlue hover:bg-brandHover"
           }`}
               >
                 Prev
@@ -759,7 +759,7 @@ const UserManagementFilter = () => {
           ${
             page * limit >= data.meta.total
               ? "bg-brandDisable cursor-not-allowed"
-              : "bg-brandRed hover:bg-brandHover"
+              : "bg-brandBlue hover:bg-brandHover"
           }`}
               >
                 Next
@@ -887,7 +887,7 @@ const UserManagementFilter = () => {
               </button>
               <button
                 type="submit"
-                className="w-full sm:w-auto px-4 py-2 bg-brandRed text-white rounded hover:bg-brandRed"
+                className="w-full sm:w-auto px-4 py-2 bg-brandBlue text-white rounded hover:bg-brandBlue"
               >
                 Save
               </button>

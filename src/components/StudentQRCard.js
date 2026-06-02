@@ -1,5 +1,6 @@
 import React from "react";
 import { FaRegCopy, FaPrint } from "react-icons/fa";
+import { FiLink } from "react-icons/fi";
 
 const StudentQRCard = () => {
   const qrLink = "https://yourdomain.com/student-registration";
@@ -12,43 +13,48 @@ const StudentQRCard = () => {
   const handlePrint = () => {
     const printWindow = window.open();
     printWindow.document.write(
-      `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrLink)}" />`,
+      `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrLink)}" />`
     );
     printWindow.document.close();
     printWindow.print();
   };
 
   return (
-    <div className="w-full px-0">
-      <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-5 md:p-6 w-full text-center">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 mb-4 sm:mb-6">
-          Student Registration
-        </h2>
-
-        <div className="flex justify-center mb-4 sm:mb-6">
-          <img
-            src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrLink)}`}
-            alt="QR Code"
-            className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56"
-          />
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 flex flex-col items-center text-center">
+      <div className="flex items-center gap-2 mb-1 self-start">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+          <FiLink size={15} />
         </div>
+        <h2 className="text-base font-bold text-gray-800">Student Registration</h2>
+      </div>
+      <p className="text-xs text-gray-400 mb-4 self-start ml-10">
+        Share this QR for student self-registration
+      </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-          <button
-            onClick={handleCopy}
-            className="flex-1 border border-brandRed text-brandRed hover:bg-brandRed-50 px-4 sm:px-6 py-2 sm:py-3 rounded-lg flex items-center justify-center gap-2 transition-all text-sm sm:text-base"
-          >
-            <span>Copy Link</span>
-            <FaRegCopy />
-          </button>
-          <button
-            onClick={handlePrint}
-            className="flex-1 bg-brandRed text-white hover:bg-brandRed-700 px-4 sm:px-6 py-2 sm:py-3 rounded-lg flex items-center justify-center gap-2 transition-all text-sm sm:text-base"
-          >
-            <span>Print QR</span>
-            <FaPrint />
-          </button>
-        </div>
+      <div className="flex justify-center mb-5 p-3 bg-gray-50 rounded-xl border border-gray-100">
+        <img
+          src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(qrLink)}`}
+          alt="QR Code"
+          className="w-36 h-36 sm:w-44 sm:h-44"
+        />
+      </div>
+
+      <div className="flex w-full gap-3">
+        <button
+          onClick={handleCopy}
+          className="flex-1 border border-gray-200 text-gray-600 hover:bg-gray-50 px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm font-medium transition"
+        >
+          <FaRegCopy size={13} />
+          Copy Link
+        </button>
+        <button
+          onClick={handlePrint}
+          className="flex-1 px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm font-semibold text-white transition"
+          style={{ background: "linear-gradient(135deg, #1B2E6B 0%, #2196F3 100%)" }}
+        >
+          <FaPrint size={13} />
+          Print QR
+        </button>
       </div>
     </div>
   );

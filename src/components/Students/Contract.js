@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { Modal, ModalHeader, ModalBody, Input, Button } from '@windmill/react-ui';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -170,7 +170,7 @@ function Contract({id}) {
                   </div>
                 
                   <div className="flex justify-end gap-2 mt-6">
-                    <Button type="submit" className="btn bg-brandRed">
+                    <Button type="submit" className="btn bg-brandBlue">
                       Save
                     </Button>
                   </div>
@@ -185,7 +185,7 @@ function Contract({id}) {
                   <div className="flex flex-col sm:flex-row gap-3">
                  <button onClick={() => {
                  setIsModalOpen(true)
-               }}  className="px-4 py-2 bg-brandRed text-white rounded-md text-sm md:text-base hover:bg-brandRed-700 transition">
+               }}  className="px-4 py-2 bg-brandBlue text-white rounded-md text-sm md:text-base hover:bg-brandBlue-700 transition">
                    + Edit Contract
                  </button>
                </div>

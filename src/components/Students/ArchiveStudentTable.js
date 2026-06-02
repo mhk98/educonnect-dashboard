@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { LiaEditSolid } from "react-icons/lia";
 import { Link } from "react-router-dom/cjs/react-router-dom";
@@ -79,7 +79,7 @@ export default function ArchiveStudentTable() {
                   <td className="p-3 whitespace-nowrap">{student.Phone}</td>
                   <td className="p-3 whitespace-nowrap">{student.Assigned}</td>
                   {/* <td className="p-3 whitespace-nowrap">{student.Status}</td> */}
-                  <td className="p-3 whitespace-nowrap flex gap-3 text-brandRed">
+                  <td className="p-3 whitespace-nowrap flex gap-3 text-brandBlue">
                     <Link>
                       <LiaEditSolid className="cursor-pointer" />
                     </Link>

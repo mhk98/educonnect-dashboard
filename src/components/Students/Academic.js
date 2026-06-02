@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaInfoCircle } from "react-icons/fa";
 import { Modal, ModalHeader, ModalBody, Button } from "@windmill/react-ui";
@@ -63,7 +63,7 @@ const Academic = ({ id }) => {
     <div className="p-4 space-y-6  mx-auto">
       <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Grade 12th or equivalent
           </div>
@@ -76,7 +76,7 @@ const Academic = ({ id }) => {
               });
               setIsModalOpen(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -85,10 +85,10 @@ const Academic = ({ id }) => {
         {academic ? (
           <div className="card-body p-8 shadow-md bg-base-100 rounded-md">
             <div className="grid grid-cols-1 gap-4">
-              <h2 className="text-lg font-bold text-brandRed-700">
+              <h2 className="text-lg font-bold text-brandBlue-700">
                 {academic?.twelvethBoard}
               </h2>
-              <h3 className="text-md font-semibold text-brandRed mt-1">
+              <h3 className="text-md font-semibold text-brandBlue mt-1">
                 {academic?.twelvethInstitution}
               </h3>
               <p className="text-gray-700">{academic?.twelvethLocation}</p>
@@ -201,7 +201,7 @@ const Academic = ({ id }) => {
                   type="submit"
                   onClick={handleSubmit}
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>
@@ -213,7 +213,7 @@ const Academic = ({ id }) => {
 
       <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Grade 10th or equivalent
           </div>
@@ -226,7 +226,7 @@ const Academic = ({ id }) => {
               });
               setIsModalOpen1(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -236,10 +236,10 @@ const Academic = ({ id }) => {
           <div className="card-body p-8 shadow-md bg-base-100 rounded-md">
             <div className="card-body p-8 ">
               <div className="grid grid-cols-1 gap-4">
-                <h2 className="text-lg font-bold text-brandRed-700">
+                <h2 className="text-lg font-bold text-brandBlue-700">
                   {academic?.tenthBoard}
                 </h2>
-                <h3 className="text-md font-semibold text-brandRed mt-1">
+                <h3 className="text-md font-semibold text-brandBlue mt-1">
                   {academic?.tenthInstitution}
                 </h3>
                 <p className="text-gray-700">{academic?.tenthLocation}</p>
@@ -353,7 +353,7 @@ const Academic = ({ id }) => {
                   type="submit"
                   onClick={handleSubmit}
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>

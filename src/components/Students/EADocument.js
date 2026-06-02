@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 import {
@@ -139,7 +139,7 @@ const EADocument = ({ id }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="bg-brandRed text-white px-4 py-2 rounded hover:bg-red-600"
+              className="bg-brandBlue text-white px-4 py-2 rounded hover:bg-red-600"
             >
               {isLoading ? "Uploading..." : "Upload"}
             </button>
@@ -155,7 +155,7 @@ const EADocument = ({ id }) => {
                 key={doc.id}
                 className="flex items-center justify-between p-3 border rounded bg-gray-50 hover:bg-gray-100"
               >
-                <span className="text-sm text-brandRed">
+                <span className="text-sm text-brandBlue">
                   <a
                     href={`${BASE_URL}${doc.file?.replace(/\\/g, "/")}`}
                     target="_blank"

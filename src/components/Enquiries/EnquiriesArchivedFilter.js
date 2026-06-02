@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import Select from 'react-select';
 import { Input, Label } from '@windmill/react-ui';
 
@@ -131,7 +131,7 @@ const EnquiriesArchivedFilter = () => {
 
         {/* Search Button */}
         <div className="col-span-1 md:col-span-2 lg:col-span-5 text-left">
-          <button className="w-full md:w-auto border border-brandRed text-brandRed font-medium rounded-md px-4 py-2 hover:bg-brandRed-50 transition">
+          <button className="w-full md:w-auto border border-brandBlue text-brandBlue font-medium rounded-md px-4 py-2 hover:bg-brandBlue-50 transition">
             Apply Filters
           </button>
         </div>

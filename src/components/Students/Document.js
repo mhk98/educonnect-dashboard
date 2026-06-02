@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import StudentDocument from "./StudentDocument";
 import EADocument from "./EADocument";
 
@@ -12,13 +12,13 @@ const Document = ({ id }) => {
           <button
             onClick={() => setActiveTab("apply")}
             className={`py-4 px-2 text-sm sm:text-base font-semibold transition-all ${
-              activeTab === "apply" ? "text-brandRed" : "text-gray-800"
+              activeTab === "apply" ? "text-brandBlue" : "text-gray-800"
             }`}
           >
             Your Documents
           </button>
           {activeTab === "apply" && (
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandRed" />
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandBlue" />
           )}
         </div>
 
@@ -26,13 +26,13 @@ const Document = ({ id }) => {
           <button
             onClick={() => setActiveTab("applied")}
             className={`py-4 px-2 text-sm sm:text-base font-semibold transition-all ${
-              activeTab === "applied" ? "text-brandRed" : "text-gray-800"
+              activeTab === "applied" ? "text-brandBlue" : "text-gray-800"
             }`}
           >
             EduAnchor Documents
           </button>
           {activeTab === "applied" && (
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandRed" />
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandBlue" />
           )}
         </div>
       </div>

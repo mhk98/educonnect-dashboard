@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import {
   useCreateNoticeMutation,
   useGetAllNoticeQuery,
@@ -139,7 +139,7 @@ const Notice = () => {
       <div className="rounded-[28px] border border-red-100 bg-gradient-to-br from-white via-red-50/40 to-white p-4 shadow-[0_20px_45px_rgba(15,23,42,0.08)] sm:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandRed">
+            <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandBlue">
               Notice Board
             </p>
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -151,7 +151,7 @@ const Notice = () => {
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brandRed to-red-500 px-5 py-3 text-sm font-semibold text-brandRed shadow-lg shadow-red-100 transition hover:shadow-xl sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-5 py-3 text-sm font-semibold text-brandBlue shadow-lg shadow-red-100 transition hover:shadow-xl sm:w-auto"
           >
             <FaPlus /> Add Notice
           </button>
@@ -175,7 +175,7 @@ const Notice = () => {
                 value={formData.title}
                 onChange={handleInputChange}
                 placeholder="Enter notice title"
-                className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-brandRed focus:ring-2 focus:ring-red-100"
+                className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-brandBlue focus:ring-2 focus:ring-red-100"
               />
             </div>
 
@@ -189,7 +189,7 @@ const Notice = () => {
                 onChange={handleInputChange}
                 placeholder="Enter notice description"
                 rows="5"
-                className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-brandRed focus:ring-2 focus:ring-red-100"
+                className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-brandBlue focus:ring-2 focus:ring-red-100"
               />
             </div>
 
@@ -204,7 +204,7 @@ const Notice = () => {
               <button
                 type="submit"
                 disabled={isCreating || isUpdating}
-                className="rounded-2xl bg-brandRed px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-700 disabled:bg-gray-400"
+                className="rounded-2xl bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-700 disabled:bg-gray-400"
               >
                 {isCreating || isUpdating
                   ? "Saving..."
@@ -221,7 +221,7 @@ const Notice = () => {
       {isLoading && (
         <div className="text-center py-8">
           <div className="inline-block animate-spin">
-            <div className="h-8 w-8 border-4 border-brandRed border-r-transparent rounded-full"></div>
+            <div className="h-8 w-8 border-4 border-brandBlue border-r-transparent rounded-full"></div>
           </div>
           <p className="mt-2 text-gray-600">Loading notices...</p>
         </div>
@@ -361,7 +361,7 @@ const Notice = () => {
                           onClick={() => handlePageChange(page)}
                           className={`rounded-2xl px-4 py-2 text-sm font-semibold transition-colors ${
                             currentPage === page
-                              ? "bg-brandRed text-white"
+                              ? "bg-brandBlue text-white"
                               : "border border-gray-200 text-gray-700 hover:bg-gray-50"
                           }`}
                         >

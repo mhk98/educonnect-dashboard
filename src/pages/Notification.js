@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from "react";
+﻿// import React, { useEffect, useState } from "react";
 // import {
 //   useGetDataByIdQuery,
 //   useUpdateNotificationMutation,
@@ -124,7 +124,7 @@
 //         <button
 //           onClick={handlePreviousSet}
 //           disabled={startPage === 1}
-//           className="px-3 py-2 text-white bg-brandRed rounded-md disabled:bg-gray-300"
+//           className="px-3 py-2 text-white bg-brandBlue rounded-md disabled:bg-gray-300"
 //         >
 //           Prev
 //         </button>
@@ -138,8 +138,8 @@
 //               onClick={() => handlePageChange(pageNum)}
 //               className={`px-3 py-2 text-white rounded-md transition ${
 //                 pageNum === currentPage
-//                   ? "bg-brandRed"
-//                   : "bg-gray-300 hover:bg-brandRed"
+//                   ? "bg-brandBlue"
+//                   : "bg-gray-300 hover:bg-brandBlue"
 //               }`}
 //             >
 //               {pageNum}
@@ -150,7 +150,7 @@
 //         <button
 //           onClick={handleNextSet}
 //           disabled={endPage >= totalPages}
-//           className="px-3 py-2 text-white bg-brandRed rounded-md disabled:bg-gray-300"
+//           className="px-3 py-2 text-white bg-brandBlue rounded-md disabled:bg-gray-300"
 //         >
 //           Next
 //         </button>
@@ -337,7 +337,7 @@ const Notification = () => {
             }`}
           >
             {/* Icon */}
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brandRed/10 flex items-center justify-center">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brandBlue/10 flex items-center justify-center">
               🔔
             </div>
 
@@ -355,7 +355,7 @@ const Notification = () => {
             {!item.isRead && (
               <button
                 onClick={() => markAsRead(item.id)}
-                className="text-xs text-brandRed font-medium hover:underline"
+                className="text-xs text-brandBlue font-medium hover:underline"
               >
                 View
               </button>
@@ -383,7 +383,7 @@ const Notification = () => {
                 onClick={() => setCurrentPage(page)}
                 className={`px-3 py-1 text-sm rounded ${
                   page === currentPage
-                    ? "bg-brandRed text-white"
+                    ? "bg-brandBlue text-white"
                     : "bg-gray-200 hover:bg-gray-300"
                 }`}
               >
@@ -453,7 +453,7 @@ const Notification = () => {
                 ${
                   currentPage === 1
                     ? "bg-brandDisable cursor-not-allowed"
-                    : "bg-brandRed hover:bg-brandHover"
+                    : "bg-brandBlue hover:bg-brandHover"
                 }`}
             >
               ← Prev
@@ -472,7 +472,7 @@ const Notification = () => {
                 ${
                   currentPage * itemsPerPage >= data.meta.total
                     ? "bg-brandDisable cursor-not-allowed"
-                    : "bg-brandRed hover:bg-brandHover"
+                    : "bg-brandBlue hover:bg-brandHover"
                 }`}
             >
               Next →

@@ -1,4 +1,4 @@
-// import React, { useState, useEffect, useMemo } from "react";
+﻿// import React, { useState, useEffect, useMemo } from "react";
 // import { LiaEditSolid } from "react-icons/lia";
 // import { Link } from "react-router-dom/cjs/react-router-dom";
 // import {
@@ -169,7 +169,7 @@
 //         </td>
 //         <td className="p-3">{program.status}</td>
 //         <td className="p-3">{program.assignee}</td>
-//         <td className="p-3 flex gap-3 text-brandRed">
+//         <td className="p-3 flex gap-3 text-brandBlue">
 //           <Link to={`/app/editprofile/${program.user_id}`}>
 //             <BiShow fontSize={20} className="cursor-pointer" />
 //           </Link>
@@ -221,7 +221,7 @@
 //           </Label>
 //         ))}
 //         <div className="flex items-end gap-2">
-//           <Button className="w-full bg-brandRed text-white" onClick={clearFilters}>
+//           <Button className="w-full bg-brandBlue text-white" onClick={clearFilters}>
 //             Clear
 //           </Button>
 //         </div>
@@ -286,7 +286,7 @@
 //         </Label>
 //         <div className="flex items-end gap-2">
 //           <Button
-//             className="w-full bg-brandRed text-white"
+//             className="w-full bg-brandBlue text-white"
 //             onClick={clearFilters}
 //           >
 //             Clear
@@ -408,7 +408,7 @@
 //               </Label>
 //             </div>
 //             <div className="flex justify-end gap-2 mt-6">
-//               <Button type="submit" style={{ backgroundColor: "#C71320" }}>
+//               <Button type="submit" style={{ backgroundColor: "#1B2E6B" }}>
 //                 Save
 //               </Button>
 //             </div>
@@ -588,7 +588,7 @@ export default function ApplicationsTable() {
         </td>
         <td className="p-3">{program.status}</td>
         <td className="p-3">{program.assignee}</td>
-        <td className="p-3 flex gap-3 text-brandRed">
+        <td className="p-3 flex gap-3 text-brandBlue">
           <Link to={`/app/editprofile/${program.user_id}`}>
             <BiShow fontSize={20} className="cursor-pointer" />
           </Link>
@@ -640,7 +640,7 @@ export default function ApplicationsTable() {
         ))}
         <div className="flex items-end gap-2">
           <Button
-            className="w-full bg-brandRed text-white"
+            className="w-full bg-brandBlue text-white"
             onClick={clearFilters}
           >
             Clear
@@ -722,7 +722,7 @@ export default function ApplicationsTable() {
 
         <div className="flex items-end gap-2">
           <Button
-            className="w-full bg-brandRed text-white"
+            className="w-full bg-brandBlue text-white"
             onClick={clearFilters}
           >
             Clear
@@ -844,7 +844,7 @@ export default function ApplicationsTable() {
                 </button>
                 <Link
                   to={`/app/editprofile/${program.user_id}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-brandRed px-3 py-2 text-sm text-white"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-brandBlue px-3 py-2 text-sm text-white"
                 >
                   <BiShow />
                   View
@@ -920,7 +920,7 @@ export default function ApplicationsTable() {
           ${
             currentPage === 1
               ? "bg-brandDisable cursor-not-allowed"
-              : "bg-brandRed hover:bg-brandHover"
+              : "bg-brandBlue hover:bg-brandHover"
           }`}
             >
               ← Prev
@@ -939,7 +939,7 @@ export default function ApplicationsTable() {
           ${
             currentPage * itemsPerPage >= data.meta.total
               ? "bg-brandDisable cursor-not-allowed"
-              : "bg-brandRed hover:bg-brandHover"
+              : "bg-brandBlue hover:bg-brandHover"
           }`}
             >
               Next →
@@ -1007,7 +1007,7 @@ export default function ApplicationsTable() {
               </Button>
               <Button
                 type="submit"
-                style={{ backgroundColor: "#C71320" }}
+                style={{ backgroundColor: "#1B2E6B" }}
                 className="w-full sm:w-auto"
               >
                 Save

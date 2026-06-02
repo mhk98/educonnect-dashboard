@@ -1,157 +1,48 @@
-// import { Input } from "@windmill/react-ui";
-// import { MenuIcon, SearchIcon } from "../icons";
-// import React, { useContext, useState, useEffect } from "react";
-// import { SidebarContext } from "../context/SidebarContext";
-// import { useHistory, Link } from "react-router-dom";
-// import NotificationDropdown from "./NotificationDropdown";
-// import { useGetDataByIdQuery } from "../features/notification/notification";
-// export default function Header() {
-//   const { toggleSidebar } = useContext(SidebarContext);
-//   const history = useHistory();
-//   const [isProfileOpen, setIsProfileOpen] = useState(false);
-//   const toggleProfile = () => setIsProfileOpen(!isProfileOpen);
-//   const [isNotifOpen, setIsNotifOpen] = useState(false);
-
-//   const userId = localStorage.getItem("userId");
-//   const branch = localStorage.getItem("branch");
-//   const role = localStorage.getItem("role");
-//   const [notifications, setNotifications] = useState([]);
-
-//   const [user, setUser] = useState(null);
-
-//   const { data, isLoading, isError, error, refetch } = useGetDataByIdQuery(
-//     {
-//       page: 1,
-//       limit: 10,
-//       userId,
-//       branch,
-//     },
-//     { pollingInterval: 1000 },
-//   );
-
-//   useEffect(() => {
-//     if (isError) {
-//       console.error("Error fetching user data", error);
-//     } else if (!isLoading && data) {
-//       const readNotifications = data.data.filter((n) => n.isRead === false);
-
-//       // If your intent was to store the total count of READ notifications
-//       setNotifications(readNotifications.length);
-//     }
-//   }, [data, isLoading, isError, error]);
-
-//   console.log("notificationsHeader", notifications);
-
-//   // Fetch user info
-//   useEffect(() => {
-//     const fetchUser = async () => {
-//       try {
-//         const res = await fetch(`https://backend.eaconsultancy.org/api/v1/user/${userId}`);
-//         const data = await res.json();
-//         setUser(data.data);
-//       } catch (err) {
-//         console.error(err);
-//       }
-//     };
-//     fetchUser();
-//   }, [userId]);
-
-//   const handleLogout = () => {
-//     localStorage.removeItem("token");
-//     history.push("/login");
-//   };
-
-//   return (
-//     <header className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 shadow relative">
-//       {/* Mobile hamburger */}
-//       <button
-//         className="p-1 mr-5 -ml-1 rounded-md lg:hidden"
-//         onClick={toggleSidebar}
-//       >
-//         <MenuIcon className="w-6 h-6" />
-//       </button>
-
-//       {/* Search Input */}
-//       <div className="flex justify-center flex-1 lg:mr-32">
-//         {/* <div className="relative w-full max-w-xl mr-6">
-//           <div className="absolute inset-y-0 flex items-center pl-2">
-//             <SearchIcon className="w-4 h-4" />
-//           </div>
-//           <Input
-//             className="pl-8 text-gray-700"
-//             placeholder="Search..."
-//             aria-label="Search"
-//           />
-//         </div> */}
-//       </div>
-
-//       {/* Notification & Profile */}
-//       <div className="flex items-center space-x-4">
-//         {/* Notification */}
-//         <div className="relative">
-//           <button
-//             onClick={() => setIsNotifOpen(!isNotifOpen)}
-//             className="relative"
-//           >
-//             🔔
-//             {notifications > 0 && (
-//               <span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-600 rounded-full">
-//                 {notifications}
-//               </span>
-//             )}
-//           </button>
-//           {isNotifOpen && <NotificationDropdown branch={branch} />}
-//         </div>
-
-//         {/* Profile */}
-//         <div className="relative">
-//           <button onClick={toggleProfile}>
-//             <img
-//               className="w-8 h-8 rounded-full object-cover"
-//               src={
-//                 user?.image && user?.image !== "null"
-//                   ? `https://backend.eaconsultancy.org/${user?.image}`
-//                   : "https://i.pravatar.cc/300"
-//               }
-//               alt="User avatar"
-//             />
-//           </button>
-//           {isProfileOpen && (
-//             <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-//               <ul className="py-2 text-sm text-gray-800 dark:text-gray-200">
-//                 <li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-//                   <Link to="/app/profile">Profile</Link>
-//                 </li>
-//                 <li
-//                   onClick={handleLogout}
-//                   className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-//                 >
-//                   Logout
-//                 </li>
-//               </ul>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </header>
-//   );
-// }
-
-import { Input } from "@windmill/react-ui";
-import { MenuIcon, SearchIcon } from "../icons";
+import { MenuIcon } from "../icons";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { SidebarContext } from "../context/SidebarContext";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useLocation } from "react-router-dom";
 import NotificationDropdown from "./NotificationDropdown";
 import { useGetDataByIdQuery } from "../features/notification/notification";
 import { FiBell, FiChevronDown, FiLogOut, FiUser } from "react-icons/fi";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import logo from "../assets/img/logo.png";
+import logo2 from "../assets/img/logo2.png";
+
+const PAGE_TITLES = {
+  dashboard: "Dashboard",
+  students: "Students",
+  applications: "Applications",
+  programs: "Programs",
+  leads: "Leads",
+  enquiries: "Manage Enquiries",
+  wallet: "Wallet",
+  task: "Tasks",
+  commission: "Commission Payments",
+  notification: "Notifications",
+  notice: "Notice",
+  profile: "Profile",
+  usermanagement: "User Management",
+};
+
+const getRoleBadge = (role) => {
+  const r = (role || "").toLowerCase().replace(/\s/g, "");
+  if (r.includes("super")) return "bg-green-500";
+  if (r.includes("admin")) return "bg-blue-700";
+  if (r.includes("manager")) return "bg-orange-500";
+  if (r.includes("student")) return "bg-purple-500";
+  return "bg-gray-500";
+};
 
 export default function Header() {
-  const { toggleSidebar } = useContext(SidebarContext);
+  const { toggleSidebar, isSidebarCollapsed, toggleSidebarCollapsed } =
+    useContext(SidebarContext);
   const history = useHistory();
+  const location = useLocation();
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const profileRef = useRef(null);
   const notificationRef = useRef(null);
 
@@ -159,82 +50,48 @@ export default function Header() {
   const branch = localStorage.getItem("branch");
   const role = localStorage.getItem("role");
   const [user, setUser] = useState(null);
-
   const [notifications, setNotifications] = useState(0);
-
-  // ✅ Get initials from firstName + lastName
-  const getInitials = (firstName = "", lastName = "") => {
-    const first = firstName?.charAt(0)?.toUpperCase() || "";
-    const last = lastName?.charAt(0)?.toUpperCase() || "";
-    return first || last ? `${first}${last}` : "U";
-  };
-
-  // 🔔 Notifications
-  const { data, isLoading, isError, error } = useGetDataByIdQuery(
-    {
-      page: 1,
-      limit: 10,
-      userId,
-      branch,
-    },
-    { pollingInterval: 1000 },
-  );
-
-  useEffect(() => {
-    if (isError) {
-      console.error("Error fetching notifications", error);
-    } else if (!isLoading && data) {
-      const unread = data.data.filter((n) => !n.isRead);
-      setNotifications(unread.length);
-    }
-  }, [data, isLoading, isError, error]);
-
   const [isLoading1, setIsLoading1] = useState(true);
   const [isError1, setIsError1] = useState(false);
 
-  useEffect(() => {
-    if (!userId) {
-      setIsLoading1(false);
-      return;
-    }
+  const getInitials = (firstName = "", lastName = "") => {
+    const f = firstName?.charAt(0)?.toUpperCase() || "";
+    const l = lastName?.charAt(0)?.toUpperCase() || "";
+    return f || l ? `${f}${l}` : "U";
+  };
 
+  const { data, isLoading, isError, error } = useGetDataByIdQuery(
+    { page: 1, limit: 10, userId, branch },
+    { pollingInterval: 1000 }
+  );
+
+  useEffect(() => {
+    if (!isLoading && data && !isError) {
+      setNotifications(data.data.filter((n) => !n.isRead).length);
+    }
+  }, [data, isLoading, isError, error]);
+
+  useEffect(() => {
+    if (!userId) { setIsLoading1(false); return; }
     const fetchUser = async () => {
       try {
-        const response = await fetch(
-          `https://backend.eaconsultancy.org/api/v1/user/${userId}`,
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setUser(data.data);
-      } catch (error) {
-        setIsError1(true);
-        console.error("Error fetching the user data:", error);
-      } finally {
-        setIsLoading1(false);
-      }
+        const res = await fetch(`https://backend.eaconsultancy.org/api/v1/user/${userId}`);
+        if (!res.ok) throw new Error();
+        const d = await res.json();
+        setUser(d.data);
+      } catch { setIsError1(true); }
+      finally { setIsLoading1(false); }
     };
-
     fetchUser();
   }, [userId]);
 
   useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
-        setIsProfileOpen(false);
-      }
-
-      if (
-        notificationRef.current &&
-        !notificationRef.current.contains(event.target)
-      ) {
-        setIsNotifOpen(false);
-      }
+    const handleOutside = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) setIsProfileOpen(false);
+      if (notificationRef.current && !notificationRef.current.contains(e.target)) setIsNotifOpen(false);
     };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
   }, []);
 
   const handleLogout = () => {
@@ -242,142 +99,190 @@ export default function Header() {
     history.push("/login");
   };
 
-  const displayName =
-    `${user?.FirstName || ""} ${user?.LastName || ""}`.trim() || "User";
-  const hasProfileImage =
-    user?.image && user?.image !== "null" && user?.image !== "undefined";
+  const displayName = `${user?.FirstName || ""} ${user?.LastName || ""}`.trim() || "User";
+  const hasProfileImage = user?.image && user?.image !== "null" && user?.image !== "undefined";
+  const pathSegment = location.pathname.split("/").filter(Boolean)[1] || "dashboard";
+  const pageTitle =
+    PAGE_TITLES[pathSegment.toLowerCase()] ||
+    pathSegment.charAt(0).toUpperCase() + pathSegment.slice(1).replace(/-/g, " ");
+  const roleBadgeBg = getRoleBadge(role);
+
+  /* sidebar width mirrors SidebarContent animation */
+  const sidebarW = isSidebarCollapsed ? 90 : 255;
 
   return (
     <header
-      className="sticky top-0 z-40 mx-3 mt-3 flex items-center justify-between rounded-3xl border border-white/80 px-3 py-3 shadow-card sm:mx-4 sm:px-4 lg:mx-6 lg:px-6"
-      style={{
-        backgroundColor: "rgba(255, 255, 255, 0.9)",
-        backdropFilter: "blur(14px)",
-      }}
+      className="flex-shrink-0 z-50 bg-white flex items-center border-b border-gray-100"
+      style={{ height: "60px", boxShadow: "0 1px 4px rgba(15,23,42,0.07)" }}
     >
-      <button
-        type="button"
-        className="inline-flex items-center justify-center p-2 -ml-1 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 lg:hidden"
-        onClick={toggleSidebar}
-        aria-label="Open sidebar"
+      {/* ── Logo section (matches sidebar width) ── */}
+      <div
+        className="hidden lg:flex items-center justify-between px-4 h-full border-r border-gray-100 flex-shrink-0 transition-all duration-300"
+        style={{ width: sidebarW }}
       >
-        <MenuIcon className="w-6 h-6" />
-      </button>
-
-      <div className="hidden md:flex flex-1 max-w-xl mx-4 lg:mx-8">
-        <div className="relative w-full">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-            <SearchIcon className="w-4 h-4" />
-          </div>
-          <Input
-            className="w-full pl-10 pr-4 py-2 text-sm rounded-full bg-gray-50 border-gray-200 focus:bg-white"
-            placeholder="Search..."
-            aria-label="Search"
+        <Link to="/app/dashboard" className="flex items-center min-w-0">
+          <img
+            src={isSidebarCollapsed ? logo2 : logo}
+            alt="Logo"
+            className="transition-all duration-300 object-contain"
+            style={isSidebarCollapsed
+              ? { height: "38px", width: "auto" }
+              : { height: "80px", maxWidth: "160px", width: "auto" }
+            }
           />
-        </div>
+        </Link>
+        <button
+          type="button"
+          onClick={toggleSidebarCollapsed}
+          className="h-8 w-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition flex-shrink-0"
+          title={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {isSidebarCollapsed ? <PanelLeftOpen size={17} /> : <PanelLeftClose size={17} />}
+        </button>
       </div>
 
-      <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
-        <div className="relative" ref={notificationRef}>
+      {/* ── Right section: page title + actions ── */}
+      <div className="flex flex-1 items-center justify-between px-4 sm:px-5 h-full">
+
+        {/* Left: mobile hamburger + page title */}
+        <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => {
-              setIsNotifOpen((prev) => !prev);
-              setIsProfileOpen(false);
-            }}
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-700 transition hover:bg-white hover:shadow-sm"
-            aria-label="Open notifications"
+            className="lg:hidden flex items-center justify-center h-8 w-8 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50"
+            onClick={toggleSidebar}
           >
-            <FiBell className="h-5 w-5" />
-            {notifications > 0 && (
-              <span
-                className="absolute -top-1 -right-1 inline-flex h-5 px-1 items-center justify-center text-xs font-bold text-white bg-red-600 rounded-full border-2 border-white"
-                style={{ minWidth: "20px" }}
-              >
-                {notifications > 9 ? "9+" : notifications}
-              </span>
-            )}
+            <MenuIcon className="w-4 h-4" />
           </button>
-
-          {isNotifOpen && <NotificationDropdown branch={branch} />}
+          <h1 className="text-sm font-bold text-gray-800 tracking-tight">{pageTitle}</h1>
         </div>
 
-        <div className="relative" ref={profileRef}>
-          <button
-            type="button"
-            onClick={() => {
-              setIsProfileOpen((prev) => !prev);
-              setIsNotifOpen(false);
-            }}
-            className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 p-1 pr-2 transition hover:bg-white hover:shadow-sm sm:pr-3"
-            aria-label="Open profile menu"
-          >
-            {hasProfileImage ? (
-              <img
-                className="w-9 h-9 rounded-full object-cover bg-gray-200"
-                src={user.image}
-                alt={displayName}
+        {/* Right: notification + profile */}
+        <div className="flex items-center gap-2">
+
+          {/* Notification bell */}
+          <div className="relative" ref={notificationRef}>
+            <button
+              type="button"
+              onClick={() => { setIsNotifOpen((p) => !p); setIsProfileOpen(false); }}
+              className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200 transition"
+            >
+              <FiBell className="h-[24px] w-[24px]" />
+              {notifications > 0 && (
+                <span
+                  style={{
+                    position: "absolute", top: "-10px", right: "-10px",
+                    display: "inline-flex", alignItems: "center", justifyContent: "center",
+                    background: "#ef4444", color: "#fff", fontSize: "9px", fontWeight: "700",
+                    lineHeight: "1", borderRadius: "999px", border: "2px solid #fff",
+                    minWidth: "16px", height: "16px", padding: "0 2px", whiteSpace: "nowrap",
+                    padding: "1px 2px", boxSizing: "border-box",
+                  }}
+                >
+                  {notifications > 9 ? "9" : notifications}
+                </span>
+              )}
+            </button>
+            {isNotifOpen && <NotificationDropdown branch={branch} />}
+          </div>
+
+          {/* Profile */}
+          <div className="relative" ref={profileRef}>
+            <button
+              type="button"
+              onClick={() => { setIsProfileOpen((p) => !p); setIsNotifOpen(false); }}
+              className="flex items-center gap-2 rounded-xl bg-gray-100 pl-1 pr-2.5 py-1 hover:bg-gray-200 transition"
+            >
+              {hasProfileImage && !imgError ? (
+                <img
+                  className="w-8 h-8 rounded-lg object-cover bg-gray-200 flex-shrink-0"
+                  src={user.image.startsWith("http") ? user.image : `https://backend.eaconsultancy.org/${user.image}`}
+                  alt={displayName}
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brandBlue text-xs font-bold uppercase text-white flex-shrink-0">
+                  {getInitials(user?.FirstName, user?.LastName)}
+                </div>
+              )}
+              <div className="hidden sm:block text-left leading-tight">
+                <p className="text-xs font-semibold text-gray-900 leading-snug truncate" style={{ maxWidth: "120px" }}>
+                  {isLoading1 && !user ? "Loading..." : displayName}
+                </p>
+                <span className={`inline-flex items-center mt-0.5 px-1.5 py-0.5 text-xs font-bold p-1 rounded text-white leading-none tracking-wide ${roleBadgeBg}`}>
+                  {role || "User"}
+                </span>
+              </div>
+              <FiChevronDown
+                className={`hidden sm:block h-3.5 w-3.5 text-gray-400 transition-transform ${isProfileOpen ? "rotate-180" : ""}`}
               />
-            ) : (
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-red text-sm font-bold uppercase text-white shadow-sm">
-                {getInitials(user?.FirstName, user?.LastName)}
+            </button>
+
+            {isProfileOpen && (
+              <div className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-gray-100 bg-white z-50" style={{ boxShadow: "0 8px 32px rgba(15,23,42,0.14)" }}>
+                {/* User info section */}
+                <div className="px-4 py-4 border-b border-gray-100">
+                  <div className="flex items-center gap-3">
+                    {/* Avatar */}
+                    {hasProfileImage && !imgError ? (
+                      <img
+                        className="w-10 h-10 rounded-xl object-cover bg-gray-200 flex-shrink-0"
+                        src={user.image.startsWith("http") ? user.image : `https://backend.eaconsultancy.org/${user.image}`}
+                        alt={displayName}
+                        onError={() => setImgError(true)}
+                      />
+                    ) : (
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brandBlue text-sm font-bold uppercase text-white flex-shrink-0">
+                        {getInitials(user?.FirstName, user?.LastName)}
+                      </div>
+                    )}
+                    {/* Name + role */}
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-gray-900 truncate">{displayName}</p>
+                      <span className={`inline-flex items-center px-2 py-0.5 mt-0.5 text-xs p-1 font-bold rounded-md text-white leading-none ${roleBadgeBg}`}>
+                        {role || "User"}
+                      </span>
+                    </div>
+                  </div>
+                  {/* Email on its own line */}
+                  {user?.Email && (
+                    <div className="mt-2 flex items-center gap-1.5">
+                      <div className="w-3.5 h-3.5 flex-shrink-0 text-gray-400">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <rect x="2" y="4" width="12" height="9" rx="1.5"/>
+                          <path d="M2 5.5l6 4.5 6-4.5"/>
+                        </svg>
+                      </div>
+                      <p className="text-xs text-gray-500 truncate">{user.Email}</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Menu items */}
+                <ul className="p-2 space-y-1">
+                  <li>
+                    <Link
+                      to="/app/profile"
+                      onClick={() => setIsProfileOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition"
+                    >
+                      <FiUser className="h-4 w-4 text-gray-400" />
+                      <span className="text-sm">My Profile</span>
+                    </Link>
+                  </li>
+                  <li className="border-t border-gray-100 pt-1">
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left text-red-500 hover:bg-red-50 transition"
+                    >
+                      <FiLogOut className="h-4 w-4" />
+                      <span className="text-sm">Sign out</span>
+                    </button>
+                  </li>
+                </ul>
               </div>
             )}
-            <div className="hidden sm:block text-left leading-tight">
-              <p
-                className="truncate text-sm font-semibold text-gray-900"
-                style={{ maxWidth: "120px" }}
-              >
-                {isLoading1 && !user ? "Loading..." : displayName}
-              </p>
-              <p
-                className="truncate text-xs capitalize text-gray-500"
-                style={{ maxWidth: "120px" }}
-              >
-                {isError1 ? "Profile unavailable" : role || "User"}
-              </p>
-            </div>
-            <FiChevronDown
-              className={`hidden sm:block h-4 w-4 text-gray-500 transition-transform ${
-                isProfileOpen ? "transform rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {isProfileOpen && (
-            <div className="absolute right-0 mt-3 w-56 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-soft">
-              <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-                <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  {displayName}
-                </p>
-                <p className="truncate text-xs text-gray-500 dark:text-gray-400">
-                  {user?.Email || role || "Profile"}
-                </p>
-              </div>
-              <ul className="p-2 text-sm text-gray-800 dark:text-gray-200">
-                <li>
-                  <Link
-                    to="/app/profile"
-                    onClick={() => setIsProfileOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <FiUser className="h-4 w-4" />
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-left text-red-600 hover:bg-red-50"
-                  >
-                    <FiLogOut className="h-4 w-4" />
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </header>

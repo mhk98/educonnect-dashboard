@@ -1,4 +1,4 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
+﻿/* eslint-disable no-mixed-spaces-and-tabs */
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -21,7 +21,7 @@ const Profile = () => {
 
   const renderInitialAvatar = (firstName, lastName, className = "") => (
     <div
-      className={`flex items-center justify-center rounded-full bg-gradient-to-br from-brandRed to-red-500 font-bold uppercase text-white shadow-md ${className}`}
+      className={`flex items-center justify-center rounded-full bg-gradient-to-br from-brandBlue to-red-500 font-bold uppercase text-white shadow-md ${className}`}
     >
       {getInitials(firstName, lastName)}
     </div>
@@ -132,7 +132,7 @@ const Profile = () => {
         </div>
         <div className="flex justify-center md:justify-end mt-2">
           <button
-            className="text-brandRed hover:text-brandRed"
+            className="text-brandBlue hover:text-brandBlue"
             onClick={() => {
               document.getElementById("my_modal_4").showModal();
               // eslint-disable-next-line no-undef
@@ -322,7 +322,7 @@ const Profile = () => {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-brandRed text-white rounded hover:bg-brandRed"
+                className="px-4 py-2 bg-brandBlue text-white rounded hover:bg-brandBlue"
                 onClick={() => document.getElementById("my_modal_4").close()}
               >
                 Save

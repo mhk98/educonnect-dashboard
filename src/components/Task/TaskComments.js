@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import MentionDropdown from "./MentionDropdown";
 import {
   useGetTaskCommentsQuery,
@@ -129,7 +129,7 @@ export default function TaskComments({ taskId }) {
 
         <button
           onClick={submit}
-          className="mt-2 px-3 py-1 bg-brandRed text-white rounded text-sm"
+          className="mt-2 px-3 py-1 bg-brandBlue text-white rounded text-sm"
         >
           Send
         </button>

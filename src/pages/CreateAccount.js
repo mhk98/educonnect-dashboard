@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import ImageLight from '../assets/img/create-account-office.jpeg'
@@ -156,13 +156,13 @@ function Login() {
                 </span>
               </Label>
 
-              <Button type="submit" block className="mt-4" style={{backgroundColor:"#C71320"}}>
+              <Button type="submit" block className="mt-4" style={{backgroundColor:"#1B2E6B"}}>
                 Create account
               </Button>
 
               <p className="mt-4">
                 <Link
-                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                  className="text-sm font-medium text-blue-700 dark:text-blue-400 hover:underline"
                   to="/login"
                 >
                   Already have an account? Login

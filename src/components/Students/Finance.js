@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import PendingPayment from "./PendingPayment";
 import PreviousPayment from "./PreviousPayment";
 import RequestPayment from "./RequestPayment";
@@ -23,16 +23,16 @@ const role = localStorage.getItem("role")
        
         
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 items-center">
-          <div onClick={() => setActiveTab("contract")} className={`flex flex-col items-center cursor-pointer ${isContract ? "bg-brandRed text-white rounded-md py-1" : "bg-gray-200 text-gray-700 rounded-md py-1"}`}>
+          <div onClick={() => setActiveTab("contract")} className={`flex flex-col items-center cursor-pointer ${isContract ? "bg-brandBlue text-white rounded-md py-1" : "bg-gray-200 text-gray-700 rounded-md py-1"}`}>
              <h1  className="mt-1 text-xl">Contract</h1>         
               </div>
-            <div onClick={() => setActiveTab("requestPayment")} className={`flex flex-col items-center cursor-pointer ${isRequestPayment ? "bg-brandRed text-white rounded-md py-1" : "bg-gray-200 text-gray-700 rounded-md py-1"}`}>
+            <div onClick={() => setActiveTab("requestPayment")} className={`flex flex-col items-center cursor-pointer ${isRequestPayment ? "bg-brandBlue text-white rounded-md py-1" : "bg-gray-200 text-gray-700 rounded-md py-1"}`}>
               <h1  className="mt-1 text-xl">Request Payment</h1>
             </div>
             <div  onClick={() => setActiveTab("pendingPayment")}
-            className={`flex flex-col items-center cursor-pointer ${isPendingPayment ? "bg-brandRed text-white rounded-md py-1" : "bg-gray-200 text-gray-700 rounded-md py-1"}`}>
+            className={`flex flex-col items-center cursor-pointer ${isPendingPayment ? "bg-brandBlue text-white rounded-md py-1" : "bg-gray-200 text-gray-700 rounded-md py-1"}`}>
               {/* className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-        isFinance ? "bg-brandRed text-white" : "bg-gray-200"
+        isFinance ? "bg-brandBlue text-white" : "bg-gray-200"
       }`} */}
               <h1 className="mt-1 text-xl">Pending Payment</h1>
   
@@ -43,7 +43,7 @@ const role = localStorage.getItem("role")
               <span className="mt-1 text-sm text-gray-700">Work Experience</span>
             </div> */}
             <div 
-                onClick={() => setActiveTab("previousPayment")}  className={`flex flex-col items-center cursor-pointer ${isPreviousPayment ? "bg-brandRed text-white rounded-md py-1" : "bg-gray-200 text-gray-700 rounded-md py-1"}`}>
+                onClick={() => setActiveTab("previousPayment")}  className={`flex flex-col items-center cursor-pointer ${isPreviousPayment ? "bg-brandBlue text-white rounded-md py-1" : "bg-gray-200 text-gray-700 rounded-md py-1"}`}>
               <h1 className="mt-1 text-xl">Previous Payment</h1>
   
             </div>

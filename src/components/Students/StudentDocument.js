@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { FaCheckCircle, FaTrashAlt } from "react-icons/fa";
 import { MdOutlineGrading } from "react-icons/md";
 import toast from "react-hot-toast";
@@ -215,7 +215,7 @@ const StudentDocument = ({ id }) => {
   return (
     <div className="border rounded-2xl p-4 mb-6 shadow-sm bg-white">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+        <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
           <MdOutlineGrading className="w-5 h-5" />
           Mandatory Documents
         </div>
@@ -225,7 +225,7 @@ const StudentDocument = ({ id }) => {
             setFile({});
             setIsModalOpen(true);
           }}
-          className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+          className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
         >
           Request Edit
         </button>
@@ -299,7 +299,7 @@ const StudentDocument = ({ id }) => {
           <p>Limit 5MB</p>
           <button
             type="submit"
-            className="bg-brandRed text-white px-4 py-2 rounded hover:bg-brandRed-700"
+            className="bg-brandBlue text-white px-4 py-2 rounded hover:bg-brandBlue-700"
           >
             Upload
           </button>
@@ -316,7 +316,7 @@ const StudentDocument = ({ id }) => {
                   href={`${BASE_URL}${doc.file?.replace(/\\/g, "/")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-brandRed"
+                  className="text-sm text-brandBlue"
                 >
                   {doc.title}
                 </a>
@@ -378,7 +378,7 @@ const StudentDocument = ({ id }) => {
               ))}
             </div>
             <div className="flex justify-end mt-4">
-              <Button type="submit" style={{ backgroundColor: "#C71320" }}>
+              <Button type="submit" style={{ backgroundColor: "#1B2E6B" }}>
                 Save
               </Button>
             </div>
@@ -409,11 +409,11 @@ const StudentDocument = ({ id }) => {
             <div className="flex justify-end gap-3 mt-2">
               <Button
                 onClick={() => setEditModalOpen(false)}
-                className="bg-brandRed"
+                className="bg-brandBlue"
               >
                 Cancel
               </Button>
-              <Button type="submit" className="bg-brandRed text-white">
+              <Button type="submit" className="bg-brandBlue text-white">
                 Update
               </Button>
             </div>

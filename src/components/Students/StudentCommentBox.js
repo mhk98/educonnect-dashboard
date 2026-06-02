@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import Comment from '../components/Comment';
@@ -76,7 +76,7 @@ const CommentBox = () => {
                                 placeholder="Write a comment..." required />
                         </div>
                         <button type="submit"
-                            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-brandRed rounded-lg focus:ring-4 focus:ring-brandRed dark:focus:ring-brandRed hover:bg-brandRed">
+                            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-brandBlue rounded-lg focus:ring-4 focus:ring-brandBlue dark:focus:ring-brandBlue hover:bg-brandBlue">
                             Post comment
                         </button>
                     </form>

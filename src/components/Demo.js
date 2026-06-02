@@ -1,4 +1,4 @@
-
+﻿
 import React, { useEffect, useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
 import { Link } from "react-router-dom/cjs/react-router-dom";
@@ -114,7 +114,7 @@ const LastName = localStorage.getItem("LastName")
               <td className="p-3 whitespace-nowrap">{FirstName} {LastName}</td>
               <td className="p-3 whitespace-nowrap">{program.status}</td>
               <td className="p-3 whitespace-nowrap">{program.assignee}</td>
-              <td className="p-3 whitespace-nowrap flex gap-3 text-brandRed">
+              <td className="p-3 whitespace-nowrap flex gap-3 text-brandBlue">
                 {/* <FaLink className="cursor-pointer" /> */}
                 <Link to={`/app/editprofile/${program.id}`}>
                 <BiShow fontSize={20} className="cursor-pointer" />
@@ -166,7 +166,7 @@ const LastName = localStorage.getItem("LastName")
                           </div>
                         
                           <div className="flex justify-end gap-2 mt-6">
-                            <Button type="submit" className="btn" style={{backgroundColor:"#C71320"}}>
+                            <Button type="submit" className="btn" style={{backgroundColor:"#1B2E6B"}}>
                               Save
                             </Button>
                           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import ApplicationsTable from "../components/Applications/ApplicationsTable";
 
 function Applications() {
@@ -20,7 +20,7 @@ function Applications() {
           {/* Right: Buttons */}
           <div className="">
             {/* Request Program Options */}
-            {/* <button className="flex items-center sm:flex-row gap-3 px-4 py-2 bg-white text-brandRed border-2 border-brandRed rounded-md text-sm md:text-base transition">
+            {/* <button className="flex items-center sm:flex-row gap-3 px-4 py-2 bg-white text-brandBlue border-2 border-brandBlue rounded-md text-sm md:text-base transition">
             <span>Export Application Data </span>
             <TbDownload />
           </button> */}

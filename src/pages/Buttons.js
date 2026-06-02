@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { HeartIcon, EditIcon } from '../icons'
@@ -15,7 +15,7 @@ function Buttons() {
 
       <CTA />
 
-      <SectionTitle>brandRed</SectionTitle>
+      <SectionTitle>brandBlue</SectionTitle>
       <div className="flex flex-col flex-wrap mb-8 space-y-4 md:flex-row md:items-end md:space-x-4">
         <div>
           <Button size="larger">Larger Button</Button>

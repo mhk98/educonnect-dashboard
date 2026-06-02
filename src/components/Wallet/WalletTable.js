@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { FaLink, FaTrash } from "react-icons/fa";
 
 // Updated data matching all table headings
@@ -86,7 +86,7 @@ export default function WalletTable() {
                   {student.transStatus}
                 </span>
               </td>
-              <td className="p-3 whitespace-nowrap flex gap-3 text-brandRed">
+              <td className="p-3 whitespace-nowrap flex gap-3 text-brandBlue">
                 <FaLink className="cursor-pointer" />
                 <FaTrash className="cursor-pointer text-red-500" />
               </td>

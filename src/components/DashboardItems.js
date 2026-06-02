@@ -1,9 +1,9 @@
-import React from "react";
+﻿import React from "react";
 import { FaUserGraduate, FaWallet, FaBookOpen, FaHome } from "react-icons/fa";
 
 const features = [
   {
-    icon: <FaUserGraduate className="text-2xl text-brandRed" />,
+    icon: <FaUserGraduate className="text-2xl text-brandBlue" />,
     title: "Students",
     href: "/app/students",
     links: [
@@ -12,21 +12,21 @@ const features = [
     ],
   },
   {
-    icon: <FaWallet className="text-2xl text-brandRed" />,
+    icon: <FaWallet className="text-2xl text-brandBlue" />,
     title: "My Wallet",
     href: "/app/wallet",
     description:
       "Add money to your wallet for instant Application Fee payments.",
   },
   {
-    icon: <FaBookOpen className="text-2xl text-brandRed" />,
+    icon: <FaBookOpen className="text-2xl text-brandBlue" />,
     title: "Learning Resources",
     href: "https://drive.google.com/drive/folders/1fZxeTjsnqDknyE4EhxI11IC0DQljU7kX",
     description:
       "Complete Library of Product Knowledge– Country Guides, Presentation Decks, Outreach Materials.",
   },
   {
-    icon: <FaHome className="text-2xl text-brandRed" />,
+    icon: <FaHome className="text-2xl text-brandBlue" />,
     title: "Media",
     href: "https://drive.google.com/drive/folders/1heNokqg9OIgQl9iJKxzFXcNxorR1wHYy",
     description:
@@ -44,7 +44,7 @@ const DashboardItems = () => {
             className="bg-white rounded-2xl shadow-md p-4 sm:p-5 md:p-6 flex flex-col gap-3 sm:gap-4 hover:shadow-lg transition-all duration-300"
           >
             <div className="flex items-center gap-3">
-              <div className="bg-brandRed-100 p-3 rounded-full flex-shrink-0">
+              <div className="bg-blue-50 p-3 rounded-xl flex-shrink-0">
                 {item.icon}
               </div>
               {item.href ? (

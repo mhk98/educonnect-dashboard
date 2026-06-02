@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const commissionData = [
   {
@@ -22,7 +22,7 @@ const commissionData = [
 const CommissionCard = ({ data }) => (
   <div
     className={`border rounded-md shadow-sm p-4 mb-4 ${
-      data.isActive ? "bg-brandRed-50 border-brandRed-400" : "bg-white"
+      data.isActive ? "bg-brandBlue-50 border-brandBlue-400" : "bg-white"
     }`}
   >
     <div className="flex justify-between items-center flex-wrap gap-2">
@@ -38,7 +38,7 @@ const CommissionCard = ({ data }) => (
 
     <p className="text-sm mt-1">
       <span className="font-semibold">Commission Amount is </span>
-      <span className="text-brandRed-700 font-bold">INR {data.amount}</span>
+      <span className="text-brandBlue-700 font-bold">INR {data.amount}</span>
     </p>
 
     <p className="text-sm mt-1">
@@ -63,13 +63,13 @@ const CommissionPaymentList = () => {
       {/* Pagination */}
       <div className="flex justify-between items-center mt-4 flex-wrap gap-3">
         <div className="flex items-center space-x-2">
-          <button className="px-2 py-1 bg-brandRed text-white text-sm rounded">
+          <button className="px-2 py-1 bg-brandBlue text-white text-sm rounded">
             &lt;
           </button>
-          <span className="px-3 py-1 bg-brandRed text-white text-sm rounded">
+          <span className="px-3 py-1 bg-brandBlue text-white text-sm rounded">
             1
           </span>
-          <button className="px-2 py-1 bg-brandRed text-white text-sm rounded">
+          <button className="px-2 py-1 bg-brandBlue text-white text-sm rounded">
             &gt;
           </button>
         </div>

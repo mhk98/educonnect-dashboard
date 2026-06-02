@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+﻿import React, { useRef } from 'react';
 import html2pdf from 'html2pdf.js';
 
 const Invoice = ({ invoiceData }) => {
@@ -27,7 +27,7 @@ const Invoice = ({ invoiceData }) => {
     <>
       <button
         onClick={downloadInvoice}
-        className="px-2 py-1 bg-brandRed text-white text-xs rounded"
+        className="px-2 py-1 bg-brandBlue text-white text-xs rounded"
       >
         Download Invoice
       </button>

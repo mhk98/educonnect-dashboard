@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import ImageLight from "../assets/img/login-office.jpeg";
 import ImageDark from "../assets/img/login-office-dark.jpeg";
@@ -115,7 +115,7 @@ function Login() {
                     type="submit"
                     block
                     className="mt-4"
-                    style={{ backgroundColor: "#C71320" }}
+                    style={{ backgroundColor: "#1B2E6B" }}
                   >
                     Login
                   </Button>
@@ -123,13 +123,13 @@ function Login() {
 
                 <div className="grid grid-cols-2 items-center mt-4 text-sm">
                   <Link
-                    className="text-purple-600 dark:text-purple-400 hover:underline"
+                    className="text-blue-700 dark:text-blue-400 hover:underline"
                     to="/forgot-password"
                   >
                     Forgot your password?
                   </Link>
                   <Link
-                    className="text-right text-purple-600 dark:text-purple-400 hover:underline"
+                    className="text-right text-blue-700 dark:text-blue-400 hover:underline"
                     to="/create-account"
                   >
                     Create account

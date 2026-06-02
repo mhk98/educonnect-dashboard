@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { FiSend } from "react-icons/fi";
 import { useGetDataByIdQuery } from "../../features/application/application";
 import axios from "axios";
@@ -166,7 +166,7 @@ const History = ({ id }) => {
                 />
                 <button
                   onClick={() => handleReplySubmit(comment.id)}
-                  className="bg-brandRed text-white px-3 py-1 rounded text-sm"
+                  className="bg-brandBlue text-white px-3 py-1 rounded text-sm"
                 >
                   Reply
                 </button>
@@ -197,7 +197,7 @@ const History = ({ id }) => {
         />
         <button
           onClick={handleCommentSubmit}
-          className="bg-brandRed text-white p-2 rounded flex items-center justify-center"
+          className="bg-brandBlue text-white p-2 rounded flex items-center justify-center"
         >
           <FiSend size={20} />
         </button>

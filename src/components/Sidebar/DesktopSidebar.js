@@ -1,17 +1,9 @@
-import React, { useContext } from "react";
-
+import React from "react";
 import SidebarContent from "./SidebarContent";
-import { SidebarContext } from "../../context/SidebarContext";
 
-function DesktopSidebar(props) {
-  const { isSidebarCollapsed } = useContext(SidebarContext);
-
+function DesktopSidebar() {
   return (
-    <aside
-      className={`z-30 flex-shrink-0 hidden overflow-y-auto bg-white dark:bg-gray-800 lg:block ${
-        isSidebarCollapsed ? "w-[90px]" : "w-[255px]"
-      }`}
-    >
+    <aside className="z-30 flex-shrink-0 hidden lg:flex flex-col bg-white border-r border-gray-100">
       <SidebarContent />
     </aside>
   );

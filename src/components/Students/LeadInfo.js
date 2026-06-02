@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Client from "../Leads/Client";
 import History from "../Leads/History";
@@ -49,7 +49,7 @@ const LeadInfo = ({ id }) => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isClient ? "bg-brandRed text-white" : "bg-gray-200"
+                isClient ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               1
@@ -63,7 +63,7 @@ const LeadInfo = ({ id }) => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isHistory ? "bg-brandRed text-white" : "bg-gray-200"
+                isHistory ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               2
@@ -77,7 +77,7 @@ const LeadInfo = ({ id }) => {
           >
             <div
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isDocuments ? "bg-brandRed text-white" : "bg-gray-200"
+                isDocuments ? "bg-brandBlue text-white" : "bg-gray-200"
               }`}
             >
               3

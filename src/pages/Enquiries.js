@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import EnquiriesRequestedPanel from "../components/Enquiries/EnquiriesRequestedPanel";
 import {
   Modal,
@@ -160,7 +160,7 @@ function Enquiries() {
       <div className="mx-auto max-w-7xl rounded-[28px] border border-red-100 bg-gradient-to-br from-white via-red-50/40 to-white p-4 shadow-[0_20px_45px_rgba(15,23,42,0.08)] sm:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandRed">
+            <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandBlue">
               Manage Enquiries
             </p>
             <h4 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -454,7 +454,7 @@ function Enquiries() {
                       <div className="text-center">
                         <Button
                           type="submit"
-                          className="w-full rounded-2xl bg-brandRed px-6 py-3 font-semibold text-white sm:w-auto"
+                          className="w-full rounded-2xl bg-brandBlue px-6 py-3 font-semibold text-white sm:w-auto"
                         >
                           Request Course Options
                         </Button>
@@ -697,7 +697,7 @@ function Enquiries() {
 
                       {/* <div className="text-center">
                     <Button
-                      style={{ backgroundColor: "#C71320" }}
+                      style={{ backgroundColor: "#1B2E6B" }}
                       type="submit"
                     >
                       Request Course Options
@@ -717,7 +717,7 @@ function Enquiries() {
                         </button>
                         <button
                           type="submit"
-                          className="rounded-2xl bg-brandRed px-6 py-3 text-sm font-semibold text-white hover:bg-brandRed"
+                          className="rounded-2xl bg-brandBlue px-6 py-3 text-sm font-semibold text-white hover:bg-brandBlue"
                           onClick={() =>
                             document
                               .getElementById("enquiries_add_modal")
@@ -740,7 +740,7 @@ function Enquiries() {
                 document.getElementById("enquiries_add_modal").showModal();
                 setIsModalOpen(true);
               }}
-              className="rounded-2xl bg-gradient-to-r from-brandRed to-red-500 px-5 py-3 text-sm font-semibold text-black shadow-lg shadow-red-100 transition hover:shadow-xl sm:text-base"
+              className="rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-5 py-3 text-sm font-semibold text-black shadow-lg shadow-red-100 transition hover:shadow-xl sm:text-base"
             >
               + Request Program Options from EduAnchor Team
             </button>
@@ -754,7 +754,7 @@ function Enquiries() {
             onClick={() => setActiveTab("requested")}
             className={`cursor-pointer rounded-2xl px-4 py-3 text-center transition-all duration-300 ${
               isRequested
-                ? "bg-gradient-to-r from-brandRed to-red-500 text-brandRed shadow-lg shadow-red-100"
+                ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
                 : "bg-white text-gray-700 hover:bg-red-50"
             }`}
           >
@@ -764,7 +764,7 @@ function Enquiries() {
             onClick={() => setActiveTab("paid")}
             className={`cursor-pointer rounded-2xl px-4 py-3 text-center transition-all duration-300 ${
               !isRequested
-                ? "bg-gradient-to-r from-brandRed to-red-500 text-brandRed shadow-lg shadow-red-100"
+                ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
                 : "bg-white text-gray-700 hover:bg-red-50"
             }`}
           >

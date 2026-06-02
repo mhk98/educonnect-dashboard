@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { Input, Button } from "@windmill/react-ui";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
@@ -109,7 +109,7 @@ export default function Country() {
   return (
     <div className="w-full px-3 sm:px-4 py-4 sm:py-6 bg-gray-50 max-w-screen-2xl mx-auto">
       <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 mb-5 sm:mb-6">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brandRed">
+        <p className="text-xs font-semibold uppercase tracking-wide text-brandBlue">
           Global Settings
         </p>
         <h4 className="mt-2 text-2xl sm:text-3xl font-semibold text-gray-900">
@@ -145,7 +145,7 @@ export default function Country() {
         <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-2">
           <Button
             type="submit"
-            className="bg-brandRed text-white w-full rounded-xl"
+            className="bg-brandBlue text-white w-full rounded-xl"
           >
             {editingId ? "Update" : "Add"}
           </Button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import ApplyProgram from "./ApplyProgram";
 import AppliedProgram from "./AppliedProgram";
 import LeadInfo from "./LeadInfo";
@@ -13,26 +13,26 @@ const Applications = ({ id }) => {
           <button
             onClick={() => setActiveTab("lead")}
             className={`py-4 px-2 text-sm sm:text-base font-semibold transition-all ${
-              activeTab === "lead" ? "text-brandRed" : "text-gray-800"
+              activeTab === "lead" ? "text-brandBlue" : "text-gray-800"
             }`}
           >
             Lead Information
           </button>
           {activeTab === "lead" && (
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandRed" />
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandBlue" />
           )}
         </div>
         <div className="relative">
           <button
             onClick={() => setActiveTab("apply")}
             className={`py-4 px-2 text-sm sm:text-base font-semibold transition-all ${
-              activeTab === "apply" ? "text-brandRed" : "text-gray-800"
+              activeTab === "apply" ? "text-brandBlue" : "text-gray-800"
             }`}
           >
             Apply To Programs
           </button>
           {activeTab === "apply" && (
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandRed" />
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandBlue" />
           )}
         </div>
 
@@ -40,13 +40,13 @@ const Applications = ({ id }) => {
           <button
             onClick={() => setActiveTab("applied")}
             className={`py-4 px-2 text-sm sm:text-base font-semibold transition-all ${
-              activeTab === "applied" ? "text-brandRed" : "text-gray-800"
+              activeTab === "applied" ? "text-brandBlue" : "text-gray-800"
             }`}
           >
             Applied Programs
           </button>
           {activeTab === "applied" && (
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandRed" />
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brandBlue" />
           )}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import {
   useDeleteCommissionMutation,
   useGetAllCommissionQuery,
@@ -244,7 +244,7 @@ const ComissionPaymentInProgress = () => {
               <td className={tdClass}>
                 <span className={statusBadgeClass}>{payment.status}</span>
               </td>
-              <td className="flex gap-2 whitespace-nowrap px-4 py-4 text-brandRed">
+              <td className="flex gap-2 whitespace-nowrap px-4 py-4 text-brandBlue">
                 <LiaEditSolid
                   fontSize={26}
                   onClick={() => {
@@ -274,7 +274,7 @@ const ComissionPaymentInProgress = () => {
                                   <td className="p-3 whitespace-nowrap">{payment.purpose}</td>
                                   <td className="p-3 whitespace-nowrap">{payment.branch}</td>
                                   <td className="p-3 whitespace-nowrap">{payment.status}</td>
-                                  <td className="p-3 whitespace-nowrap flex gap-3 text-brandRed">
+                                  <td className="p-3 whitespace-nowrap flex gap-3 text-brandBlue">
                                     <LiaEditSolid
                                       fontSize={20}
                                       onClick={() => {
@@ -311,7 +311,7 @@ const ComissionPaymentInProgress = () => {
                   <select
                     {...register("status", { required: "Status is required" })}
                     onKeyDown={handleEnter}
-                    className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                    className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                   >
                     <option value="">Select Status</option>
                     <option value="PAID">PAID</option>
@@ -341,7 +341,7 @@ const ComissionPaymentInProgress = () => {
               <div className="mt-6 flex justify-end gap-2">
                 <Button
                   type="submit"
-                  className="btn w-full rounded-2xl bg-gradient-to-r from-brandRed to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
+                  className="btn w-full rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
                 >
                   Save
                 </Button>
@@ -374,7 +374,7 @@ const ComissionPaymentInProgress = () => {
                 ${
                   currentPage === 1
                     ? "bg-brandDisable cursor-not-allowed"
-                    : "bg-brandRed hover:bg-brandHover"
+                    : "bg-brandBlue hover:bg-brandHover"
                 }`}
             >
               ← Prev
@@ -393,7 +393,7 @@ const ComissionPaymentInProgress = () => {
                 ${
                   currentPage * itemsPerPage >= data.meta.total
                     ? "bg-brandDisable cursor-not-allowed"
-                    : "bg-brandRed hover:bg-brandHover"
+                    : "bg-brandBlue hover:bg-brandHover"
                 }`}
             >
               Next →

@@ -14,26 +14,22 @@ const quickLinks = [
 
 export default function QuickLinks() {
   return (
-    <div className="w-full px-0">
-      <h2 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">
-        Quick Links
-      </h2>
-      <div className="space-y-2 sm:space-y-3 md:space-y-4">
+    <div>
+      <h2 className="text-base font-bold text-gray-800 mb-4">Quick Links</h2>
+      <div className="divide-y divide-gray-100">
         {quickLinks.map((link, index) => (
-          <div
+          <a
             key={index}
-            className="flex justify-between items-center p-3 sm:p-4 bg-white rounded-lg border shadow-sm hover:shadow-md transition duration-200"
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between py-2.5 hover:text-blue-700 group transition"
           >
-            <a
-              href={link.href}
-              className="text-sm sm:text-base md:text-lg text-black hover:underline font-medium flex-1 truncate"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition truncate pr-2">
               {link.name}
-            </a>
-            <FiExternalLink className="text-gray-400 text-lg sm:text-xl md:text-2xl flex-shrink-0 ml-2" />
-          </div>
+            </span>
+            <FiExternalLink className="w-3.5 h-3.5 flex-shrink-0 text-gray-300 group-hover:text-blue-500 transition" />
+          </a>
         ))}
       </div>
     </div>

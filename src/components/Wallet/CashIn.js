@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Input, Button } from "@windmill/react-ui";
@@ -80,7 +80,7 @@ const CashIn = ({ id }) => {
               type="number"
               {...register("amount")}
               onKeyDown={handleEnter}
-              className="w-full rounded-2xl border border-gray-200 bg-white p-3 shadow-sm transition focus:border-brandRed focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-2xl border border-gray-200 bg-white p-3 shadow-sm transition focus:border-brandBlue focus:ring-2 focus:ring-red-100"
             />
             {errors.amount && (
               <p className="text-red-500 text-sm mt-1">
@@ -98,7 +98,7 @@ const CashIn = ({ id }) => {
               type="text"
               {...register("purpose")}
               onKeyDown={handleEnter}
-              className="w-full rounded-2xl border border-gray-200 bg-white p-3 shadow-sm transition focus:border-brandRed focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-2xl border border-gray-200 bg-white p-3 shadow-sm transition focus:border-brandBlue focus:ring-2 focus:ring-red-100"
             />
             {errors.purpose && (
               <p className="text-red-500 text-sm mt-1">
@@ -168,7 +168,7 @@ const CashIn = ({ id }) => {
         <div className="mt-6 flex justify-end">
           <Button
             type="submit"
-            className="btn w-full rounded-2xl bg-gradient-to-r from-brandRed to-red-500 px-6 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
+            className="btn w-full rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-6 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
           >
             Submit Request
           </Button>

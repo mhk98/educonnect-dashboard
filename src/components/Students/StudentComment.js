@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { useAddReplyMutation } from '../features/comments/commentsApi'
 import Reply from './Reply';
 
@@ -125,14 +125,14 @@ export default Comment
     //                     <h2 class="text-center md:text-left">---Replies---</h2>
     //                     <div class="space-y-2">
     //                         {comment?.replies?.length >= 0 && comment?.replies?.map((r, index) => {
-    //                             return <p class="ml-4 bg-brandRed px-2 text-white" key={r?._id}>{r?.reply}</p>
+    //                             return <p class="ml-4 bg-brandBlue px-2 text-white" key={r?._id}>{r?.reply}</p>
     //                         })}
     //                     </div>
     //                 </div>
     //                 <div class="flex flex-col space-y-2 md:flex-row md:justify-end md:space-y-0">
     //                     <form onSubmit={submitHandler} class="flex space-x-2">
-    //                         <input type="text" value={reply} onChange={(e) => setReply(e.target.value)} placeholder="reply" class="flex-1 border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-brandRed" />
-    //                         <button type="submit" class="bg-brandRed text-white px-4 py-2 rounded-md hover:bg-brandRed-700 focus:outline-none focus:ring-2 focus:ring-brandRed">Reply</button>
+    //                         <input type="text" value={reply} onChange={(e) => setReply(e.target.value)} placeholder="reply" class="flex-1 border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-brandBlue" />
+    //                         <button type="submit" class="bg-brandBlue text-white px-4 py-2 rounded-md hover:bg-brandBlue-700 focus:outline-none focus:ring-2 focus:ring-brandBlue">Reply</button>
     //                     </form>
     //                 </div>
     //             </div>

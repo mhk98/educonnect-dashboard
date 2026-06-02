@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import StudentTable from "../components/Students/StudentTable";
 import { useForm } from "react-hook-form";
 import {
@@ -118,7 +118,7 @@ function Students() {
             {/* Request Program Options */}
             <Link
               to="/app/archive-student"
-              className="w-full px-4 py-2 bg-white text-brandRed border-2 border-brandRed rounded-lg text-sm md:text-base transition text-center"
+              className="w-full px-4 py-2 bg-white text-brandBlue border-2 border-brandBlue rounded-lg text-sm md:text-base transition text-center"
             >
               Archived Students
             </Link>
@@ -128,7 +128,7 @@ function Students() {
               onClick={() => {
                 setIsModalOpen(true);
               }}
-              className="w-full px-4 py-2 bg-brandRed text-white rounded-lg text-sm md:text-base hover:bg-brandRed-700 transition"
+              className="w-full px-4 py-2 bg-brandBlue text-white rounded-lg text-sm md:text-base hover:bg-brandBlue-700 transition"
             >
               + Register New Student
             </button>
@@ -343,7 +343,7 @@ function Students() {
                     </Button>
                     <Button
                       type="submit"
-                      className="w-full sm:w-auto btn bg-brandRed"
+                      className="w-full sm:w-auto btn bg-brandBlue"
                     >
                       Save
                     </Button>

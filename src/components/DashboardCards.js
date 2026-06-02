@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 
 const DashboardCards = () => {
   const submittedOptions = {
@@ -20,7 +20,7 @@ const DashboardCards = () => {
     {
       label: "Submitted",
       count: submittedOptions[selectedSubmitted],
-      border: "border-l-4 border-brandRed",
+      border: "border-l-4 border-brandBlue",
       dropdown: {
         value: selectedSubmitted,
         onChange: (e) => setSelectedSubmitted(e.target.value),
@@ -30,7 +30,7 @@ const DashboardCards = () => {
     {
       label: "Offers",
       count: offersOptions[selectedOffers],
-      border: "border-l-4 border-brandRed",
+      border: "border-l-4 border-brandBlue",
       dropdown: {
         value: selectedOffers,
         onChange: (e) => setSelectedOffers(e.target.value),

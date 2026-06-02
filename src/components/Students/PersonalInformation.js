@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaInfoCircle } from "react-icons/fa";
 import {
@@ -110,7 +110,7 @@ const PersonalInformation = ({ id }) => {
       {/* Personal Info */}
       <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Personal Information
           </div>
@@ -123,7 +123,7 @@ const PersonalInformation = ({ id }) => {
               });
               setIsModalOpen(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -216,7 +216,7 @@ const PersonalInformation = ({ id }) => {
                   type="submit"
                   onClick={handleSubmit}
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>
@@ -228,7 +228,7 @@ const PersonalInformation = ({ id }) => {
 
       <div className="card ">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Mailing Address
           </div>
@@ -244,7 +244,7 @@ const PersonalInformation = ({ id }) => {
               });
               setIsModalOpen1(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -417,7 +417,7 @@ const PersonalInformation = ({ id }) => {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>
@@ -429,7 +429,7 @@ const PersonalInformation = ({ id }) => {
 
       <div className="card ">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Permanent Address
           </div>
@@ -444,7 +444,7 @@ const PersonalInformation = ({ id }) => {
               });
               setIsModalOpen2(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -597,7 +597,7 @@ const PersonalInformation = ({ id }) => {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>
@@ -610,7 +610,7 @@ const PersonalInformation = ({ id }) => {
       {/* Passport Information */}
       <div className="card ">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Passport Information
           </div>
@@ -626,7 +626,7 @@ const PersonalInformation = ({ id }) => {
               });
               setIsModalOpen3(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -785,7 +785,7 @@ const PersonalInformation = ({ id }) => {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>
@@ -798,7 +798,7 @@ const PersonalInformation = ({ id }) => {
       {/* Nationality */}
       <div className="card ">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Nationality
           </div>
@@ -813,7 +813,7 @@ const PersonalInformation = ({ id }) => {
               });
               setIsModalOpen4(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -949,7 +949,7 @@ const PersonalInformation = ({ id }) => {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>
@@ -962,7 +962,7 @@ const PersonalInformation = ({ id }) => {
       {/* Background Info */}
       <div className="card ">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Background Info
           </div>
@@ -978,7 +978,7 @@ const PersonalInformation = ({ id }) => {
               });
               setIsModalOpen5(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -1118,7 +1118,7 @@ const PersonalInformation = ({ id }) => {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>
@@ -1131,7 +1131,7 @@ const PersonalInformation = ({ id }) => {
       {/* Important Contacts*/}
       <div className="card ">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Important Contacts
           </div>
@@ -1146,7 +1146,7 @@ const PersonalInformation = ({ id }) => {
               });
               setIsModalOpen6(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -1262,7 +1262,7 @@ const PersonalInformation = ({ id }) => {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>
@@ -1275,7 +1275,7 @@ const PersonalInformation = ({ id }) => {
       {/* Additional Information */}
       <div className="card ">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-brandRed font-semibold text-sm">
+          <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
             <FaInfoCircle className="w-5 h-5" />
             Additional Information
           </div>
@@ -1286,7 +1286,7 @@ const PersonalInformation = ({ id }) => {
               });
               setIsModalOpen7(true);
             }}
-            className="btn btn-outline btn-sm text-brandRed bg-brandLight p-2 rounded-sm"
+            className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
           >
             Request Edit
           </button>
@@ -1330,7 +1330,7 @@ const PersonalInformation = ({ id }) => {
                 <Button
                   type="submit"
                   className="btn"
-                  style={{ backgroundColor: "#C71320" }}
+                  style={{ backgroundColor: "#1B2E6B" }}
                 >
                   Save
                 </Button>

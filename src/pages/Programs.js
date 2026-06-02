@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { Input } from "@windmill/react-ui";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
@@ -182,7 +182,7 @@ function Programs() {
     <div className="w-full px-3 sm:px-4 py-4 sm:py-6 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6 sm:mb-8 rounded-2xl bg-white p-4 sm:p-6 shadow-sm border border-gray-100">
-          <p className="text-xs font-semibold uppercase tracking-wide text-brandRed">
+          <p className="text-xs font-semibold uppercase tracking-wide text-brandBlue">
             Program Settings
           </p>
           <h4 className="mt-2 text-2xl sm:text-3xl font-semibold text-gray-900">
@@ -215,7 +215,7 @@ function Programs() {
               </p>
             )}
             </div>
-            <button className="w-full md:w-auto bg-brandRed text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
+            <button className="w-full md:w-auto bg-brandBlue text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
               Add Country
             </button>
           </div>
@@ -270,7 +270,7 @@ function Programs() {
               )}
             </div>
           </div>
-          <button className="mt-4 w-full sm:w-auto bg-brandRed text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
+          <button className="mt-4 w-full sm:w-auto bg-brandBlue text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
             Add University
           </button>
         </form>
@@ -359,7 +359,7 @@ function Programs() {
             </div>
           </div>
 
-          <button className="mt-4 w-full sm:w-auto bg-brandRed text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
+          <button className="mt-4 w-full sm:w-auto bg-brandBlue text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
             Add Program
           </button>
         </form>
@@ -385,7 +385,7 @@ function Programs() {
                 </p>
               )}
             </div>
-            <button className="w-full md:w-auto bg-brandRed text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
+            <button className="w-full md:w-auto bg-brandBlue text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
               Add Intake
             </button>
           </div>
@@ -412,7 +412,7 @@ function Programs() {
                 </p>
               )}
             </div>
-            <button className="w-full md:w-auto bg-brandRed text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
+            <button className="w-full md:w-auto bg-brandBlue text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-sm">
               Add Year
             </button>
           </div>

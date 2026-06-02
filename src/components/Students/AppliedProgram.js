@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from "react";
+﻿// import React, { useEffect, useState } from "react";
 // import { FiSend } from "react-icons/fi";
 // import { useGetDataByIdQuery } from "../../features/application/application";
 // import axios from "axios";
@@ -243,7 +243,7 @@
 //                 />
 //                 <button
 //                   onClick={() => handleReplySubmitFunc(comment.id)}
-//                   className="bg-brandRed text-white px-3 py-1 rounded text-sm"
+//                   className="bg-brandBlue text-white px-3 py-1 rounded text-sm"
 //                 >
 //                   Reply
 //                 </button>
@@ -264,7 +264,7 @@
 //             onClick={() => setSelectedProgram(item)}
 //             className={`border rounded-md cursor-pointer ${
 //               selectedProgram?.id === item.id
-//                 ? "border-brandRed bg-brandRed-50"
+//                 ? "border-brandBlue bg-brandBlue-50"
 //                 : "border-gray-300"
 //             }`}
 //           >
@@ -314,7 +314,7 @@
 //                 <button
 //                   className={`px-4 py-2 text-sm font-medium ${
 //                     tab === "student"
-//                       ? "text-brandRed border-b-2 border-brandRed"
+//                       ? "text-brandBlue border-b-2 border-brandBlue"
 //                       : "text-gray-600"
 //                   }`}
 //                   onClick={() => setTab("student")}
@@ -327,7 +327,7 @@
 //                   <button
 //                     className={`px-4 py-2 text-sm font-medium ${
 //                       tab === "kc"
-//                         ? "text-brandRed border-b-2 border-brandRed"
+//                         ? "text-brandBlue border-b-2 border-brandBlue"
 //                         : "text-gray-600"
 //                     }`}
 //                     onClick={() => setTab("kc")}
@@ -338,7 +338,7 @@
 //                   <button
 //                     className={`px-4 py-2 text-sm font-medium ${
 //                       tab === "student"
-//                         ? "text-brandRed border-b-2 border-brandRed"
+//                         ? "text-brandBlue border-b-2 border-brandBlue"
 //                         : "text-gray-600"
 //                     }`}
 //                     onClick={() => setTab("student")}
@@ -374,7 +374,7 @@
 //                     />
 //                     <button
 //                       onClick={handleCommentSubmit}
-//                       className="bg-brandRed text-white p-2 rounded"
+//                       className="bg-brandBlue text-white p-2 rounded"
 //                     >
 //                       <FiSend size={20} />
 //                     </button>
@@ -406,7 +406,7 @@
 //                     />
 //                     <button
 //                       onClick={handleKCCommentSubmit}
-//                       className="bg-brandRed text-white p-2 rounded"
+//                       className="bg-brandBlue text-white p-2 rounded"
 //                     >
 //                       <FiSend size={20} />
 //                     </button>
@@ -688,7 +688,7 @@ const AppliedProgram = ({ user_id }) => {
                 />
                 <button
                   onClick={() => handleReplySubmitFunc(comment.id)}
-                  className="bg-brandRed text-white px-3 py-1 rounded text-sm"
+                  className="bg-brandBlue text-white px-3 py-1 rounded text-sm"
                 >
                   Reply
                 </button>
@@ -709,7 +709,7 @@ const AppliedProgram = ({ user_id }) => {
             onClick={() => setSelectedProgram(item)}
             className={`border rounded-md cursor-pointer ${
               selectedProgram?.id === item.id
-                ? "border-brandRed bg-brandRed-50"
+                ? "border-brandBlue bg-brandBlue-50"
                 : "border-gray-300"
             }`}
           >
@@ -759,7 +759,7 @@ const AppliedProgram = ({ user_id }) => {
                 <button
                   className={`px-4 py-2 text-sm font-medium ${
                     tab === "student"
-                      ? "text-brandRed border-b-2 border-brandRed"
+                      ? "text-brandBlue border-b-2 border-brandBlue"
                       : "text-gray-600"
                   } border-b`}
                   onClick={() => setTab("student")}
@@ -771,7 +771,7 @@ const AppliedProgram = ({ user_id }) => {
                   <button
                     className={`px-4 py-2 text-sm font-medium ${
                       tab === "kc"
-                        ? "text-brandRed border-b-2 border-brandRed"
+                        ? "text-brandBlue border-b-2 border-brandBlue"
                         : "text-gray-600"
                     }`}
                     onClick={() => setTab("kc")}
@@ -782,7 +782,7 @@ const AppliedProgram = ({ user_id }) => {
                   <button
                     className={`px-4 py-2 text-sm font-medium ${
                       tab === "student"
-                        ? "text-brandRed border-b-2 border-brandRed"
+                        ? "text-brandBlue border-b-2 border-brandBlue"
                         : "text-gray-600"
                     }`}
                     onClick={() => setTab("student")}
@@ -819,7 +819,7 @@ const AppliedProgram = ({ user_id }) => {
                     />
                     <button
                       onClick={handleCommentSubmit}
-                      className="bg-brandRed text-white p-2 rounded"
+                      className="bg-brandBlue text-white p-2 rounded"
                     >
                       <FiSend size={20} />
                     </button>
@@ -851,7 +851,7 @@ const AppliedProgram = ({ user_id }) => {
                     />
                     <button
                       onClick={handleKCCommentSubmit}
-                      className="bg-brandRed text-white p-2 rounded"
+                      className="bg-brandBlue text-white p-2 rounded"
                     >
                       <FiSend size={20} />
                     </button>

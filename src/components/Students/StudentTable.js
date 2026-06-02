@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+﻿import React, { useState, useMemo } from "react";
 import { FaTrash } from "react-icons/fa";
 import { LiaEditSolid } from "react-icons/lia";
 import { Link } from "react-router-dom/cjs/react-router-dom";
@@ -227,7 +227,7 @@ export default function StudentTable() {
 
         <div className="flex items-end gap-2">
           <Button
-            className="w-full bg-brandRed text-white"
+            className="w-full bg-brandBlue text-white"
             onClick={clearFilters}
           >
             Clear
@@ -279,7 +279,7 @@ export default function StudentTable() {
                   <td className="p-3 whitespace-nowrap">
                     {student.Status || "N/A"}
                   </td>
-                  <td className="p-3 whitespace-nowrap flex gap-3 text-brandRed">
+                  <td className="p-3 whitespace-nowrap flex gap-3 text-brandBlue">
                     <LiaEditSolid
                       className="cursor-pointer"
                       title="Edit Lead"
@@ -372,7 +372,7 @@ export default function StudentTable() {
                 </button>
                 <Link
                   to={`/app/editprofile/${student.id}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-brandRed px-3 py-2 text-sm text-white"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-brandBlue px-3 py-2 text-sm text-white"
                 >
                   <FiEye />
                   View
@@ -438,7 +438,7 @@ export default function StudentTable() {
                 ${
                   page === 1
                     ? "bg-brandDisable cursor-not-allowed"
-                    : "bg-brandRed hover:bg-brandHover"
+                    : "bg-brandBlue hover:bg-brandHover"
                 }`}
             >
               Prev
@@ -451,7 +451,7 @@ export default function StudentTable() {
                 ${
                   page * limit >= allUserData.meta.total
                     ? "bg-brandDisable cursor-not-allowed"
-                    : "bg-brandRed hover:bg-brandHover"
+                    : "bg-brandBlue hover:bg-brandHover"
                 }`}
             >
               Next
@@ -505,7 +505,7 @@ export default function StudentTable() {
               </Button>
               <Button
                 type="submit"
-                style={{ backgroundColor: "#C71320" }}
+                style={{ backgroundColor: "#1B2E6B" }}
                 className="w-full sm:w-auto"
               >
                 Save

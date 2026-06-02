@@ -108,7 +108,7 @@ function SidebarSubmenu({
           ${
             isChildActive
               ? isMobile
-                ? "bg-indigo-50 text-indigo-600"
+                ? "bg-blue-50 text-blue-700"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               : ""
           }`}
@@ -156,7 +156,7 @@ function SidebarSubmenu({
                     ${
                       active
                         ? isMobile
-                          ? "bg-indigo-50 text-indigo-600"
+                          ? "bg-blue-50 text-blue-700"
                           : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                         : ""
                     }`}

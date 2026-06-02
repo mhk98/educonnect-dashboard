@@ -4,7 +4,6 @@ import routes from "../routes";
 
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import Main from "../containers/Main";
 import ThemedSuspense from "../components/ThemedSuspense";
 import { SidebarContext } from "../context/SidebarContext";
 
@@ -22,42 +21,37 @@ function Layout() {
   }, [closeSidebar, location]);
 
   return (
-    <div
-      className={`ea-shell flex h-screen ${
-        isSidebarOpen && "overflow-hidden"
-      }`}
-    >
-      <Sidebar />
+    <div className="flex flex-col h-screen" style={{ background: "#f1f5f9" }}>
+      {/* ── Full-width sticky header ── */}
+      <Header />
 
-      <div className="flex flex-col flex-1 w-full">
-        <Header />
-        <Main>
+      {/* ── Sidebar + Main content ── */}
+      <div className={`flex flex-1 overflow-hidden ${isSidebarOpen ? "overflow-hidden" : ""}`}>
+        <Sidebar />
+
+        <main className="flex-1 overflow-y-auto custom-scrollbar">
           <Suspense fallback={<ThemedSuspense />}>
             <Switch>
-              {routes.map((route, i) => {
-                return route.component ? (
+              {routes.map((route, i) =>
+                route.component ? (
                   <Route
                     key={i}
                     exact={true}
                     path={`/app${route.path}`}
                     render={(props) => <route.component {...props} />}
                   />
-                ) : null;
-              })}
+                ) : null
+              )}
 
               {role === "student" ? (
-                <Redirect
-                  exact
-                  from="/app"
-                  to={`/app/editprofile/${studentId}`}
-                />
+                <Redirect exact from="/app" to={`/app/editprofile/${studentId}`} />
               ) : (
                 <Redirect exact from="/app" to="/app/dashboard" />
               )}
               <Route component={Page404} />
             </Switch>
           </Suspense>
-        </Main>
+        </main>
       </div>
     </div>
   );

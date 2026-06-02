@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+﻿import React, { useEffect, useMemo, useState } from "react";
 import {
   Modal,
   ModalHeader,
@@ -1338,7 +1338,7 @@ export default function Task() {
                      ${
                        currentPage === 1
                          ? "bg-brandDisable cursor-not-allowed"
-                         : "bg-brandRed hover:bg-brandHover"
+                         : "bg-brandBlue hover:bg-brandHover"
                      }`}
                   >
                     ← Prev
@@ -1357,7 +1357,7 @@ export default function Task() {
                      ${
                        currentPage * itemsPerPage >= listRes.meta.total
                          ? "bg-brandDisable cursor-not-allowed"
-                         : "bg-brandRed hover:bg-brandHover"
+                         : "bg-brandBlue hover:bg-brandHover"
                      }`}
                   >
                     Next →
@@ -1574,7 +1574,7 @@ export default function Task() {
 
               <button
                 type="submit"
-                className="w-full sm:w-auto px-4 py-2 rounded-md text-sm bg-brandRed text-white"
+                className="w-full sm:w-auto px-4 py-2 rounded-md text-sm bg-brandBlue text-white"
               >
                 Save
               </button>

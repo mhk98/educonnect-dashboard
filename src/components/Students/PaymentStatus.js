@@ -1,4 +1,4 @@
-import React from "react"
+﻿import React from "react"
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
 
@@ -21,7 +21,7 @@ const PaymentStatus = () => {
     </svg>
   </div>
   <h2 class="text-xl font-semibold text-gray-800 mb-4">Successfully Paid</h2>
-  <a href="/payment-list" class="px-4 py-2 bg-brandRed text-white text-sm font-medium rounded hover:bg-brandRed-700 transition">
+  <a href="/payment-list" class="px-4 py-2 bg-brandBlue text-white text-sm font-medium rounded hover:bg-brandBlue-700 transition">
     Back to payment list
   </a>
 </div>
@@ -43,7 +43,7 @@ const PaymentStatus = () => {
         Something Went Wrong...
       </h2>
       <button
-        className="px-4 py-2 bg-brandRed text-white text-sm font-medium rounded hover:bg-brandRed-700 transition"
+        className="px-4 py-2 bg-brandBlue text-white text-sm font-medium rounded hover:bg-brandBlue-700 transition"
       >
         Back to payment list
       </button>
@@ -73,7 +73,7 @@ const PaymentStatus = () => {
                     {/* Back Button */}
                     <a
                       href="/app/payments"
-                      className="mt-4 px-4 py-2 bg-brandRed text-white rounded hover:bg-brandRed-700 transition"
+                      className="mt-4 px-4 py-2 bg-brandBlue text-white rounded hover:bg-brandBlue-700 transition"
                     >
                       Back to payment list
                     </a>

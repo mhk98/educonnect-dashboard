@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from "react";
+﻿// import React, { useEffect, useState } from "react";
 
 // import { TbCurrencyTaka } from "react-icons/tb";
 // import Amount from "../components/Wallet/Amount";
@@ -177,24 +177,24 @@
 //           {role === "superAdmin" ? (
 //             <div className="flex items-center sm:flex-row gap-3">
 //               <p>Balance:</p>
-//               <button className="px-4 py-2 flex items-center bg-white text-brandRed border-2 border-brandRed rounded-md text-sm md:text-base transition">
+//               <button className="px-4 py-2 flex items-center bg-white text-brandBlue border-2 border-brandBlue rounded-md text-sm md:text-base transition">
 //                 <TbCurrencyTaka /> {balance}
 //               </button>
 
 //               {/* Register New Student */}
-//               {/* <button className="px-4 py-2 bg-brandRed text-white rounded-md text-sm md:text-base hover:bg-brandRed-700 transition">
+//               {/* <button className="px-4 py-2 bg-brandBlue text-white rounded-md text-sm md:text-base hover:bg-brandBlue-700 transition">
 //             ADD MONEY
 //           </button> */}
 //             </div>
 //           ) : (
 //             <div className="flex items-center sm:flex-row gap-3">
 //               <p>Balance:</p>
-//               <button className="px-4 py-2 flex items-center bg-white text-brandRed border-2 border-brandRed rounded-md text-sm md:text-base transition">
+//               <button className="px-4 py-2 flex items-center bg-white text-brandBlue border-2 border-brandBlue rounded-md text-sm md:text-base transition">
 //                 <TbCurrencyTaka /> {branchBalance}
 //               </button>
 
 //               {/* Register New Student */}
-//               {/* <button className="px-4 py-2 bg-brandRed text-white rounded-md text-sm md:text-base hover:bg-brandRed-700 transition">
+//               {/* <button className="px-4 py-2 bg-brandBlue text-white rounded-md text-sm md:text-base hover:bg-brandBlue-700 transition">
 //             ADD MONEY
 //           </button> */}
 //             </div>
@@ -213,7 +213,7 @@
 //               onClick={() => setActiveTab("eduAnchor")}
 //               className={`flex flex-col items-center cursor-pointer ${
 //                 iseduAnchor
-//                   ? "bg-brandRed text-white rounded-md py-1"
+//                   ? "bg-brandBlue text-white rounded-md py-1"
 //                   : "bg-gray-200 text-gray-700 rounded-md py-1"
 //               }`}
 //             >
@@ -224,7 +224,7 @@
 //               onClick={() => setActiveTab("amount")}
 //               className={`flex flex-col items-center cursor-pointer ${
 //                 isamount
-//                   ? "bg-brandRed text-white rounded-md py-1"
+//                   ? "bg-brandBlue text-white rounded-md py-1"
 //                   : "bg-gray-200 text-gray-700 rounded-md py-1"
 //               }`}
 //             >
@@ -234,12 +234,12 @@
 //               onClick={() => setActiveTab("cashIn")}
 //               className={`flex flex-col items-center cursor-pointer ${
 //                 iscashIn
-//                   ? "bg-brandRed text-white rounded-md py-1"
+//                   ? "bg-brandBlue text-white rounded-md py-1"
 //                   : "bg-gray-200 text-gray-700 rounded-md py-1"
 //               }`}
 //             >
 //               {/* className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-//       isFinance ? "bg-brandRed text-white" : "bg-gray-200"
+//       isFinance ? "bg-brandBlue text-white" : "bg-gray-200"
 //     }`} */}
 //               <h1 className="mt-1 text-xl">Cash In</h1>
 //             </div>
@@ -252,7 +252,7 @@
 //               onClick={() => setActiveTab("cashOut")}
 //               className={`flex flex-col items-center cursor-pointer ${
 //                 iscashOut
-//                   ? "bg-brandRed text-white rounded-md py-1"
+//                   ? "bg-brandBlue text-white rounded-md py-1"
 //                   : "bg-gray-200 text-gray-700 rounded-md py-1"
 //               }`}
 //             >
@@ -265,7 +265,7 @@
 //               onClick={() => setActiveTab("amount")}
 //               className={`flex flex-col items-center cursor-pointer ${
 //                 isamount
-//                   ? "bg-brandRed text-white rounded-md py-1"
+//                   ? "bg-brandBlue text-white rounded-md py-1"
 //                   : "bg-gray-200 text-gray-700 rounded-md py-1"
 //               }`}
 //             >
@@ -275,12 +275,12 @@
 //               onClick={() => setActiveTab("cashIn")}
 //               className={`flex flex-col items-center cursor-pointer ${
 //                 iscashIn
-//                   ? "bg-brandRed text-white rounded-md py-1"
+//                   ? "bg-brandBlue text-white rounded-md py-1"
 //                   : "bg-gray-200 text-gray-700 rounded-md py-1"
 //               }`}
 //             >
 //               {/* className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-//       isFinance ? "bg-brandRed text-white" : "bg-gray-200"
+//       isFinance ? "bg-brandBlue text-white" : "bg-gray-200"
 //     }`} */}
 //               <h1 className="mt-1 text-xl">Cash In</h1>
 //             </div>
@@ -293,7 +293,7 @@
 //               onClick={() => setActiveTab("cashOut")}
 //               className={`flex flex-col items-center cursor-pointer ${
 //                 iscashOut
-//                   ? "bg-brandRed text-white rounded-md py-1"
+//                   ? "bg-brandBlue text-white rounded-md py-1"
 //                   : "bg-gray-200 text-gray-700 rounded-md py-1"
 //               }`}
 //             >
@@ -413,8 +413,8 @@ function Wallet() {
   const tabClass = (isActive) =>
     `flex cursor-pointer flex-col items-center rounded-2xl px-3 py-3 text-sm font-semibold transition-all duration-300 sm:text-base ${
       isActive
-        ? "bg-gradient-to-r from-brandRed to-red-500 text-brandRed shadow-lg shadow-red-100"
-        : "border border-gray-200 bg-white text-gray-700 shadow-sm hover:border-brandRed/30 hover:bg-red-50"
+        ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
+        : "border border-gray-200 bg-white text-gray-700 shadow-sm hover:border-brandBlue/30 hover:bg-red-50"
     }`;
 
   if (isError) console.log("Error fetching", error);
@@ -426,7 +426,7 @@ function Wallet() {
         <div className="mx-auto max-w-7xl overflow-hidden rounded-[28px] border border-red-100 bg-gradient-to-br from-white via-red-50/40 to-white p-4 shadow-[0_20px_45px_rgba(15,23,42,0.08)] sm:p-6">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandRed">
+              <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandBlue">
                 Finance Wallet
               </p>
               <h4 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -442,7 +442,7 @@ function Wallet() {
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
                   Balance
                 </p>
-                <div className="mt-3 flex items-center gap-1 text-2xl font-bold text-brandRed">
+                <div className="mt-3 flex items-center gap-1 text-2xl font-bold text-brandBlue">
                   <TbCurrencyTaka className="text-3xl" />
                   <span>{role === "superAdmin" ? balance : branchBalance}</span>
                 </div>

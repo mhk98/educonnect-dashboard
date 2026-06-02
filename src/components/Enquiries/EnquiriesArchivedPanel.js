@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import {
   useGetAllEnquiriesQuery,
   useGetDataByIdQuery,
@@ -325,7 +325,7 @@ const EnquiriesRequestedPanel = () => {
                 />
                 <button
                   onClick={() => handleReplySubmit(comment.id)}
-                  className="text-sm bg-brandRed text-white px-3 py-1 rounded hover:bg-brandRed-700"
+                  className="text-sm bg-brandBlue text-white px-3 py-1 rounded hover:bg-brandBlue-700"
                 >
                   Reply
                 </button>
@@ -346,7 +346,7 @@ const EnquiriesRequestedPanel = () => {
                 />
                 <button
                   onClick={() => handleReplySubmit(comment.id)}
-                  className="self-start text-sm bg-brandRed text-white px-3 py-1 rounded hover:bg-brandRed-700"
+                  className="self-start text-sm bg-brandBlue text-white px-3 py-1 rounded hover:bg-brandBlue-700"
                 >
                   Reply
                 </button>
@@ -422,8 +422,8 @@ const EnquiriesRequestedPanel = () => {
               onClick={() => setSelected(item)}
               className={`mb-3 cursor-pointer rounded-2xl border p-4 shadow-sm transition ${
                 selected?.name === item.name
-                  ? "border-brandRed bg-red-50/30"
-                  : "border-gray-200 bg-white hover:border-brandRed/30"
+                  ? "border-brandBlue bg-red-50/30"
+                  : "border-gray-200 bg-white hover:border-brandBlue/30"
               }`}
             >
               <div className="flex justify-between items-center flex-wrap gap-2">
@@ -435,7 +435,7 @@ const EnquiriesRequestedPanel = () => {
                     setIsModalOpen(true);
                     setEnquiryId(item.id);
                   }}
-                  className="cursor-pointer rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-brandRed"
+                  className="cursor-pointer rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-brandBlue"
                 >
                   Edit
                 </p>
@@ -472,7 +472,7 @@ const EnquiriesRequestedPanel = () => {
                           </label>
                           <select
                             {...register("assignedTo")}
-                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                           >
                             <option value="">Select Assignee</option>
                             {superAdminEmployees.map((employee) => (
@@ -496,7 +496,7 @@ const EnquiriesRequestedPanel = () => {
                           </label>
                           <select
                             {...register("Status")}
-                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                           >
                             <option value="">Select Status</option>
                             <option value="active">Active</option>
@@ -513,7 +513,7 @@ const EnquiriesRequestedPanel = () => {
                       <div className="mt-6 flex justify-end gap-2">
                         <Button
                           type="submit"
-                          className="btn w-full rounded-2xl bg-brandRed px-8 py-3 font-semibold sm:w-auto"
+                          className="btn w-full rounded-2xl bg-brandBlue px-8 py-3 font-semibold sm:w-auto"
                         >
                           Save
                         </Button>
@@ -543,7 +543,7 @@ const EnquiriesRequestedPanel = () => {
             <button
               onClick={handlePreviousSet}
               disabled={startPage === 1}
-              className="rounded-2xl bg-brandRed px-4 py-2 text-white disabled:bg-brandDisable"
+              className="rounded-2xl bg-brandBlue px-4 py-2 text-white disabled:bg-brandDisable"
             >
               Prev
             </button>
@@ -554,7 +554,7 @@ const EnquiriesRequestedPanel = () => {
                   key={p}
                   onClick={() => handlePageChange(p)}
                   className={`rounded-2xl px-4 py-2 text-white ${
-                    p === currentPage ? "bg-brandRed" : "bg-brandDisable"
+                    p === currentPage ? "bg-brandBlue" : "bg-brandDisable"
                   }`}
                 >
                   {p}
@@ -564,7 +564,7 @@ const EnquiriesRequestedPanel = () => {
             <button
               onClick={handleNextSet}
               disabled={endPage === totalPages}
-              className="rounded-2xl bg-brandRed px-4 py-2 text-white disabled:bg-brandDisable"
+              className="rounded-2xl bg-brandBlue px-4 py-2 text-white disabled:bg-brandDisable"
             >
               Next
             </button>
@@ -578,8 +578,8 @@ const EnquiriesRequestedPanel = () => {
               onClick={() => setSelected(item)}
               className={`mb-3 cursor-pointer rounded-2xl border p-4 shadow-sm transition ${
                 selected?.name === item.name
-                  ? "border-brandRed bg-red-50/30"
-                  : "border-gray-200 bg-white hover:border-brandRed/30"
+                  ? "border-brandBlue bg-red-50/30"
+                  : "border-gray-200 bg-white hover:border-brandBlue/30"
               }`}
             >
               <div className="flex justify-between items-center flex-wrap gap-2">
@@ -591,7 +591,7 @@ const EnquiriesRequestedPanel = () => {
                     setIsModalOpen(true);
                     setEnquiryId(item.id);
                   }}
-                  className="cursor-pointer rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-brandRed"
+                  className="cursor-pointer rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-brandBlue"
                 >
                   Edit
                 </p>
@@ -611,7 +611,7 @@ const EnquiriesRequestedPanel = () => {
                           </label>
                           <select
                             {...register("assignedTo")}
-                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                           >
                             <option value="">Select Assignee</option>
                             {employees.map((employee) => (
@@ -636,7 +636,7 @@ const EnquiriesRequestedPanel = () => {
                           </label>
                           <select
                             {...register("Status")}
-                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                           >
                             <option value="">Select Status</option>
                             <option value="active">Active</option>
@@ -653,7 +653,7 @@ const EnquiriesRequestedPanel = () => {
                       <div className="mt-6 flex justify-end gap-2">
                         <Button
                           type="submit"
-                          className="btn w-full rounded-2xl bg-brandRed px-8 py-3 font-semibold sm:w-auto"
+                          className="btn w-full rounded-2xl bg-brandBlue px-8 py-3 font-semibold sm:w-auto"
                         >
                           Save
                         </Button>
@@ -682,7 +682,7 @@ const EnquiriesRequestedPanel = () => {
             <button
               onClick={handlePreviousSet1}
               disabled={startPage1 === 1}
-              className="rounded-2xl bg-brandRed px-4 py-2 text-white disabled:bg-brandDisable"
+              className="rounded-2xl bg-brandBlue px-4 py-2 text-white disabled:bg-brandDisable"
             >
               Prev
             </button>
@@ -693,7 +693,7 @@ const EnquiriesRequestedPanel = () => {
                   key={p}
                   onClick={() => handlePageChange1(p)}
                   className={`rounded-2xl px-4 py-2 text-white ${
-                    p === currentPage1 ? "bg-brandRed" : "bg-brandDisable"
+                    p === currentPage1 ? "bg-brandBlue" : "bg-brandDisable"
                   }`}
                 >
                   {p}
@@ -703,7 +703,7 @@ const EnquiriesRequestedPanel = () => {
             <button
               onClick={handleNextSet1}
               disabled={endPage1 === totalPages1}
-              className="rounded-2xl bg-brandRed px-4 py-2 text-white disabled:bg-brandDisable"
+              className="rounded-2xl bg-brandBlue px-4 py-2 text-white disabled:bg-brandDisable"
             >
               Next
             </button>
@@ -717,8 +717,8 @@ const EnquiriesRequestedPanel = () => {
               onClick={() => setSelected(item)}
               className={`mb-3 cursor-pointer rounded-2xl border p-4 shadow-sm transition ${
                 selected?.name === item.name
-                  ? "border-brandRed bg-red-50/30"
-                  : "border-gray-200 bg-white hover:border-brandRed/30"
+                  ? "border-brandBlue bg-red-50/30"
+                  : "border-gray-200 bg-white hover:border-brandBlue/30"
               }`}
             >
               <div className="flex justify-between items-center flex-wrap gap-2">
@@ -747,7 +747,7 @@ const EnquiriesRequestedPanel = () => {
                           </label>
                           <select
                             {...register("assignedTo")}
-                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                           >
                             <option value="">Select Assignee</option>
                             <option value="A">A</option>
@@ -766,7 +766,7 @@ const EnquiriesRequestedPanel = () => {
                           </label>
                           <select
                             {...register("Status")}
-                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandRed"
+                            className="input input-bordered w-full rounded-2xl border-gray-200 bg-gray-50 p-3 shadow-sm focus:border-brandBlue"
                           >
                             <option value="">Select Status</option>
                             <option value="active">Active</option>
@@ -783,7 +783,7 @@ const EnquiriesRequestedPanel = () => {
                       <div className="mt-6 flex justify-end gap-2">
                         <Button
                           type="submit"
-                          className="btn w-full rounded-2xl bg-brandRed px-8 py-3 font-semibold sm:w-auto"
+                          className="btn w-full rounded-2xl bg-brandBlue px-8 py-3 font-semibold sm:w-auto"
                         >
                           Save
                         </Button>
@@ -830,7 +830,7 @@ const EnquiriesRequestedPanel = () => {
           <div className="flex flex-col gap-x-8 text-sm">
             <p>
               <span className="font-semibold">Assigned To:</span>{" "}
-              <span className="text-brandRed font-medium">
+              <span className="text-brandBlue font-medium">
                 {selected.assignedTo}
               </span>{" "}
               {/* — {selected.contact} */}
@@ -869,7 +869,7 @@ const EnquiriesRequestedPanel = () => {
                 {selected.files.map((file, index) => (
                   <button
                     key={index}
-                    className="rounded-xl border border-brandRed/30 bg-red-50 px-3 py-2 text-sm font-medium text-brandRed"
+                    className="rounded-xl border border-brandBlue/30 bg-red-50 px-3 py-2 text-sm font-medium text-brandBlue"
                   >
                     <a
                       href={`${fileBaseURL}${file.path.replace(/\\/g, "/")}`}
@@ -897,7 +897,7 @@ const EnquiriesRequestedPanel = () => {
                   className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm"
                 />
                 <button
-                  className="bg-brandRed text-white p-2 rounded hover:bg-brandRed-700"
+                  className="bg-brandBlue text-white p-2 rounded hover:bg-brandBlue-700"
                   onClick={handleCommentSubmit}
                 >
                   <FiSend size={20} />
@@ -911,11 +911,11 @@ const EnquiriesRequestedPanel = () => {
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Write comments..."
-                className="flex-1 resize-none rounded-2xl border border-gray-200 px-3 py-2 text-sm focus:border-brandRed focus:outline-none"
+                className="flex-1 resize-none rounded-2xl border border-gray-200 px-3 py-2 text-sm focus:border-brandBlue focus:outline-none"
               />
               <div className="flex items-center justify-end">
                 <button
-                  className="rounded-xl bg-brandRed p-3 text-white hover:bg-brandRed"
+                  className="rounded-xl bg-brandBlue p-3 text-white hover:bg-brandBlue"
                   onClick={handleCommentSubmit}
                 >
                   <FiSend size={20} />
