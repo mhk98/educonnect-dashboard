@@ -96,7 +96,7 @@ const LeadDocument = ({ id }) => {
   return (
     <div className="border rounded-2xl p-4 mb-6 shadow-sm bg-white">
       <div className="mt-2">
-        <h3 className="text-lg font-semibold mb-4">EduAnchor Documents</h3>
+        <h3 className="text-lg font-semibold mb-4">EduConnect Documents</h3>
 
         <form
           onSubmit={handleEADocSubmit}
@@ -140,7 +140,7 @@ const LeadDocument = ({ id }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-brandBlue text-white px-4 py-2 rounded hover:bg-red-600"
+            className="bg-brandBlue text-white px-4 py-2 rounded hover:bg-blue-800"
           >
             {isLoading ? "Uploading..." : "Upload"}
           </button>
@@ -175,7 +175,7 @@ const LeadDocument = ({ id }) => {
         ) : (
           !queryLoading && (
             <p className="text-sm text-gray-500">
-              No EduAnchor documents uploaded yet.
+              No EduConnect documents uploaded yet.
             </p>
           )
         )}

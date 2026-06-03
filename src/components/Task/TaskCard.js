@@ -2,25 +2,7 @@ import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
-
-function StatusPill({ status }) {
-  const statusStyles = {
-    OPEN: "bg-blue-500 text-white",
-    IN_PROGRESS: "bg-orange-500 text-white",
-    COMPLETED: "bg-green-500 text-white",
-    BLOCKED: "bg-red-500 text-white",
-  };
-
-  return (
-    <span
-      className={`text-sm font-semibold px-3 py-1 rounded-md ${
-        statusStyles[status] || "bg-gray-400 text-white"
-      }`}
-    >
-      {status}
-    </span>
-  );
-}
+import StatusBadge from "../StatusBadge";
 
 function PriorityPill({ priority }) {
   const priorityStyles = {
@@ -155,7 +137,7 @@ export default function TaskCard({ task, onClick }) {
           <PriorityPill priority={task.priority} />
         </div>
         <div className="">
-          <StatusPill status={task.status} />
+          <StatusBadge status={task.status} className="px-3 text-sm" />
         </div>
       </div>
 

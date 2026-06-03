@@ -31,6 +31,7 @@ import { NotificationApi } from "../features/notification/notification";
 import { noticeApi } from "../features/notice/notice";
 import { branchApi } from "../features/branch/branch";
 import { countryApi } from "../features/country/country";
+import { quickLinkApi } from "../features/quickLink/quickLink";
 
 const store = configureStore({
   reducer: {
@@ -64,6 +65,7 @@ const store = configureStore({
     [eaDocumentApi.reducerPath]: eaDocumentApi.reducer,
     [ConsultationApi.reducerPath]: ConsultationApi.reducer,
     [leadDocumentApi.reducerPath]: leadDocumentApi.reducer,
+    [quickLinkApi.reducerPath]: quickLinkApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -99,6 +101,7 @@ const store = configureStore({
       eaDocumentApi.middleware,
       ConsultationApi.middleware,
       leadDocumentApi.middleware,
+      quickLinkApi.middleware,
     ),
 });
 

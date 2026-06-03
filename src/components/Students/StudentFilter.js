@@ -17,7 +17,7 @@ const StudentFilter = () => {
 
   const countries = [ 'USA', 'Canada', 'Australia', ];
 
-  const status = [ 'Received Application at EduAnchor', 'Application in Progress', 'Application Hold On - EduAnchor', ];
+  const status = [ 'Received Application at EduConnect', 'Application in Progress', 'Application Hold On - EduConnect', ];
 
   const {
       register,

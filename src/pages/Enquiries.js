@@ -1,4 +1,5 @@
 ﻿import React, { useState } from "react";
+import { Inbox, Archive, MessageSquareText, Plus } from "lucide-react";
 import EnquiriesRequestedPanel from "../components/Enquiries/EnquiriesRequestedPanel";
 import {
   Modal,
@@ -156,22 +157,31 @@ function Enquiries() {
   };
 
   return (
-    <div className="w-full px-3 py-4 sm:px-4 sm:py-6">
-      <div className="mx-auto max-w-7xl rounded-[28px] border border-red-100 bg-gradient-to-br from-white via-red-50/40 to-white p-4 shadow-[0_20px_45px_rgba(15,23,42,0.08)] sm:p-6">
+    <div className="w-full px-4 sm:px-8 py-6 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        {/* Page Header */}
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-11 h-11 rounded-2xl bg-brandBlue flex items-center justify-center flex-shrink-0">
+              <MessageSquareText className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-brandBlue">
+                Manage Enquiries
+              </p>
+              <h4 className="text-2xl font-bold text-gray-900 leading-tight">
+                Enquiries
+              </h4>
+            </div>
+          </div>
+          <p className="hidden md:block text-sm text-gray-400">
+            Manage your student’s enquiries
+          </p>
+        </div>
+
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandBlue">
-              Manage Enquiries
-            </p>
-            <h4 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Enquiries
-            </h4>
-            <p
-              onClick={() => setIsModalOpen(true)}
-              className="mt-2 cursor-pointer text-sm text-gray-500 sm:text-base"
-            >
-              Manage your student’s enquiries.
-            </p>
+            <p onClick={() => setIsModalOpen(true)} className="hidden" />
 
             <dialog
               id="enquiries_add_modal"
@@ -200,7 +210,7 @@ function Enquiries() {
                           onChange={() => setEnquiryType("not-in")}
                           className="accent-blue-600"
                         />
-                        Student not in EduAnchor.ai
+                        Student not in EduConnect.ai
                       </label>
                       <label className="flex items-center gap-2">
                         <input
@@ -211,7 +221,7 @@ function Enquiries() {
                           onChange={() => setEnquiryType("in")}
                           className="accent-blue-600"
                         />
-                        Student in EduAnchor.ai
+                        Student in EduConnect.ai
                       </label>
                     </div>
                   </div>
@@ -740,41 +750,54 @@ function Enquiries() {
                 document.getElementById("enquiries_add_modal").showModal();
                 setIsModalOpen(true);
               }}
-              className="rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-5 py-3 text-sm font-semibold text-black shadow-lg shadow-red-100 transition hover:shadow-xl sm:text-base"
+              className="flex items-center gap-2 rounded-xl bg-brandBlue px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800 active:scale-95 transition-all"
             >
-              + Request Program Options from EduAnchor Team
+              <Plus className="w-4 h-4" />
+              Request Program Options
             </button>
           </div>
         </div>
-      </div>
 
-      <div className="mx-auto mt-6 w-full max-w-7xl rounded-[24px] bg-white/70 p-2 shadow-sm ring-1 ring-gray-100 backdrop-blur">
-        <div className="grid grid-cols-2 gap-2 text-sm font-semibold">
-          <span
-            onClick={() => setActiveTab("requested")}
-            className={`cursor-pointer rounded-2xl px-4 py-3 text-center transition-all duration-300 ${
-              isRequested
-                ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
-                : "bg-white text-gray-700 hover:bg-red-50"
-            }`}
-          >
-            Requested
-          </span>
-          <span
-            onClick={() => setActiveTab("paid")}
-            className={`cursor-pointer rounded-2xl px-4 py-3 text-center transition-all duration-300 ${
-              !isRequested
-                ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
-                : "bg-white text-gray-700 hover:bg-red-50"
-            }`}
-          >
-            Archived
-          </span>
+        <div className="mt-6 w-full bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          {/* Tab Navigation */}
+          <div className="flex border-b border-gray-100">
+            {[
+              { id: "requested", label: "Requested", icon: Inbox },
+              { id: "paid", label: "Archived", icon: Archive },
+            ].map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setActiveTab(id)}
+                className={`flex-1 flex items-center justify-center py-5 text-sm font-semibold border-b-2 transition-all -mb-px outline-none focus:outline-none ${
+                  activeTab === id
+                    ? "border-brandBlue text-brandBlue"
+                    : "border-transparent text-gray-400 hover:text-gray-600 hover:border-gray-200"
+                }`}
+              >
+                <span
+                  className={`w-8 h-8 mr-2.5 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                    activeTab === id
+                      ? "bg-brandBlue/10 text-brandBlue"
+                      : "text-gray-400"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                </span>
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Content */}
+          <div className="p-4 sm:p-5">
+            {isRequested ? (
+              <EnquiriesRequestedPanel />
+            ) : (
+              <EnquiriesArchivedPanel />
+            )}
+          </div>
         </div>
-      </div>
-
-      <div className="mx-auto mt-4 max-w-7xl rounded-[28px] border border-gray-100 bg-white/90 p-2 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-4">
-        {isRequested ? <EnquiriesRequestedPanel /> : <EnquiriesArchivedPanel />}
       </div>
     </div>
   );

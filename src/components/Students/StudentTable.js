@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Modal, ModalHeader, ModalBody, Button } from "@windmill/react-ui";
 import { useGetAllBranchQuery } from "../../features/branch/branch";
+import StatusBadge from "../StatusBadge";
 
 export default function StudentTable() {
   const [filterBranch, setFilterBranch] = useState("");
@@ -277,7 +278,7 @@ export default function StudentTable() {
                   <td className="p-3 whitespace-nowrap">{student.Branch}</td>
                   <td className="p-3 whitespace-nowrap">{student.Assigned}</td>
                   <td className="p-3 whitespace-nowrap">
-                    {student.Status || "N/A"}
+                    <StatusBadge status={student.Status} />
                   </td>
                   <td className="p-3 whitespace-nowrap flex gap-3 text-brandBlue">
                     <LiaEditSolid
@@ -329,9 +330,10 @@ export default function StudentTable() {
                     ID: {student.id} | {student.Branch || "N/A"}
                   </p>
                 </div>
-                <span className="flex-shrink-0 rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
-                  {student.Status || "N/A"}
-                </span>
+                <StatusBadge
+                  status={student.Status}
+                  className="flex-shrink-0"
+                />
               </div>
 
               <div className="mt-4 grid grid-cols-2 gap-3 text-sm">

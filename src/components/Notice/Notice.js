@@ -6,6 +6,7 @@ import {
   useUpdateNoticeMutation,
 } from "../../features/notice/notice";
 import { FaTrash, FaPlus, FaEdit } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const Notice = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,7 +56,7 @@ const Notice = () => {
     e.preventDefault();
 
     if (!formData.title.trim() || !formData.description.trim()) {
-      alert("Please fill in all fields");
+      toast.error("Please fill in all fields");
       return;
     }
 
@@ -69,7 +70,7 @@ const Notice = () => {
             description: formData.description,
           },
         }).unwrap();
-        alert("Notice updated successfully!");
+        toast.success("Notice updated successfully");
         setEditingId(null);
       } else {
         // Create notice
@@ -77,6 +78,7 @@ const Notice = () => {
           title: formData.title,
           description: formData.description,
         }).unwrap();
+        toast.success("Notice created successfully");
       }
 
       setFormData({ title: "", description: "" });
@@ -84,7 +86,7 @@ const Notice = () => {
       refetch();
     } catch (err) {
       console.error("Error:", err);
-      alert(`Failed to ${editingId ? "update" : "create"} notice`);
+      toast.error(`Failed to ${editingId ? "update" : "create"} notice`);
     }
   };
 
@@ -93,10 +95,11 @@ const Notice = () => {
     if (window.confirm("Are you sure you want to delete this notice?")) {
       try {
         await deleteNotice(id).unwrap();
+        toast.success("Notice deleted successfully");
         refetch();
       } catch (err) {
         console.error("Error deleting notice:", err);
-        alert("Failed to delete notice");
+        toast.error("Failed to delete notice");
       }
     }
   };
@@ -136,22 +139,25 @@ const Notice = () => {
   return (
     <div className="w-full space-y-5 p-3 sm:p-4 md:p-6">
       {/* Header with Add Button */}
-      <div className="rounded-[28px] border border-red-100 bg-gradient-to-br from-white via-red-50/40 to-white p-4 shadow-[0_20px_45px_rgba(15,23,42,0.08)] sm:p-6">
+      <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-card sm:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandBlue">
+          <div className="min-w-0 border-l-4 border-brandBlue pl-4">
+            <p className="inline-flex rounded-full bg-brandBlueSoft px-3 py-1 text-xs font-bold uppercase text-brandBlue">
               Notice Board
             </p>
-            <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h1 className="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               Notices
             </h1>
             <p className="mt-2 text-sm text-gray-500 sm:text-base">
               Create, update and manage latest office notices.
             </p>
+            <p className="mt-3 inline-flex rounded-lg bg-gray-50 px-3 py-1 text-xs font-semibold text-gray-600 ring-1 ring-gray-100">
+              {notices.length} total notices
+            </p>
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-5 py-3 text-sm font-semibold text-brandBlue shadow-lg shadow-red-100 transition hover:shadow-xl sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brandBlue px-5 py-3 text-sm font-semibold text-white transition hover:bg-brandHover active:scale-95 sm:w-auto"
           >
             <FaPlus /> Add Notice
           </button>
@@ -160,7 +166,7 @@ const Notice = () => {
 
       {/* Create/Edit Notice Form */}
       {showForm && (
-        <div className="rounded-[24px] border border-gray-100 bg-white p-4 shadow-[0_14px_35px_rgba(15,23,42,0.06)] sm:p-6">
+        <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-card sm:p-6">
           <h2 className="mb-4 text-xl font-bold text-gray-900">
             {editingId ? "Edit Notice" : "Create New Notice"}
           </h2>
@@ -175,7 +181,7 @@ const Notice = () => {
                 value={formData.title}
                 onChange={handleInputChange}
                 placeholder="Enter notice title"
-                className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-brandBlue focus:ring-2 focus:ring-red-100"
+                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-brandBlue focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
@@ -189,7 +195,7 @@ const Notice = () => {
                 onChange={handleInputChange}
                 placeholder="Enter notice description"
                 rows="5"
-                className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-brandBlue focus:ring-2 focus:ring-red-100"
+                className="w-full resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-brandBlue focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
@@ -197,14 +203,14 @@ const Notice = () => {
               <button
                 type="button"
                 onClick={handleCancelEdit}
-                className="rounded-2xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+                className="rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isCreating || isUpdating}
-                className="rounded-2xl bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-700 disabled:bg-gray-400"
+                className="rounded-xl bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:bg-brandHover active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isCreating || isUpdating
                   ? "Saving..."

@@ -149,7 +149,7 @@ const LastName = localStorage.getItem("LastName")
                                   )}
                               </div>
                               <div className="mb-4">
-                                <label className="block text-sm mb-1 text-gray-700">EduAnchor Assignee</label>
+                                <label className="block text-sm mb-1 text-gray-700">EduConnect Assignee</label>
                                 <select
                                     {...register("assignee")}
                                     className="input input-bordered w-full shadow-md p-3"

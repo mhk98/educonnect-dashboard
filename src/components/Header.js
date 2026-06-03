@@ -27,11 +27,15 @@ const PAGE_TITLES = {
 
 const getRoleBadge = (role) => {
   const r = (role || "").toLowerCase().replace(/\s/g, "");
-  if (r.includes("super")) return "bg-green-500";
-  if (r.includes("admin")) return "bg-blue-700";
-  if (r.includes("manager")) return "bg-orange-500";
-  if (r.includes("student")) return "bg-purple-500";
-  return "bg-gray-500";
+  if (r.includes("super"))
+    return "bg-brandBlueSoft text-brandBlue ring-1 ring-blue-100";
+  if (r.includes("admin"))
+    return "bg-slate-100 text-slate-700 ring-1 ring-slate-200";
+  if (r.includes("manager") || r.includes("employee"))
+    return "bg-amber-50 text-amber-700 ring-1 ring-amber-100";
+  if (r.includes("student"))
+    return "bg-indigo-50 text-indigo-700 ring-1 ring-indigo-100";
+  return "bg-gray-100 text-gray-600 ring-1 ring-gray-200";
 };
 
 export default function Header() {
@@ -52,7 +56,7 @@ export default function Header() {
   const [user, setUser] = useState(null);
   const [notifications, setNotifications] = useState(0);
   const [isLoading1, setIsLoading1] = useState(true);
-  const [isError1, setIsError1] = useState(false);
+  const [, setIsError1] = useState(false);
 
   const getInitials = (firstName = "", lastName = "") => {
     const f = firstName?.charAt(0)?.toUpperCase() || "";
@@ -62,7 +66,7 @@ export default function Header() {
 
   const { data, isLoading, isError, error } = useGetDataByIdQuery(
     { page: 1, limit: 10, userId, branch },
-    { pollingInterval: 1000 }
+    { pollingInterval: 1000 },
   );
 
   useEffect(() => {
@@ -72,23 +76,36 @@ export default function Header() {
   }, [data, isLoading, isError, error]);
 
   useEffect(() => {
-    if (!userId) { setIsLoading1(false); return; }
+    if (!userId) {
+      setIsLoading1(false);
+      return;
+    }
     const fetchUser = async () => {
       try {
-        const res = await fetch(`https://backend.eaconsultancy.org/api/v1/user/${userId}`);
+        const res = await fetch(
+          `https://backend.eaconsultancy.org/api/v1/user/${userId}`,
+        );
         if (!res.ok) throw new Error();
         const d = await res.json();
         setUser(d.data);
-      } catch { setIsError1(true); }
-      finally { setIsLoading1(false); }
+      } catch {
+        setIsError1(true);
+      } finally {
+        setIsLoading1(false);
+      }
     };
     fetchUser();
   }, [userId]);
 
   useEffect(() => {
     const handleOutside = (e) => {
-      if (profileRef.current && !profileRef.current.contains(e.target)) setIsProfileOpen(false);
-      if (notificationRef.current && !notificationRef.current.contains(e.target)) setIsNotifOpen(false);
+      if (profileRef.current && !profileRef.current.contains(e.target))
+        setIsProfileOpen(false);
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(e.target)
+      )
+        setIsNotifOpen(false);
     };
     document.addEventListener("mousedown", handleOutside);
     return () => document.removeEventListener("mousedown", handleOutside);
@@ -99,12 +116,16 @@ export default function Header() {
     history.push("/login");
   };
 
-  const displayName = `${user?.FirstName || ""} ${user?.LastName || ""}`.trim() || "User";
-  const hasProfileImage = user?.image && user?.image !== "null" && user?.image !== "undefined";
-  const pathSegment = location.pathname.split("/").filter(Boolean)[1] || "dashboard";
+  const displayName =
+    `${user?.FirstName || ""} ${user?.LastName || ""}`.trim() || "User";
+  const hasProfileImage =
+    user?.image && user?.image !== "null" && user?.image !== "undefined";
+  const pathSegment =
+    location.pathname.split("/").filter(Boolean)[1] || "dashboard";
   const pageTitle =
     PAGE_TITLES[pathSegment.toLowerCase()] ||
-    pathSegment.charAt(0).toUpperCase() + pathSegment.slice(1).replace(/-/g, " ");
+    pathSegment.charAt(0).toUpperCase() +
+      pathSegment.slice(1).replace(/-/g, " ");
   const roleBadgeBg = getRoleBadge(role);
 
   /* sidebar width mirrors SidebarContent animation */
@@ -125,9 +146,10 @@ export default function Header() {
             src={isSidebarCollapsed ? logo2 : logo}
             alt="Logo"
             className="transition-all duration-300 object-contain"
-            style={isSidebarCollapsed
-              ? { height: "38px", width: "auto" }
-              : { height: "80px", maxWidth: "160px", width: "auto" }
+            style={
+              isSidebarCollapsed
+                ? { height: "38px", width: "auto" }
+                : { height: "80px", maxWidth: "160px", width: "auto" }
             }
           />
         </Link>
@@ -137,13 +159,16 @@ export default function Header() {
           className="h-8 w-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition flex-shrink-0"
           title={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          {isSidebarCollapsed ? <PanelLeftOpen size={17} /> : <PanelLeftClose size={17} />}
+          {isSidebarCollapsed ? (
+            <PanelLeftOpen size={17} />
+          ) : (
+            <PanelLeftClose size={17} />
+          )}
         </button>
       </div>
 
       {/* ── Right section: page title + actions ── */}
       <div className="flex flex-1 items-center justify-between px-4 sm:px-5 h-full">
-
         {/* Left: mobile hamburger + page title */}
         <div className="flex items-center gap-3">
           <button
@@ -153,29 +178,45 @@ export default function Header() {
           >
             <MenuIcon className="w-4 h-4" />
           </button>
-          <h1 className="text-sm font-bold text-gray-800 tracking-tight">{pageTitle}</h1>
+          <h1 className="text-sm font-bold text-gray-800 tracking-tight">
+            {pageTitle}
+          </h1>
         </div>
 
         {/* Right: notification + profile */}
-        <div className="flex items-center gap-2">
-
+        <div className="flex items-center gap-3">
           {/* Notification bell */}
           <div className="relative" ref={notificationRef}>
             <button
               type="button"
-              onClick={() => { setIsNotifOpen((p) => !p); setIsProfileOpen(false); }}
+              onClick={() => {
+                setIsNotifOpen((p) => !p);
+                setIsProfileOpen(false);
+              }}
               className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200 transition"
             >
-              <FiBell className="h-[24px] w-[24px]" />
+              <FiBell size={20} />
               {notifications > 0 && (
                 <span
                   style={{
-                    position: "absolute", top: "-10px", right: "-10px",
-                    display: "inline-flex", alignItems: "center", justifyContent: "center",
-                    background: "#ef4444", color: "#fff", fontSize: "9px", fontWeight: "700",
-                    lineHeight: "1", borderRadius: "999px", border: "2px solid #fff",
-                    minWidth: "16px", height: "16px", padding: "0 2px", whiteSpace: "nowrap",
-                    padding: "1px 2px", boxSizing: "border-box",
+                    position: "absolute",
+                    top: "-10px",
+                    right: "-10px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "#ef4444",
+                    color: "#fff",
+                    fontSize: "9px",
+                    fontWeight: "700",
+                    lineHeight: "1",
+                    borderRadius: "999px",
+                    border: "2px solid #fff",
+                    minWidth: "16px",
+                    height: "16px",
+                    whiteSpace: "nowrap",
+                    padding: "1px 2px",
+                    boxSizing: "border-box",
                   }}
                 >
                   {notifications > 9 ? "9" : notifications}
@@ -189,13 +230,20 @@ export default function Header() {
           <div className="relative" ref={profileRef}>
             <button
               type="button"
-              onClick={() => { setIsProfileOpen((p) => !p); setIsNotifOpen(false); }}
+              onClick={() => {
+                setIsProfileOpen((p) => !p);
+                setIsNotifOpen(false);
+              }}
               className="flex items-center gap-2 rounded-xl bg-gray-100 pl-1 pr-2.5 py-1 hover:bg-gray-200 transition"
             >
               {hasProfileImage && !imgError ? (
                 <img
                   className="w-8 h-8 rounded-lg object-cover bg-gray-200 flex-shrink-0"
-                  src={user.image.startsWith("http") ? user.image : `https://backend.eaconsultancy.org/${user.image}`}
+                  src={
+                    user.image.startsWith("http")
+                      ? user.image
+                      : `https://backend.eaconsultancy.org/${user.image}`
+                  }
                   alt={displayName}
                   onError={() => setImgError(true)}
                 />
@@ -205,10 +253,15 @@ export default function Header() {
                 </div>
               )}
               <div className="hidden sm:block text-left leading-tight">
-                <p className="text-xs font-semibold text-gray-900 leading-snug truncate" style={{ maxWidth: "120px" }}>
+                <p
+                  className="text-xs font-semibold text-gray-900 leading-snug truncate"
+                  style={{ maxWidth: "120px" }}
+                >
                   {isLoading1 && !user ? "Loading..." : displayName}
                 </p>
-                <span className={`inline-flex items-center mt-0.5 px-1.5 py-0.5 text-xs font-bold p-1 rounded text-white leading-none tracking-wide ${roleBadgeBg}`}>
+                <span
+                  className={`inline-flex items-center mt-0.5 px-1.5 py-0.5 text-xs font-bold rounded leading-none ${roleBadgeBg}`}
+                >
                   {role || "User"}
                 </span>
               </div>
@@ -218,7 +271,10 @@ export default function Header() {
             </button>
 
             {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-gray-100 bg-white z-50" style={{ boxShadow: "0 8px 32px rgba(15,23,42,0.14)" }}>
+              <div
+                className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-gray-100 bg-white z-50"
+                style={{ boxShadow: "0 8px 32px rgba(15,23,42,0.14)" }}
+              >
                 {/* User info section */}
                 <div className="px-4 py-4 border-b border-gray-100">
                   <div className="flex items-center gap-3">
@@ -226,7 +282,11 @@ export default function Header() {
                     {hasProfileImage && !imgError ? (
                       <img
                         className="w-10 h-10 rounded-xl object-cover bg-gray-200 flex-shrink-0"
-                        src={user.image.startsWith("http") ? user.image : `https://backend.eaconsultancy.org/${user.image}`}
+                        src={
+                          user.image.startsWith("http")
+                            ? user.image
+                            : `https://backend.eaconsultancy.org/${user.image}`
+                        }
                         alt={displayName}
                         onError={() => setImgError(true)}
                       />
@@ -237,8 +297,12 @@ export default function Header() {
                     )}
                     {/* Name + role */}
                     <div className="min-w-0">
-                      <p className="text-xs font-bold text-gray-900 truncate">{displayName}</p>
-                      <span className={`inline-flex items-center px-2 py-0.5 mt-0.5 text-xs p-1 font-bold rounded-md text-white leading-none ${roleBadgeBg}`}>
+                      <p className="text-xs font-bold text-gray-900 truncate">
+                        {displayName}
+                      </p>
+                      <span
+                        className={`inline-flex items-center px-2 py-0.5 mt-0.5 text-xs font-bold rounded-md leading-none ${roleBadgeBg}`}
+                      >
                         {role || "User"}
                       </span>
                     </div>
@@ -247,12 +311,19 @@ export default function Header() {
                   {user?.Email && (
                     <div className="mt-2 flex items-center gap-1.5">
                       <div className="w-3.5 h-3.5 flex-shrink-0 text-gray-400">
-                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                          <rect x="2" y="4" width="12" height="9" rx="1.5"/>
-                          <path d="M2 5.5l6 4.5 6-4.5"/>
+                        <svg
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        >
+                          <rect x="2" y="4" width="12" height="9" rx="1.5" />
+                          <path d="M2 5.5l6 4.5 6-4.5" />
                         </svg>
                       </div>
-                      <p className="text-xs text-gray-500 truncate">{user.Email}</p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {user.Email}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -263,20 +334,20 @@ export default function Header() {
                     <Link
                       to="/app/profile"
                       onClick={() => setIsProfileOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-gray-700 hover:bg-gray-50 transition"
                     >
                       <FiUser className="h-4 w-4 text-gray-400" />
-                      <span className="text-sm">My Profile</span>
+                      <span className="text-xs">My Profile</span>
                     </Link>
                   </li>
                   <li className="border-t border-gray-100 pt-1">
                     <button
                       type="button"
                       onClick={handleLogout}
-                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left text-red-500 hover:bg-red-50 transition"
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-left text-red-500 hover:bg-red-50 transition"
                     >
                       <FiLogOut className="h-4 w-4" />
-                      <span className="text-sm">Sign out</span>
+                      <span className="text-xs">Sign out</span>
                     </button>
                   </li>
                 </ul>

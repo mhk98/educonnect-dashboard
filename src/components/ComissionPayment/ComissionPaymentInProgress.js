@@ -9,6 +9,7 @@ import { LiaEditSolid } from "react-icons/lia";
 import { FaTrash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Modal, ModalHeader, ModalBody, Button } from "@windmill/react-ui";
+import StatusBadge from "../StatusBadge";
 
 const ComissionPaymentInProgress = () => {
   const user_id = localStorage.getItem("userId");
@@ -45,24 +46,6 @@ const ComissionPaymentInProgress = () => {
       setPayments(filteredPayments);
     }
   }, [data, isLoading, isError, error]);
-
-  console.log("payments", payments);
-
-  //    const { data:data1, isLoading:isLoading1, isError:isError1, error:error1 } = useGetAllCommissionQuery();
-  //    const [superAdminPayments, setSuperAdminPayments] = useState([]);
-
-  //    useEffect(() => {
-  //      if (isError1) {
-  //        console.log("Error fetching", error1);
-  //      } else if (!isLoading1 && data1) {
-  //        const allPayments = data1.data;
-
-  //  // Filter out students
-  //  const filtered = allPayments.filter(payments => payments.branch === branch);
-
-  //        setSuperAdminPayments(filtered);
-  //      }
-  //    }, [data1, isLoading1, isError1, error1, branch]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -129,8 +112,6 @@ const ComissionPaymentInProgress = () => {
     }
   };
 
-  const statusBadgeClass =
-    "inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700";
   const tableWrapClass =
     "hidden w-full overflow-x-auto rounded-[24px] border border-gray-100 bg-white shadow-[0_14px_35px_rgba(15,23,42,0.06)] lg:block";
   const thClass =
@@ -162,9 +143,7 @@ const ComissionPaymentInProgress = () => {
                     {formatDate(payment.createdAt)}
                   </p>
                 </div>
-                <span className={statusBadgeClass}>
-                  {payment.status || "N/A"}
-                </span>
+                <StatusBadge status={payment.status} />
               </div>
 
               <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
@@ -224,8 +203,6 @@ const ComissionPaymentInProgress = () => {
             <th className={thClass}>Action</th>
           </tr>
         </thead>
-        {/* {
-                            role === "superAdmin" ? ( */}
         <tbody>
           {payments.map((payment, idx) => (
             <tr
@@ -241,7 +218,7 @@ const ComissionPaymentInProgress = () => {
               <td className={tdClass}>{payment.purpose}</td>
               <td className={tdClass}>{payment.Branch}</td>
               <td className={tdClass}>
-                <span className={statusBadgeClass}>{payment.status}</span>
+                <StatusBadge status={payment.status} />
               </td>
               <td className="flex gap-2 whitespace-nowrap px-4 py-4 text-brandBlue">
                 <LiaEditSolid
@@ -341,7 +318,7 @@ const ComissionPaymentInProgress = () => {
               <div className="mt-6 flex justify-end gap-2">
                 <Button
                   type="submit"
-                  className="btn w-full rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
+                  className="btn w-full rounded-2xl bg-brandBlue hover:bg-blue-800 text-white px-8 py-3 font-semibold sm:w-auto"
                 >
                   Save
                 </Button>

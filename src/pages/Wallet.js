@@ -217,7 +217,7 @@
 //                   : "bg-gray-200 text-gray-700 rounded-md py-1"
 //               }`}
 //             >
-//               <h1 className="mt-1 text-xl">EduAnchor</h1>
+//               <h1 className="mt-1 text-xl">EduConnect</h1>
 //             </div>
 
 //             <div
@@ -345,6 +345,7 @@
 
 import React, { useMemo, useState } from "react";
 import { TbCurrencyTaka, TbTrendingDown, TbTrendingUp } from "react-icons/tb";
+import { Wallet as WalletIcon, LayoutList, ArrowDownCircle, ArrowUpCircle, Building2 } from "lucide-react";
 
 import Amount from "../components/Wallet/Amount";
 import CashIn from "../components/Wallet/CashIn";
@@ -363,196 +364,157 @@ function Wallet() {
     useGetAllPendingPaymentWithoutQueryQuery();
 
   const payments = useMemo(() => data?.data ?? [], [data]);
-
   const sumAmount = (arr) =>
     arr.reduce((sum, p) => sum + Number(p?.amount ?? 0), 0);
 
-  const creditPaid = useMemo(() => {
-    return payments.filter(
-      (p) =>
-        ["Cash-In", "Offline", "Online"].includes(p?.paymentStatus) &&
-        p?.status === "PAID",
-    );
-  }, [payments]);
-
-  const debitPaid = useMemo(() => {
-    return payments.filter(
-      (p) => p?.paymentStatus === "Cash-Out" && p?.status === "PAID",
-    );
-  }, [payments]);
+  const creditPaid = useMemo(
+    () => payments.filter((p) => ["Cash-In", "Offline", "Online"].includes(p?.paymentStatus) && p?.status === "PAID"),
+    [payments],
+  );
+  const debitPaid = useMemo(
+    () => payments.filter((p) => p?.paymentStatus === "Cash-Out" && p?.status === "PAID"),
+    [payments],
+  );
 
   const totalAmount = useMemo(() => sumAmount(creditPaid), [creditPaid]);
   const totalDebitAmount = useMemo(() => sumAmount(debitPaid), [debitPaid]);
   const balance = totalAmount - totalDebitAmount;
 
-  const branchCreditPaid = useMemo(() => {
-    if (!branch) return [];
-    return creditPaid.filter((p) => p?.branch === branch);
-  }, [creditPaid, branch]);
-
-  const branchDebitPaid = useMemo(() => {
-    if (!branch) return [];
-    return debitPaid.filter((p) => p?.branch === branch);
-  }, [debitPaid, branch]);
-
-  const totalBranchAmount = useMemo(
-    () => sumAmount(branchCreditPaid),
-    [branchCreditPaid],
+  const branchCreditPaid = useMemo(
+    () => (!branch ? [] : creditPaid.filter((p) => p?.branch === branch)),
+    [creditPaid, branch],
   );
-  const totalBranchDebitAmount = useMemo(
-    () => sumAmount(branchDebitPaid),
-    [branchDebitPaid],
+  const branchDebitPaid = useMemo(
+    () => (!branch ? [] : debitPaid.filter((p) => p?.branch === branch)),
+    [debitPaid, branch],
   );
+
+  const totalBranchAmount = useMemo(() => sumAmount(branchCreditPaid), [branchCreditPaid]);
+  const totalBranchDebitAmount = useMemo(() => sumAmount(branchDebitPaid), [branchDebitPaid]);
   const branchBalance = totalBranchAmount - totalBranchDebitAmount;
+
+  const displayBalance = role === "superAdmin" ? balance : branchBalance;
+  const displayCashIn = role === "superAdmin" ? totalAmount : totalBranchAmount;
+  const displayCashOut = role === "superAdmin" ? totalDebitAmount : totalBranchDebitAmount;
 
   const iseduAnchor = activeTab === "eduAnchor";
   const isamount = activeTab === "amount";
   const iscashIn = activeTab === "cashIn";
   const iscashOut = activeTab === "cashOut";
 
-  const tabClass = (isActive) =>
-    `flex cursor-pointer flex-col items-center rounded-2xl px-3 py-3 text-sm font-semibold transition-all duration-300 sm:text-base ${
-      isActive
-        ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
-        : "border border-gray-200 bg-white text-gray-700 shadow-sm hover:border-brandBlue/30 hover:bg-red-50"
-    }`;
-
   if (isError) console.log("Error fetching", error);
-  // চাইলে UI তে error দেখাতে পারো
+
+  const superAdminTabs = [
+    { id: "eduAnchor", label: "EduConnect", icon: Building2 },
+    { id: "amount",    label: "Amount",     icon: LayoutList },
+    { id: "cashIn",    label: "Cash In",    icon: ArrowDownCircle },
+    { id: "cashOut",   label: "Cash Out",   icon: ArrowUpCircle },
+  ];
+  const regularTabs = [
+    { id: "amount",  label: "Amount",   icon: LayoutList },
+    { id: "cashIn",  label: "Cash In",  icon: ArrowDownCircle },
+    { id: "cashOut", label: "Cash Out", icon: ArrowUpCircle },
+  ];
+  const tabs = role === "superAdmin" ? superAdminTabs : regularTabs;
 
   return (
-    <>
-      <div className="w-full px-3 py-4 sm:px-4 sm:py-6">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[28px] border border-red-100 bg-gradient-to-br from-white via-red-50/40 to-white p-4 shadow-[0_20px_45px_rgba(15,23,42,0.08)] sm:p-6">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandBlue">
-                Finance Wallet
-              </p>
-              <h4 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                My Wallet
-              </h4>
-              <p className="mt-2 max-w-xl text-sm text-gray-500 sm:text-base">
-                Track balance, cash-in requests, and cash-out history.
-              </p>
-            </div>
+    <div className="w-full px-4 sm:px-8 py-6 bg-gray-50 min-h-screen">
 
-            <div className="grid w-full gap-3 sm:grid-cols-3 lg:w-[460px]">
-              <div className="rounded-3xl border border-white/80 bg-white/80 p-4 shadow-sm backdrop-blur">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                  Balance
-                </p>
-                <div className="mt-3 flex items-center gap-1 text-2xl font-bold text-brandBlue">
-                  <TbCurrencyTaka className="text-3xl" />
-                  <span>{role === "superAdmin" ? balance : branchBalance}</span>
-                </div>
-              </div>
-              <div className="rounded-3xl border border-emerald-100 bg-emerald-50/80 p-4 shadow-sm">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-700">
-                  <TbTrendingUp className="text-lg" />
-                  Cash In
-                </div>
-                <p className="mt-3 text-xl font-bold text-emerald-700">
-                  <TbCurrencyTaka className="inline text-2xl" />
-                  {role === "superAdmin" ? totalAmount : totalBranchAmount}
-                </p>
-              </div>
-              <div className="rounded-3xl border border-red-100 bg-red-50/80 p-4 shadow-sm">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-red-600">
-                  <TbTrendingDown className="text-lg" />
-                  Cash Out
-                </div>
-                <p className="mt-3 text-xl font-bold text-red-600">
-                  <TbCurrencyTaka className="inline text-2xl" />
-                  {role === "superAdmin"
-                    ? totalDebitAmount
-                    : totalBranchDebitAmount}
-                </p>
-              </div>
-            </div>
+      {/* Page Header */}
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-11 h-11 rounded-2xl bg-brandBlue flex items-center justify-center flex-shrink-0">
+            <WalletIcon className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-brandBlue">Finance Wallet</p>
+            <h4 className="text-2xl font-bold text-gray-900 leading-tight">My Wallet</h4>
+          </div>
+        </div>
+        <p className="hidden md:block text-sm text-gray-400">
+          Track balance, cash-in requests, and cash-out history
+        </p>
+      </div>
+
+      {/* Stats Row */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        {/* Balance */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Balance</p>
+          <div className={`flex items-center gap-1 text-3xl font-bold ${displayBalance < 0 ? "text-red-500" : "text-brandBlue"}`}>
+            <TbCurrencyTaka />
+            <span>{displayBalance.toLocaleString()}</span>
+          </div>
+        </div>
+
+        {/* Cash In */}
+        <div className="bg-emerald-50 rounded-2xl border border-emerald-100 shadow-sm p-5">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-3">
+            <TbTrendingUp className="text-base" />
+            Cash In
+          </div>
+          <div className="flex items-center gap-1 text-3xl font-bold text-emerald-700">
+            <TbCurrencyTaka />
+            <span>{displayCashIn.toLocaleString()}</span>
+          </div>
+        </div>
+
+        {/* Cash Out */}
+        <div className="bg-red-50 rounded-2xl border border-red-100 shadow-sm p-5">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-red-500 mb-3">
+            <TbTrendingDown className="text-base" />
+            Cash Out
+          </div>
+          <div className="flex items-center gap-1 text-3xl font-bold text-red-600">
+            <TbCurrencyTaka />
+            <span>{displayCashOut.toLocaleString()}</span>
           </div>
         </div>
       </div>
 
-      <div className="px-3 sm:px-4 pb-6 w-full mx-auto max-w-7xl">
-        {role === "superAdmin" ? (
-          <div className="grid grid-cols-2 gap-2 rounded-[24px] bg-white/70 p-2 shadow-sm ring-1 ring-gray-100 backdrop-blur lg:grid-cols-4 sm:gap-3">
-            <div
-              onClick={() => setActiveTab("eduAnchor")}
-              className={tabClass(iseduAnchor)}
-            >
-              <h1>EduAnchor</h1>
-            </div>
+      {/* Main Card with Tabs */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
-            <div
-              onClick={() => setActiveTab("amount")}
-              className={tabClass(isamount)}
+        {/* Tab Navigation */}
+        <div className="flex border-b border-gray-100">
+          {tabs.map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setActiveTab(id)}
+              className={`flex-1 flex items-center justify-center py-5 text-sm font-semibold border-b-2 transition-all -mb-px outline-none focus:outline-none ${
+                activeTab === id
+                  ? "border-brandBlue text-brandBlue"
+                  : "border-transparent text-gray-400 hover:text-gray-600 hover:border-gray-200"
+              }`}
             >
-              <h1>Amount</h1>
-            </div>
+              <span className={`w-8 h-8 mr-2.5 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                activeTab === id ? "bg-brandBlue/10 text-brandBlue" : "text-gray-400"
+              }`}>
+                <Icon className="w-4 h-4" />
+              </span>
+              {label}
+            </button>
+          ))}
+        </div>
 
-            <div
-              onClick={() => setActiveTab("cashIn")}
-              className={tabClass(iscashIn)}
-            >
-              <h1>Cash In</h1>
-            </div>
-
-            <div
-              onClick={() => setActiveTab("cashOut")}
-              className={tabClass(iscashOut)}
-            >
-              <h1>Cash Out</h1>
-            </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-3 gap-2 rounded-[24px] bg-white/70 p-2 shadow-sm ring-1 ring-gray-100 backdrop-blur sm:gap-3">
-            <div
-              onClick={() => setActiveTab("amount")}
-              className={tabClass(isamount)}
-            >
-              <h1>Amount</h1>
-            </div>
-
-            <div
-              onClick={() => setActiveTab("cashIn")}
-              className={tabClass(iscashIn)}
-            >
-              <h1>Cash In</h1>
-            </div>
-
-            <div
-              onClick={() => setActiveTab("cashOut")}
-              className={tabClass(iscashOut)}
-            >
-              <h1>Cash Out</h1>
-            </div>
-          </div>
-        )}
-
-        <div className="mt-4 rounded-[28px] border border-gray-100 bg-white/90 p-3 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-5">
-          {role === "superAdmin" ? (
-            iseduAnchor ? (
-              <SuperAdminStatement id={id} />
-            ) : isamount ? (
-              <Amount id={id} />
-            ) : iscashIn ? (
-              <CashIn id={id} />
-            ) : (
-              <CashOut id={id} />
-            )
-          ) : isamount ? (
-            <Amount id={id} />
-          ) : iscashIn ? (
-            <CashIn id={id} />
+        {/* Tab Content */}
+        <div className="p-5 sm:p-6">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-16 text-gray-400 text-sm">Loading...</div>
+          ) : role === "superAdmin" ? (
+            iseduAnchor ? <SuperAdminStatement id={id} /> :
+            isamount    ? <Amount id={id} /> :
+            iscashIn    ? <CashIn id={id} /> :
+                          <CashOut id={id} />
           ) : (
-            <CashOut id={id} />
+            isamount  ? <Amount id={id} /> :
+            iscashIn  ? <CashIn id={id} /> :
+                        <CashOut id={id} />
           )}
         </div>
-
-        {isLoading && <p className="mt-3 text-sm text-gray-500">Loading...</p>}
       </div>
-    </>
+    </div>
   );
 }
 

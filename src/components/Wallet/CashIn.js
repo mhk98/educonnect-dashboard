@@ -168,7 +168,7 @@ const CashIn = ({ id }) => {
         <div className="mt-6 flex justify-end">
           <Button
             type="submit"
-            className="btn w-full rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-6 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
+            className="btn w-full rounded-2xl bg-brandBlue hover:bg-blue-800 text-white px-6 py-3 font-semibold sm:w-auto"
           >
             Submit Request
           </Button>

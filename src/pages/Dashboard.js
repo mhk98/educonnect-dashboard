@@ -35,7 +35,7 @@ function Dashboard() {
             {firstName || role} 👋
           </h2>
           <p className="text-sm opacity-70 mt-1">
-            Welcome to EduAnchor Portal — here's your overview for today.
+            Welcome to EduConnect Portal — here's your overview for today.
           </p>
         </div>
         {/* decorative circles */}

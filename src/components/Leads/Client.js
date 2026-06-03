@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from "react";
 import { Modal, ModalHeader, ModalBody } from "@windmill/react-ui";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   useGetDataByIdQuery,
   useUpdateConsultationMutation,
@@ -9,9 +9,32 @@ import { useGetAllBranchQuery } from "../../features/branch/branch";
 import toast from "react-hot-toast";
 import { FaInfoCircle } from "react-icons/fa";
 
+const inputCls =
+  "w-full px-3 py-2 border border-gray-200 rounded-xl bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue focus:bg-white transition-colors";
+
+function FormField({ label, required, error, children }) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      {children}
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+    </div>
+  );
+}
+
+function Field({ label, value }) {
+  return (
+    <div>
+      <p className="text-xs text-gray-400 mb-1">{label}</p>
+      <p className="text-sm font-medium text-gray-800">{value}</p>
+    </div>
+  );
+}
+
 function Client({ id }) {
   //   const id = localStorage.getItem("userId");
-  const role = localStorage.getItem("role");
   const branch = localStorage.getItem("branch");
   const userId = localStorage.getItem("userId");
 
@@ -23,18 +46,13 @@ function Client({ id }) {
     register,
     handleSubmit,
     reset,
-    watch,
     setValue,
     formState: { errors },
   } = useForm();
 
   const { data, isLoading, isError, error } = useGetDataByIdQuery(id);
 
-  const {
-    data: branchData,
-    isLoading: branchLoading,
-    isError: branchError,
-  } = useGetAllBranchQuery();
+  const { data: branchData, isLoading: branchLoading } = useGetAllBranchQuery();
 
   const [consultation, setConsultation] = useState(null);
 
@@ -72,7 +90,7 @@ function Client({ id }) {
       setValue("bachelorDepartment", consultation?.bachelorDepartment || "");
       setValue("bachelorCGPA", consultation?.bachelorCGPA || "");
     }
-  }, [isModalOpen, consultation]);
+  }, [isModalOpen, consultation, setValue]);
 
   console.log("consultations", consultation?.fullName);
 
@@ -113,607 +131,403 @@ function Client({ id }) {
     }
   };
 
+  const val = (v) => v || <span className="text-gray-300">—</span>;
+
+  const statusColors = {
+    "Hot Lead": "bg-red-50 text-red-600 border border-red-200",
+    "Cool Lead": "bg-sky-50 text-sky-600 border border-sky-200",
+    "Case Closed": "bg-gray-100 text-gray-500 border border-gray-200",
+  };
+  const statusClass =
+    statusColors[consultation?.status] ||
+    "bg-gray-100 text-gray-500 border border-gray-200";
+
   return (
     <>
-      <div className="w-full px-4 py-6 bg-gray-50">
-        <div className="card">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2 text-brandBlue font-semibold text-sm">
-              <FaInfoCircle className="w-5 h-5" />
+      <div className="p-6">
+        {/* Card Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-brandBlue/10 flex items-center justify-center">
+              <FaInfoCircle className="w-3.5 h-3.5 text-brandBlue" />
+            </div>
+            <h3 className="font-semibold text-gray-800 text-base">
               Client Information
-            </div>
-            <button
-              onClick={() => {
-                reset({
-                  date: consultation?.date || "",
-                  appointmentDate: consultation?.appointmentDate || "",
-                  status: consultation?.status || "",
-                  type: consultation?.type || "",
-                  fullName: consultation?.fullName || "",
-                  phone: consultation?.phone || "",
-                  email: consultation?.email || "",
-                  destination: consultation?.destination || "",
-                  address: consultation?.address || "",
-                  ielts: consultation?.ielts || "",
-                  ieltsScore: consultation?.ieltsScore || "",
-                  location: consultation?.location || "",
-                  applicationCode: consultation?.applicationCode || "",
-                  sscYear: consultation?.sscYear || "",
-                  sscDepartment: consultation?.sscDepartment || "",
-                  sscCGPA: consultation?.sscCGPA || "",
-                  hscYear: consultation?.hscYear || "",
-                  hscDepartment: consultation?.hscDepartment || "",
-                  hscCGPA: consultation?.hscCGPA || "",
-                  bachelorYear: consultation?.bachelorYear || "",
-                  bachelorDepartment: consultation?.bachelorDepartment || "",
-                  bachelorCGPA: consultation?.bachelorCGPA || "",
-                });
-                setIsModalOpen(true);
-                setConsultationId(consultation.id);
-              }}
-              className="btn btn-outline btn-sm text-brandBlue bg-brandLight p-2 rounded-sm"
-            >
-              Request Edit
-            </button>
+            </h3>
           </div>
+          <button
+            onClick={() => {
+              reset({
+                date: consultation?.date || "",
+                appointmentDate: consultation?.appointmentDate || "",
+                status: consultation?.status || "",
+                type: consultation?.type || "",
+                fullName: consultation?.fullName || "",
+                phone: consultation?.phone || "",
+                email: consultation?.email || "",
+                destination: consultation?.destination || "",
+                address: consultation?.address || "",
+                ielts: consultation?.ielts || "",
+                ieltsScore: consultation?.ieltsScore || "",
+                location: consultation?.location || "",
+                applicationCode: consultation?.applicationCode || "",
+                sscYear: consultation?.sscYear || "",
+                sscDepartment: consultation?.sscDepartment || "",
+                sscCGPA: consultation?.sscCGPA || "",
+                hscYear: consultation?.hscYear || "",
+                hscDepartment: consultation?.hscDepartment || "",
+                hscCGPA: consultation?.hscCGPA || "",
+                bachelorYear: consultation?.bachelorYear || "",
+                bachelorDepartment: consultation?.bachelorDepartment || "",
+                bachelorCGPA: consultation?.bachelorCGPA || "",
+              });
+              setIsModalOpen(true);
+              setConsultationId(consultation.id);
+            }}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brandBlue text-white text-xs font-semibold hover:bg-blue-800 transition-colors"
+          >
+            Request Edit
+          </button>
+        </div>
 
-          <div className="card-body p-8 shadow-md bg-base-100 rounded-md">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-md">
-                <span className="text-gray-600">Full Name</span>
-                <br />
-                <span>{consultation?.fullName}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Email</span>
-                <br />
-                <span>{consultation?.email}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Next Appointment Date</span>
-                <br />
-                <span>{consultation?.appointmentDate}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Status</span>
-                <br />
-                <span>{consultation?.status}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Type</span>
-                <br />
-                <span>{consultation?.type}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Date of birth</span>
-                <br />
-                <span>{consultation?.date}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Date of birth</span>
-                <br />
-                <span>{consultation?.appointmentDate}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Prefd Destination</span>
-                <br />
-                <span>{consultation?.destination}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Address</span>
-                <br />
-                <span>{consultation?.address}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Phone</span>
-                <br />
-                <span>{consultation?.phone}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">IELTS</span>
-                <br />
-                <span>{consultation?.ielts}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">IELTS Score</span>
-                <br />
-                <span>{consultation?.ieltsScore}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">SSC Year</span>
-                <br />
-                <span>{consultation?.sscYear}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">SSC Department</span>
-                <br />
-                <span>{consultation?.sscDepartment}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">SSC CGPA</span>
-                <br />
-                <span>{consultation?.sscCGPA}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">HSC Year</span>
-                <br />
-                <span>{consultation?.hscYear}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">HSC Department</span>
-                <br />
-                <span>{consultation?.hscDepartment}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">HSC CGPA</span>
-                <br />
-                <span>{consultation?.hscCGPA}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Bachelor Year</span>
-                <br />
-                <span>{consultation?.bachelorYear}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Bachelor Department</span>
-                <br />
-                <span>{consultation?.bachelorDepartment}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Bachelor CGPA</span>
-                <br />
-                <span>{consultation?.bachelorCGPA}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Branch</span>
-                <br />
-                <span>{consultation?.bachelorCGPA}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Application Code</span>
-                <br />
-                <span>{consultation?.bachelorCGPA}</span>
-              </div>
-              <div className="text-md">
-                <span className="text-gray-600">Bachelor CGPA</span>
-                <br />
-                <span>{consultation?.bachelorCGPA}</span>
-              </div>
-            </div>
+        {/* Section: Personal Info */}
+        <div className="mb-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
+            Personal Information
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
+            <Field label="Full Name" value={val(consultation?.fullName)} />
+            <Field label="Phone" value={val(consultation?.phone)} />
+            <Field label="Email" value={val(consultation?.email)} />
+            <Field label="Date of Birth" value={val(consultation?.date)} />
+            <Field label="Address" value={val(consultation?.address)} />
+            <Field
+              label="Pref. Destination"
+              value={val(consultation?.destination)}
+            />
           </div>
+        </div>
 
-          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-            <ModalHeader>Lead Management</ModalHeader>
+        <div className="border-t border-gray-100 mb-6" />
 
-            <ModalBody className="w-full max-w-screen-lg max-h-[70vh] overflow-y-auto">
-              <div className="max-h-[80vh] overflow-y-auto px-4 py-2">
-                <form
-                  onSubmit={handleSubmit(onFormEdit)}
-                  className="w-full mx-auto"
+        {/* Section: Lead Details */}
+        <div className="mb-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
+            Lead Details
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
+            <div>
+              <p className="text-xs text-gray-400 mb-1">Status</p>
+              {consultation?.status ? (
+                <span
+                  className={`inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold ${statusClass}`}
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                    {/* FULL NAME */}
-                    <div>
-                      <label
-                        htmlFor="fullName"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Full Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="fullName"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("fullName") || ""}
-                        {...register("fullName", { required: true })}
-                      />
-                      {errors.fullName && (
-                        <p className="text-red-500 text-sm">
-                          Fullname is required
-                        </p>
-                      )}
-                    </div>
+                  {consultation.status}
+                </span>
+              ) : (
+                <span className="text-gray-300">—</span>
+              )}
+            </div>
+            <Field label="Type" value={val(consultation?.type)} />
+            <Field
+              label="Next Appointment"
+              value={val(consultation?.appointmentDate)}
+            />
+            <Field label="IELTS" value={val(consultation?.ielts)} />
+            <Field label="IELTS Score" value={val(consultation?.ieltsScore)} />
+            <Field
+              label="Application Code"
+              value={val(consultation?.applicationCode)}
+            />
+            <Field label="Branch" value={val(consultation?.location)} />
+          </div>
+        </div>
 
-                    {/* PHONE */}
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Phone Number <span className="text-red-500">*</span>
-                      </label>
+        <div className="border-t border-gray-100 mb-6" />
+
+        {/* Section: Academic Background */}
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
+            Academic Background
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-5">
+            <Field label="SSC Year" value={val(consultation?.sscYear)} />
+            <Field
+              label="SSC Department"
+              value={val(consultation?.sscDepartment)}
+            />
+            <Field label="SSC CGPA" value={val(consultation?.sscCGPA)} />
+            <Field label="HSC Year" value={val(consultation?.hscYear)} />
+            <Field
+              label="HSC Department"
+              value={val(consultation?.hscDepartment)}
+            />
+            <Field label="HSC CGPA" value={val(consultation?.hscCGPA)} />
+            <Field
+              label="Bachelor Year"
+              value={val(consultation?.bachelorYear)}
+            />
+            <Field
+              label="Bachelor Dept."
+              value={val(consultation?.bachelorDepartment)}
+            />
+            <Field
+              label="Bachelor CGPA"
+              value={val(consultation?.bachelorCGPA)}
+            />
+          </div>
+        </div>
+      </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ModalHeader>
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-brandBlue/10 flex items-center justify-center">
+              <FaInfoCircle className="w-3 h-3 text-brandBlue" />
+            </div>
+            <span className="text-base font-semibold text-gray-800 p-3 transition-colors">
+              Edit Lead Information
+            </span>
+          </div>
+        </ModalHeader>
+
+        <ModalBody style={{ padding: 0, overflow: "hidden" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              maxHeight: "calc(85vh - 120px)",
+            }}
+          >
+            <div style={{ overflowY: "auto", flex: 1, padding: "16px 12px" }}>
+              <form
+                id="lead-edit-form"
+                onSubmit={handleSubmit(onFormEdit)}
+                className="w-full mx-auto space-y-7"
+              >
+                {/* Personal Information */}
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                    Personal Information
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <FormField
+                      label="Full Name"
+                      required
+                      error={errors.fullName?.message}
+                    >
                       <input
-                        id="phone"
+                        className={inputCls}
+                        {...register("fullName", { required: "Required" })}
+                      />
+                    </FormField>
+                    <FormField
+                      label="Phone Number"
+                      required
+                      error={errors.phone?.message}
+                    >
+                      <input
                         type="tel"
-                        className="w-full border rounded px-3 py-2"
+                        className={inputCls}
                         placeholder="+8801XXXXXXXXX"
-                        value={watch("phone") || ""}
-                        {...register("phone", { required: true })}
+                        {...register("phone", { required: "Required" })}
                       />
-                      {errors.phone && (
-                        <p className="text-red-500 text-sm">
-                          Phone number is required
-                        </p>
-                      )}
-                    </div>
-
-                    {/* EMAIL */}
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Email
-                      </label>
+                    </FormField>
+                    <FormField label="Email">
                       <input
-                        id="email"
                         type="email"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("email") || ""}
+                        className={inputCls}
                         {...register("email")}
                       />
-                    </div>
-
-                    {/* DATE */}
-                    <div>
-                      <label
-                        htmlFor="date"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Date of Birth
-                      </label>
+                    </FormField>
+                    <FormField label="Date of Birth">
                       <input
                         type="date"
-                        id="date"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("date") || ""}
+                        className={inputCls}
                         {...register("date")}
                       />
-                    </div>
-
-                    {/* DESTINATION */}
-                    <div>
-                      <label
-                        htmlFor="destination"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Prefd Destination
-                      </label>
-                      <select
-                        id="destination"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("destination") || ""}
-                        {...register("destination")}
-                      >
-                        <option value="">Select your destination</option>
-                        <option>USA</option>
-                        <option>UK</option>
-                        <option>Canada</option>
-                        <option>Australia</option>
-                        <option>Germany</option>
-                        <option>Belgium</option>
-                        <option>Hungary</option>
-                        <option>Denmark</option>
-                        <option>Austria</option>
-                        <option>Finland</option>
-                        <option>Sweden</option>
-                        <option>Cyprus</option>
-                        <option>Malaysia</option>
-                        <option>China</option>
-                        <option>Dubai</option>
-                        <option>Italy</option>
-                        <option>Croatia</option>
-                        <option>Malta</option>
-                        <option>Others</option>
+                    </FormField>
+                    <FormField label="Preferred Destination">
+                      <select className={inputCls} {...register("destination")}>
+                        <option value="">Select destination</option>
+                        {[
+                          "USA",
+                          "UK",
+                          "Canada",
+                          "Australia",
+                          "Germany",
+                          "Belgium",
+                          "Hungary",
+                          "Denmark",
+                          "Austria",
+                          "Finland",
+                          "Sweden",
+                          "Cyprus",
+                          "Malaysia",
+                          "China",
+                          "Dubai",
+                          "Italy",
+                          "Croatia",
+                          "Malta",
+                          "Others",
+                        ].map((c) => (
+                          <option key={c}>{c}</option>
+                        ))}
                       </select>
-                    </div>
+                    </FormField>
+                    <FormField label="Full Address">
+                      <input className={inputCls} {...register("address")} />
+                    </FormField>
+                  </div>
+                </div>
 
-                    {/* ADDRESS */}
-                    <div>
-                      <label
-                        htmlFor="address"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Full Address
-                      </label>
-                      <input
-                        id="address"
-                        className="w-full border rounded px-3 py-2"
-                        {...register("address")}
-                      />
-                    </div>
+                <div className="border-t border-gray-100" />
 
-                    {/* Status */}
-                    <div>
-                      <label
-                        htmlFor="ielts"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Lead Status
-                      </label>
-                      <select
-                        id="status"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("status") || ""}
-                        {...register("status")}
-                      >
+                {/* Lead Details */}
+                <div className="mt-6">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                    Lead Details
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <FormField label="Lead Status">
+                      <select className={inputCls} {...register("status")}>
                         <option value="">Select Status</option>
-                        <option className="Hot Lead">Hot Lead</option>
-                        <option className="Cool Lead">Cool Lead</option>
+                        <option>Hot Lead</option>
+                        <option>Cool Lead</option>
                       </select>
-                      {errors.status && (
-                        <p className="text-red-500 text-sm">
-                          Status selection is required
-                        </p>
-                      )}
-                    </div>
-
-                    {/* IELTS */}
-                    <div>
-                      <label
-                        htmlFor="ielts"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        IELTS
-                      </label>
-                      <select
-                        id="ielts"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("ielts") || ""}
-                        {...register("ielts")}
-                      >
+                    </FormField>
+                    <FormField label="IELTS">
+                      <select className={inputCls} {...register("ielts")}>
                         <option value="">Select</option>
                         <option>Yes</option>
                         <option>No</option>
                       </select>
-                      {errors.ielts && (
-                        <p className="text-red-500 text-sm">
-                          IELTS selection is required
-                        </p>
-                      )}
-                    </div>
-
-                    {/* IELTS SCORE */}
-                    <div>
-                      <label
-                        htmlFor="ieltsScore"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        IELTS Score
-                      </label>
+                    </FormField>
+                    <FormField label="IELTS Score">
                       <input
                         type="text"
-                        id="ieltsScore"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("ieltsScore") || ""}
+                        className={inputCls}
                         {...register("ieltsScore")}
                       />
-                      {errors.ieltsScore && (
-                        <p className="text-red-500 text-sm">
-                          Score is required
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="appointmentDate"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Next Appointment Date
-                      </label>
+                    </FormField>
+                    <FormField label="Next Appointment Date">
                       <input
                         type="date"
-                        id="appointmentDate"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("appointmentDate") || ""}
+                        className={inputCls}
                         {...register("appointmentDate")}
                       />
-                    </div>
-
-                    {/* LOCATION */}
-                    <div>
-                      <label
-                        htmlFor="location"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Appointment Location
-                        <span className="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="location"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("location") || ""}
-                        {...register("location")}
-                      >
+                    </FormField>
+                    <FormField
+                      label="Appointment Location"
+                      required
+                      error={errors.location?.message}
+                    >
+                      <select className={inputCls} {...register("location")}>
                         <option value="">Select Location</option>
-                        {branchLoading && (
-                          <option disabled>Loading branches...</option>
-                        )}
-                        {branchError && (
-                          <option disabled>Error loading branches</option>
-                        )}
-                        {branchData?.data?.map((branchItem) => (
+                        {branchLoading && <option disabled>Loading...</option>}
+                        {branchData?.data?.map((b) => (
                           <option
-                            key={
-                              branchItem.id || branchItem._id || branchItem.name
-                            }
-                            value={
-                              branchItem.branch ||
-                              branchItem.name ||
-                              branchItem.Branch
-                            }
+                            key={b.id || b._id || b.name}
+                            value={b.branch || b.name || b.Branch}
                           >
-                            {branchItem.branch ||
-                              branchItem.name ||
-                              branchItem.Branch}
+                            {b.branch || b.name || b.Branch}
                           </option>
                         ))}
                       </select>
-                      {errors.location && (
-                        <p className="text-red-500 text-sm">
-                          Location is required
-                        </p>
-                      )}
-                    </div>
-
-                    {/* APPLICATION CODE */}
-                    <div>
-                      <label
-                        htmlFor="applicationCode"
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Application Code
-                      </label>
+                    </FormField>
+                    <FormField label="Application Code">
                       <input
-                        id="applicationCode"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("applicationCode") || ""}
+                        className={inputCls}
                         {...register("applicationCode")}
                       />
-                      {errors.applicationCode && (
-                        <p className="text-red-500 text-sm">Required</p>
-                      )}
-                    </div>
+                    </FormField>
+                  </div>
+                </div>
 
-                    {/* Academic Fields */}
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        SSC Year
-                      </label>
+                <div className="border-t border-gray-100" />
+
+                {/* Academic Background */}
+                <div className="mt-6">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                    Academic Background
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <FormField label="SSC Year">
                       <input
                         type="number"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("sscYear") || ""}
+                        className={inputCls}
                         {...register("sscYear")}
                       />
-                      {errors.sscYear && (
-                        <p className="text-red-500 text-sm">
-                          SSC Year required
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        SSC Department
-                      </label>
+                    </FormField>
+                    <FormField label="SSC Department">
                       <input
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("sscDepartment") || ""}
+                        className={inputCls}
                         {...register("sscDepartment")}
                       />
-                      {errors.sscDepartment && (
-                        <p className="text-red-500 text-sm">Required</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        SSC GPA
-                      </label>
-                      <input
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("sscCGPA") || ""}
-                        {...register("sscCGPA")}
-                      />
-                      {errors.sscCGPA && (
-                        <p className="text-red-500 text-sm">Required</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        HSC Year
-                      </label>
+                    </FormField>
+                    <FormField label="SSC GPA">
+                      <input className={inputCls} {...register("sscCGPA")} />
+                    </FormField>
+                    <FormField label="HSC Year">
                       <input
                         type="number"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("hscYear") || ""}
+                        className={inputCls}
                         {...register("hscYear")}
                       />
-                      {errors.hscYear && (
-                        <p className="text-red-500 text-sm">Required</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        HSC Department
-                      </label>
+                    </FormField>
+                    <FormField label="HSC Department">
                       <input
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("hscDepartment") || ""}
+                        className={inputCls}
                         {...register("hscDepartment")}
                       />
-                      {errors.hscDepartment && (
-                        <p className="text-red-500 text-sm">Required</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        HSC GPA
-                      </label>
-                      <input
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("hscCGPA") || ""}
-                        {...register("hscCGPA")}
-                      />
-                      {errors.hscCGPA && (
-                        <p className="text-red-500 text-sm">Required</p>
-                      )}
-                    </div>
-
-                    {/* Bachelor (Optional) */}
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Bachelor Year
-                      </label>
+                    </FormField>
+                    <FormField label="HSC GPA">
+                      <input className={inputCls} {...register("hscCGPA")} />
+                    </FormField>
+                    <FormField label="Bachelor Year">
                       <input
                         type="number"
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("bachelorYear") || ""}
+                        className={inputCls}
                         {...register("bachelorYear")}
                       />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Bachelor Department
-                      </label>
+                    </FormField>
+                    <FormField label="Bachelor Department">
                       <input
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("bachelorDepartment") || ""}
+                        className={inputCls}
                         {...register("bachelorDepartment")}
                       />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Bachelor GPA
-                      </label>
+                    </FormField>
+                    <FormField label="Bachelor GPA">
                       <input
-                        className="w-full border rounded px-3 py-2"
-                        value={watch("bachelorCGPA") || ""}
+                        className={inputCls}
                         {...register("bachelorCGPA")}
                       />
-                    </div>
+                    </FormField>
                   </div>
+                </div>
+              </form>
+            </div>
 
-                  <div className="flex justify-end mt-6">
-                    <button
-                      type="submit"
-                      className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </ModalBody>
-          </Modal>
-        </div>
-      </div>
+            {/* Sticky Footer */}
+            <div className="flex justify-end gap-3 px-4 py-4 border-t border-gray-100 bg-white flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="px-6 py-3 rounded-xl bg-gray-100 text-gray-600 text-sm font-semibold hover:bg-gray-200 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                form="lead-edit-form"
+                className="px-8 py-3 rounded-xl bg-brandBlue text-white text-sm font-semibold hover:bg-blue-800 active:scale-95 transition-all"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </ModalBody>
+      </Modal>
     </>
   );
 }

@@ -15,6 +15,8 @@ import { MdOutlineGridView } from "react-icons/md";
 import axios from "axios";
 import { Input, Label } from "@windmill/react-ui";
 import { useGetAllBranchQuery } from "../features/branch/branch";
+import { Users, Plus } from "lucide-react";
+import StatusBadge from "../components/StatusBadge";
 
 function Leads() {
   const today = new Date().toISOString().split("T")[0]; // e.g. "2025-06-23"
@@ -25,8 +27,6 @@ function Leads() {
   const itemsPerPage = 10;
 
   const [searchTerm, setSearchTerm] = useState("");
-
-  console.log(searchTerm);
 
   const [filters, setFilters] = useState({
     fullName: "",
@@ -39,8 +39,6 @@ function Leads() {
     endDate: "",
     selectedStatus: "",
   });
-
-  console.log("filters", filters.fullName);
 
   const [isModalOpen1, setIsModalOpen1] = useState(false);
 
@@ -80,9 +78,6 @@ function Leads() {
       setMyCase("");
     }
   }, [selectedType]);
-
-  console.log("selectedType", selectedType);
-  console.log("todayCallDate", todayCallDate);
 
   const {
     register: registerAdd,
@@ -172,8 +167,6 @@ function Leads() {
             }
           : null;
 
-  console.log("queryParams", queryParams);
-
   const { data, isLoading, isError, error } =
     useGetAllConsultationQuery(queryParams);
 
@@ -186,8 +179,6 @@ function Leads() {
       setConsultations(data.data);
     }
   }, [data, isLoading, isError, error]);
-
-  console.log("consultations", consultations);
 
   // Form submit handlers for create & update
   const [createConsultation] = useCreateConsultationMutation();
@@ -345,8 +336,6 @@ function Leads() {
     });
   };
 
-  console.log("filters", filters);
-
   const formatDate = (dateStr) =>
     new Date(dateStr).toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -354,235 +343,173 @@ function Leads() {
       year: "numeric",
     });
 
+  const selectCls =
+    "w-full border border-gray-200 rounded-xl px-3 py-3 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue focus:bg-white transition-colors";
+
   return (
-    <div className="w-full px-3 sm:px-4 py-4 sm:py-6 bg-gray-50 max-w-screen-2xl mx-auto">
-      {/* Header */}
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 mb-5 sm:mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-brandBlue">
-            CRM
-          </p>
-          <h4 className="mt-2 text-2xl sm:text-3xl font-semibold text-gray-900">
-            Lead Management
-          </h4>
-          <p className="mt-1 text-sm sm:text-base text-gray-500">
-            Manage leads, appointments, and case updates.
-          </p>
-        </div>
-        <div className="w-full sm:w-auto">
-          <button
-            onClick={() => {
-              document.getElementById("user_lead_modal").showModal();
-
-              // setIsModalOpen(true);
-              resetAdd(); // Reset form when opening create modal
-            }}
-            className="w-full sm:w-auto px-5 py-3 bg-red-600 hover:bg-red-700 transition text-white rounded-xl text-sm sm:text-base font-semibold"
-          >
-            + Add Lead
-          </button>
-        </div>
-      </div>
-      <div
-        className={`grid gap-4 mb-4 rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 ${
-          role === "superAdmin"
-            ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
-            : "grid-cols-1 md:grid-cols-1"
-        }`}
-      >
-        {/* Date Filters */}
-
-        {/* Name */}
-        <Label>
-          <span className="text-sm font-medium text-gray-700">
-            Search Leads
-          </span>
-          {/* <span>Name</span> */}
-          <Input
-            // id="fullName"
-            // name="fullName"
-            // value={filters.fullName}
-            // onChange={handleFilterChange}
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-            className="py-2 rounded-xl border-gray-200 bg-gray-50 mt-1"
-            placeholder="Search..."
-          />
-        </Label>
-
-        {/* <Label>
-          <span>Phone</span>
-          <Input
-            id="phone"
-            name="phone"
-            value={filters.phone}
-            onChange={handleFilterChange}
-            className="mt-1"
-            placeholder="Phone"
-          />
-        </Label>
-
-        <Label>
-          <span>IELTS Score</span>
-          <Input
-            id="ieltsScore"
-            name="ieltsScore"
-            value={filters.ieltsScore}
-            onChange={handleFilterChange}
-            className="mt-1"
-            placeholder="ieltsScore"
-          />
-        </Label>
-
-        <Label>
-          <span>Prefd Destination</span>
-          <Input
-            id="destination"
-            name="destination"
-            value={filters.destination}
-            onChange={handleFilterChange}
-            className="mt-1"
-            placeholder="destination"
-          />
-        </Label> */}
-
-        {/* Branch */}
-        {role === "superAdmin" && (
+    <div className="w-full px-4 sm:px-8 py-6 bg-gray-50 min-h-screen">
+      {/* Page Header */}
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-11 h-11 rounded-2xl bg-brandBlue flex items-center justify-center flex-shrink-0">
+            <Users className="w-5 h-5 text-white" />
+          </div>
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              Branch
+            <p className="text-xs font-semibold uppercase tracking-widest text-brandBlue">
+              CRM
+            </p>
+            <h4 className="text-2xl font-bold text-gray-900 leading-tight">
+              Lead Management
+            </h4>
+          </div>
+        </div>
+        <button
+          onClick={() => {
+            document.getElementById("user_lead_modal").showModal();
+            resetAdd();
+          }}
+          className="flex items-center gap-2 px-5 py-2.5 bg-brandBlue hover:bg-blue-800 active:scale-95 transition-all text-white rounded-xl text-sm font-semibold"
+        >
+          <Plus className="w-4 h-4" />
+          Add Lead
+        </button>
+      </div>
+
+      {/* Filter Card */}
+      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 mb-5">
+        {/* Row 1: Search + Type + Status + Branch */}
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 ${role === "superAdmin" ? "lg:grid-cols-4" : "lg:grid-cols-3"} gap-4 mb-4`}
+        >
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1.5">
+              Search Leads
             </label>
-            {/* <label htmlFor="Branch" className="block mb-1 font-medium">
-              Branch
-            </label> */}
+            <input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className={selectCls}
+              placeholder="Search by name, phone..."
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1.5">
+              Lead Type
+            </label>
             <select
-              id="location"
-              name="location"
-              value={filters.location}
-              onChange={handleFilterChange}
-              className="w-full border border-gray-200 rounded-xl p-3 bg-gray-50 text-sm"
+              onChange={(e) => setSelectedType(e.target.value)}
+              value={selectedType}
+              className={selectCls}
             >
-              <option value="">Select Branch</option>
-              {branchLoading && <option disabled>Loading branches...</option>}
-              {branchError && <option disabled>Error loading branches</option>}
-              {branchData?.data?.map((branchItem) => (
-                <option
-                  key={branchItem.id || branchItem._id || branchItem.name}
-                  value={
-                    branchItem.branch || branchItem.name || branchItem.Branch
-                  }
-                >
-                  {branchItem.branch || branchItem.name || branchItem.Branch}
+              <option value="">All Leads</option>
+              <option value="Website Leads">Meta / Website Leads</option>
+              <option value="Office Visits">Office Visits</option>
+              <option value="My Case">My Case</option>
+              <option value="Success Case">Previous Success Case</option>
+              <option value={today}>Today Call List</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1.5">
+              Lead Status
+            </label>
+            <select
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              value={selectedStatus}
+              className={selectCls}
+            >
+              <option value="">All Statuses</option>
+              {[
+                "Hot Lead",
+                "Cool Lead",
+                "Open Case",
+                "First Call Done",
+                "Very Interested",
+                "Requires Followup",
+                "Blocked",
+                "Needs Assistant",
+                "Case Closed",
+                "Case Converted",
+              ].map((s) => (
+                <option key={s} value={s}>
+                  {s}
                 </option>
               ))}
             </select>
           </div>
-        )}
-
-        {/* <div className="flex items-end gap-2">
-          <Button
-            className="w-full bg-brandBlue text-white"
-            onClick={clearFilters}
-          >
-            Clear
-          </Button>
-        </div> */}
-      </div>
-      {/* Filters */}
-      <div className="my-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6">
-        {/* Status Dropdown */}
-        <div>
-          <label
-            htmlFor="type"
-            className="block mb-1 font-medium text-gray-700"
-          >
-            Lead Type
-          </label>
-          <select
-            id="type"
-            onChange={(e) => setSelectedType(e.target.value)}
-            value={selectedType}
-            className="w-full border border-gray-200 rounded-xl p-3 bg-gray-50 text-sm focus:outline-none focus:ring focus:border-blue-400"
-          >
-            <option value="">All Leads</option>
-            <option value="Website Leads">Meta Leads / Website Leads</option>
-            <option value="Office Visits">Office Visits</option>
-            <option value="My Case">My Case</option>
-            <option value="Success Case">Previous Success Case</option>
-            <option value={today}>Today Call List</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="startDate" className="block mb-1 font-medium">
-            From Date
-          </label>
-          <input
-            type="date"
-            id="startDate"
-            name="startDate"
-            value={filters.startDate}
-            onChange={handleFilterChange}
-            className="w-full border border-gray-200 rounded-xl p-3 bg-gray-50 text-sm"
-            max={filters.endDate || undefined}
-          />
-        </div>
-        <div>
-          <label htmlFor="endDate" className="block mb-1 font-medium">
-            To Date
-          </label>
-          <input
-            type="date"
-            id="endDate"
-            name="endDate"
-            value={filters.endDate}
-            onChange={handleFilterChange}
-            className="w-full border border-gray-200 rounded-xl p-3 bg-gray-50 text-sm"
-            min={filters.startDate || undefined}
-          />
+          {role === "superAdmin" && (
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1.5">
+                Branch
+              </label>
+              <select
+                name="location"
+                value={filters.location}
+                onChange={handleFilterChange}
+                className={selectCls}
+              >
+                <option value="">All Branches</option>
+                {branchLoading && <option disabled>Loading...</option>}
+                {branchData?.data?.map((b) => (
+                  <option
+                    key={b.id || b._id || b.name}
+                    value={b.branch || b.name || b.Branch}
+                  >
+                    {b.branch || b.name || b.Branch}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
 
-        <div className="flex items-end gap-2">
-          <Button
-            className="w-full bg-brandBlue text-white rounded-xl"
-            onClick={() => {
-              setSelectedType("");
-              setTodayCallDate("");
-              clearFilters(); // ✅ handles all filters including month
-            }}
-          >
-            Clear
-          </Button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-        {/* Total Counts */}
-        <div className="mb-4">
-          <h4 className="text-md font-semibold text-gray-900">
-            Total Counts: {consultations.length}
-          </h4>
-        </div>
-        <div>
-          <select
-            id="status"
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            value={selectedType}
-            className="w-full border border-gray-200 rounded-xl p-3 bg-white text-sm focus:outline-none focus:ring focus:border-blue-400"
-          >
-            <option value="">Select Lead Status</option>
-            <option value="Hot Lead">Hot Lead</option>
-            <option value="Cool Lead">Cool Lead</option>
-            <option value="Open Case">Open Case</option>
-            <option value="First Call Done">First Call Done</option>
-            <option value="Very Interested">Very Interested</option>
-            <option value="Requires Followup">Requires Followup</option>
-            <option value="Blocked">Blocked</option>
-            <option value="Needs Assistant">Needs Assistant</option>
-            <option value="Case Closed">Case Closed</option>
-            <option value="Case Converted">Case Converted</option>
-          </select>
+        {/* Row 2: Date Range + Clear */}
+        <div className="flex flex-col sm:flex-row gap-4 items-end pt-4 border-t border-gray-100">
+          <div className="flex-1">
+            <label className="block text-xs font-medium text-gray-600 mb-1.5">
+              From Date
+            </label>
+            <input
+              type="date"
+              name="startDate"
+              value={filters.startDate}
+              onChange={handleFilterChange}
+              max={filters.endDate || undefined}
+              className={selectCls}
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-xs font-medium text-gray-600 mb-1.5">
+              To Date
+            </label>
+            <input
+              type="date"
+              name="endDate"
+              value={filters.endDate}
+              onChange={handleFilterChange}
+              min={filters.startDate || undefined}
+              className={selectCls}
+            />
+          </div>
+          <div className="flex items-center gap-3 pb-0.5">
+            <span className="text-sm text-gray-500 whitespace-nowrap">
+              <span className="font-semibold text-gray-800">
+                {data?.meta?.total ?? consultations.length}
+              </span>{" "}
+              leads
+            </span>
+            <button
+              onClick={() => {
+                setSelectedType("");
+                setSelectedStatus("");
+                setTodayCallDate("");
+                clearFilters();
+              }}
+              className="px-5 py-3 rounded-xl bg-gray-100 text-gray-600 text-sm font-semibold hover:bg-gray-200 transition-colors whitespace-nowrap"
+            >
+              Clear Filters
+            </button>
+          </div>
         </div>
       </div>
 
@@ -612,11 +539,11 @@ function Leads() {
       {/* Table */}
       <div className="hidden lg:block overflow-x-auto rounded-2xl border border-gray-100 bg-white shadow-sm">
         <table
-          className="w-full text-sm text-left text-gray-700 bg-white"
-          style={{ minWidth: "1000px" }}
+          className="w-full text-sm text-left text-gray-700"
+          style={{ minWidth: "1100px" }}
         >
-          <thead className="bg-gray-100">
-            <tr>
+          <thead>
+            <tr className="border-b border-gray-100">
               {[
                 "Created Date",
                 "Name",
@@ -624,127 +551,99 @@ function Leads() {
                 "Type",
                 "Status",
                 "Next Appointment",
-                "Prefd Destination",
+                "Destination",
                 "Address",
                 "Phone",
                 "IELTS",
                 "Score",
                 "Branch",
                 "Action",
-              ].map((header) => (
-                <th key={header} className="p-3">
-                  {header}
+              ].map((h) => (
+                <th
+                  key={h}
+                  className="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide text-gray-400 whitespace-nowrap"
+                >
+                  {h}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody>
-            {consultations.map((consultation) => (
-              <tr
-                key={consultation.id}
-                className={`border-b ${
-                  consultation.id % 2 === 0 ? "bg-gray-50" : "bg-white"
-                }`}
-              >
-                <td className="p-3 whitespace-nowrap">
-                  {formatDate(consultation.createdAt) ?? ""}
+          <tbody className="divide-y divide-gray-50">
+            {consultations.map((c) => (
+              <tr key={c.id} className="hover:bg-gray-50 transition-colors">
+                <td className="px-4 py-3 whitespace-nowrap text-gray-500 text-xs">
+                  {formatDate(c.createdAt)}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.fullName ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap font-medium text-gray-800">
+                  {c.fullName ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.assignedTo ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.assignedTo ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.type ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.type ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.status ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <StatusBadge status={c.status} />
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.appointmentDate ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.appointmentDate ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.destination ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.destination ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.address ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.address ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.phone ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.phone ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.ielts ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.ielts ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.ieltsScore ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.ieltsScore ?? "—"}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {consultation.location ?? ""}
+                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
+                  {c.location ?? "—"}
                 </td>
-
-                {consultation.type === "Success Case" && role === "employee" ? (
-                  <td className="p-3 whitespace-nowrap flex gap-2 items-center">
-                    {/* <LiaEditSolid
-                    className="cursor-pointer"
-                    title="Edit Lead"
-                    onClick={() => {
-                      setIsModalOpen1(true);
-                      setLeadId(consultation.id);
-
-                      // Reset form with existing values for editing
-                      resetEdit({
-                        status: consultation.status || '',
-                        assignedTo: consultation.assignedTo || '',
-                        appointmentDate: consultation.appointmentDate || '',
-                      });
-                    }}
-                  /> */}
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <div className="flex items-center gap-1.5">
+                    {!(c.type === "Success Case" && role === "employee") && (
+                      <button
+                        title="Edit Lead"
+                        onClick={() => {
+                          setIsModalOpen1(true);
+                          setLeadId(c.id);
+                          resetEdit({
+                            status: c.status || "",
+                            type: c.type || "",
+                            email: c.email || "",
+                            assignedTo: c.assignedTo || "",
+                            appointmentDate: c.appointmentDate || "",
+                          });
+                        }}
+                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-brandBlue hover:text-white transition-colors"
+                      >
+                        <LiaEditSolid className="text-base" />
+                      </button>
+                    )}
                     <Link
-                      to={`/app/editLeads/${consultation.id}`}
+                      to={`/app/editLeads/${c.id}`}
                       title="View Details"
+                      className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-brandBlue hover:text-white transition-colors"
                     >
-                      <MdOutlineGridView className="cursor-pointer" />
+                      <MdOutlineGridView className="text-base" />
                     </Link>
-
-                    <FaTrash
-                      className="text-red-500 text-sm cursor-pointer"
+                    <button
                       title="Delete Lead"
-                      onClick={() => handleDeleteUser(consultation.id)}
-                    />
-                  </td>
-                ) : (
-                  <td className="p-3 whitespace-nowrap flex gap-2 items-center">
-                    <LiaEditSolid
-                      className="cursor-pointer"
-                      title="Edit Lead"
-                      onClick={() => {
-                        setIsModalOpen1(true);
-                        setLeadId(consultation.id);
-
-                        // Reset form with existing values for editing
-                        resetEdit({
-                          status: consultation.status || "",
-                          type: consultation.type || "",
-                          email: consultation.email || "",
-                          assignedTo: consultation.assignedTo || "",
-                          appointmentDate: consultation.appointmentDate || "",
-                        });
-                      }}
-                    />
-                    <Link
-                      to={`/app/editLeads/${consultation.id}`}
-                      title="View Details"
+                      onClick={() => handleDeleteUser(c.id)}
+                      className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
                     >
-                      <MdOutlineGridView className="cursor-pointer" />
-                    </Link>
-                    <FaTrash
-                      className="text-red-500 text-sm cursor-pointer"
-                      title="Delete Lead"
-                      onClick={() => handleDeleteUser(consultation.id)}
-                    />
-                  </td>
-                )}
+                      <FaTrash className="text-xs" />
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

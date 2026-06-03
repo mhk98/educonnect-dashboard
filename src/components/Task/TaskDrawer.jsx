@@ -601,13 +601,7 @@
 // export default TaskDrawer;
 
 import React, { useMemo } from "react";
-import {
-  X,
-  Calendar,
-  MapPin,
-  Paperclip,
-  User,
-} from "lucide-react";
+import { X, Calendar, MapPin, Paperclip, User } from "lucide-react";
 import TaskComments from "./TaskComments";
 import TaskActivity from "./TaskActivity";
 
@@ -646,7 +640,7 @@ const dueBadge = (dueDateStr) => {
   if (diff === 0)
     return {
       text: "Due today",
-      cls: "bg-orange-50 text-orange-700",
+      cls: "bg-orange-100 text-orange-800",
     };
   if (diff <= 2)
     return {
@@ -658,10 +652,10 @@ const dueBadge = (dueDateStr) => {
 
 const statusPill = (status) => {
   const map = {
-    OPEN: "bg-blue-50 text-blue-700",
-    IN_PROGRESS: "bg-orange-50 text-orange-700",
-    COMPLETED: "bg-green-50 text-green-700",
-    BLOCKED: "bg-red-50 text-red-700",
+    OPEN: "bg-blue-100 text-brandBlue",
+    IN_PROGRESS: "bg-orange-100 text-orange-800",
+    COMPLETED: "bg-green-100 text-green-800",
+    BLOCKED: "bg-red-100 text-red-800",
   };
   return map[status] || "bg-slate-100 text-slate-600";
 };
@@ -670,8 +664,8 @@ const priorityPill = (priority) => {
   const map = {
     LOW: "bg-slate-100 text-slate-600",
     MEDIUM: "bg-yellow-50 text-yellow-700",
-    HIGH: "bg-orange-50 text-orange-700",
-    URGENT: "bg-red-50 text-red-700",
+    HIGH: "bg-orange-100 text-orange-800",
+    URGENT: "bg-red-100 text-red-800",
   };
   return map[priority] || "bg-slate-100 text-slate-600";
 };

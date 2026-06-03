@@ -6,6 +6,7 @@ import Applications from "./Applications";
 import Document from "./Document";
 import axios from "axios";
 import Finance from "./Finance";
+import toast from "react-hot-toast";
 
 const StudentEditProfile = () => {
   const { id } = useParams();
@@ -14,11 +15,15 @@ const StudentEditProfile = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("applications");
 
-  const qrLink = "https://demo.eaconsultancy.info/create-account";
+  const qrLink = `https://lavender-mink-539542.hostingersite.com/app/editprofile/${id}`;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(qrLink);
-    alert("Link copied to clipboard!");
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(qrLink);
+      toast.success("Link copied to clipboard");
+    } catch (err) {
+      toast.error("Failed to copy link");
+    }
   };
 
   useEffect(() => {
@@ -51,14 +56,7 @@ const StudentEditProfile = () => {
   return (
     <div className="p-4 md:p-8 w-full mx-auto">
       <div className="text-sm text-gray-500 mb-4">
-        <a href="#" className="hover:underline">
-          Students
-        </a>{" "}
-        &gt;{" "}
-        <a href="#" className="hover:underline">
-          Student Profile
-        </a>{" "}
-        &gt;{" "}
+        <span>Students</span> &gt; <span>Student Profile</span> &gt;{" "}
         <span className="text-gray-800 font-medium">
           {data?.FirstName} {data?.LastName}
         </span>
@@ -81,7 +79,7 @@ const StudentEditProfile = () => {
           <div className="bg-white rounded-2xl shadow p-4 flex items-center justify-center">
             <button
               onClick={handleCopy}
-              className="flex-1 border border-brandBlue text-brandBlue hover:bg-brandBlue-50 px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
+              className="flex-1 border border-brandBlue text-brandBlue hover:bg-brandBlueSoft px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
             >
               <span>Student Platform</span>
               <FaRegCopy />

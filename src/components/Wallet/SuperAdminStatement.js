@@ -574,7 +574,7 @@ function SuperAdminStatement() {
                         <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 mt-6">
                           <Button
                             type="submit"
-                            className="btn w-full rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
+                            className="btn w-full rounded-2xl bg-brandBlue hover:bg-blue-800 text-white px-8 py-3 font-semibold sm:w-auto"
                           >
                             Save
                           </Button>

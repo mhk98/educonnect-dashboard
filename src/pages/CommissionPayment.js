@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from "react";
+import { Clock, CheckCircle, TrendingUp, Plus } from "lucide-react";
 import {
   Modal,
   ModalHeader,
@@ -109,20 +110,31 @@ function CommissionPayment() {
 
   return (
     <>
-      <div className="w-full px-3 py-4 sm:px-4 sm:py-6">
-        <div className="mx-auto max-w-7xl rounded-[28px] border border-red-100 bg-gradient-to-br from-white via-red-50/40 to-white p-4 shadow-[0_20px_45px_rgba(15,23,42,0.08)] sm:p-6">
+      <div className="w-full px-4 sm:px-8 py-6 bg-gray-50 min-h-screen">
+        <div className="max-w-7xl mx-auto">
+          {/* Page Header */}
+          <div className="mb-6 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-11 h-11 rounded-2xl bg-brandBlue flex items-center justify-center flex-shrink-0">
+                <TrendingUp className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brandBlue">
+                  Commission
+                </p>
+                <h4 className="text-2xl font-bold text-gray-900 leading-tight">
+                  Commission Payment
+                </h4>
+              </div>
+            </div>
+            <p className="hidden md:block text-sm text-gray-400">
+              Track commission requests and paid transactions in one place
+            </p>
+          </div>
+
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            {/* Header Section */}
             <div>
-              <p className="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brandBlue">
-                Commission
-              </p>
-              <h4 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Commission Payment
-              </h4>
-              <p className="mt-2 max-w-xl text-sm text-gray-500 sm:text-base">
-                Track commission requests and paid transactions in one place.
-              </p>
+              {/* Modal */}
 
               {/* Modal */}
               <Modal isOpen={isModalOpen} onClose={closeModal}>
@@ -213,7 +225,7 @@ function CommissionPayment() {
                     <div className="mt-6 flex justify-end gap-2">
                       <Button
                         type="submit"
-                        className="btn w-full rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-8 py-3 font-semibold shadow-lg shadow-red-100 sm:w-auto"
+                        className="btn w-full rounded-2xl bg-brandBlue hover:bg-blue-800 text-white px-8 py-3 font-semibold sm:w-auto"
                       >
                         Save
                       </Button>
@@ -226,50 +238,55 @@ function CommissionPayment() {
             {/* Right Buttons */}
             <div className="flex flex-col gap-3 sm:flex-row">
               <button
-                onClick={() => {
-                  setIsModalOpen(true);
-                }}
-                className="rounded-2xl bg-gradient-to-r from-brandBlue to-red-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-red-100 transition hover:shadow-xl sm:text-base"
+                onClick={() => setIsModalOpen(true)}
+                className="flex items-center gap-2 rounded-xl bg-brandBlue px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800 active:scale-95 transition-all"
               >
-                + Request Commission
+                <Plus className="w-4 h-4" />
+                Request Commission
               </button>
             </div>
           </div>
 
           {/* Tab Section */}
-
-          <div className="mt-6 w-full rounded-[24px] bg-white/70 p-2 shadow-sm ring-1 ring-gray-100 backdrop-blur sm:w-auto">
-            <div className="grid grid-cols-2 gap-2 text-sm font-semibold">
-              <span
-                className={`cursor-pointer rounded-2xl px-4 py-3 text-center transition-all duration-300 ${
-                  isInProgress
-                    ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
-                    : "bg-white text-gray-700 hover:bg-red-50"
-                }`}
-                onClick={() => setActiveTab("inProgress")}
-              >
-                In Progress
-              </span>
-              <span
-                className={`cursor-pointer rounded-2xl px-4 py-3 text-center transition-all duration-300 ${
-                  !isInProgress
-                    ? "bg-gradient-to-r from-brandBlue to-red-500 text-brandBlue shadow-lg shadow-red-100"
-                    : "bg-white text-gray-700 hover:bg-red-50"
-                }`}
-                onClick={() => setActiveTab("paid")}
-              >
-                Paid
-              </span>
+          <div className="mt-6 w-full bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            {/* Tab Navigation */}
+            <div className="flex border-b border-gray-100">
+              {[
+                { id: "inProgress", label: "In Progress", icon: Clock },
+                { id: "paid", label: "Paid", icon: CheckCircle },
+              ].map(({ id, label, icon: Icon }) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setActiveTab(id)}
+                  className={`flex-1 flex items-center justify-center py-5 text-sm font-semibold border-b-2 transition-all -mb-px outline-none focus:outline-none ${
+                    activeTab === id
+                      ? "border-brandBlue text-brandBlue"
+                      : "border-transparent text-gray-400 hover:text-gray-600 hover:border-gray-200"
+                  }`}
+                >
+                  <span
+                    className={`w-8 h-8 mr-2.5 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                      activeTab === id
+                        ? "bg-brandBlue/10 text-brandBlue"
+                        : "text-gray-400"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </span>
+                  {label}
+                </button>
+              ))}
             </div>
-          </div>
 
-          {/* Conditional Tab Content */}
-          <div className="mt-4 rounded-[28px] border border-gray-100 bg-white/90 p-3 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:p-5">
-            {isInProgress ? (
-              <ComissionPaymentInProgress />
-            ) : (
-              <ComissionPaymentPaid />
-            )}
+            {/* Tab Content */}
+            <div className="p-4 sm:p-5">
+              {isInProgress ? (
+                <ComissionPaymentInProgress />
+              ) : (
+                <ComissionPaymentPaid />
+              )}
+            </div>
           </div>
         </div>
       </div>

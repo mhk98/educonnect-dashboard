@@ -21,7 +21,7 @@ const Profile = () => {
 
   const renderInitialAvatar = (firstName, lastName, className = "") => (
     <div
-      className={`flex items-center justify-center rounded-full bg-gradient-to-br from-brandBlue to-red-500 font-bold uppercase text-white shadow-md ${className}`}
+      className={`flex items-center justify-center rounded-full bg-brandBlue font-bold uppercase text-white shadow-md ${className}`}
     >
       {getInitials(firstName, lastName)}
     </div>
@@ -118,7 +118,11 @@ const Profile = () => {
               alt="User avatar"
             />
           ) : (
-            renderInitialAvatar(user?.FirstName, user?.LastName, "h-20 w-20 text-2xl")
+            renderInitialAvatar(
+              user?.FirstName,
+              user?.LastName,
+              "h-20 w-20 text-2xl",
+            )
           )}
           <div className="text-center md:text-left">
             <h2 className="text-lg md:text-xl font-semibold text-gray-900">

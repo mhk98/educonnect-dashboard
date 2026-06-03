@@ -33,7 +33,23 @@ export default function RegionalManagers() {
     fetchUsers();
   }, [branch]);
 
-  if (loading) return <p className="p-4 text-sm sm:text-base">Loading...</p>;
+  if (loading)
+    return (
+      <div className="space-y-4">
+        {[1, 2].map((i) => (
+          <div
+            key={i}
+            className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-3 shadow-sm"
+          >
+            <div className="h-10 w-10 flex-shrink-0 animate-pulse rounded-full bg-gray-200" />
+            <div className="flex-1 space-y-2">
+              <div className="h-3 w-32 animate-pulse rounded-full bg-gray-200" />
+              <div className="h-2.5 w-24 animate-pulse rounded-full bg-gray-100" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
 
   return (
     <div className="w-full px-0">
@@ -76,9 +92,14 @@ export default function RegionalManagers() {
           ))}
         </div>
       ) : (
-        <p className="text-sm sm:text-base text-gray-600">
-          No regional manager available
-        </p>
+        <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 px-4 py-6 text-center">
+          <p className="text-sm font-semibold text-gray-700">
+            No regional manager available
+          </p>
+          <p className="mt-1 text-xs text-gray-400">
+            A manager contact will appear here once assigned to this branch.
+          </p>
+        </div>
       )}
     </div>
   );

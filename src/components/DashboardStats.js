@@ -1,72 +1,20 @@
-﻿import { User2Icon } from "lucide-react";
 import { BiTask } from "react-icons/bi";
-import { FaWallet, FaChartLine, FaUsers } from "react-icons/fa";
+import { FaChartLine, FaUsers } from "react-icons/fa";
 import { MdFollowTheSigns } from "react-icons/md";
 import { useGetAllUserQuery } from "../features/auth/auth";
 import { useGetAllTaskQuery } from "../features/task/task";
 import { useGetAllConsultationQuery } from "../features/consultation/consultation";
 
-// const stats = [
-//   {
-//     title: "Total",
-//     value: "244",
-//     icon: <User2Icon />,
-//     color: "bg-blue-100 text-blue-600",
-//     desc: "Total Students",
-//   },
-//   {
-//     title: "Total Tasks",
-//     value: "44",
-//     icon: <BiTask />,
-//     color: "bg-green-100 text-green-600",
-//     desc: "Completed Task",
-//   },
-//   {
-//     title: "Total Lead",
-//     value: "349",
-//     icon: <FaChartLine />,
-//     color: "bg-indigo-100 text-indigo-600",
-//     desc: "All Leads",
-//   },
-//   {
-//     title: "Follow Ups",
-//     value: "7",
-//     icon: <FaWallet />,
-//     color: "bg-yellow-100 text-yellow-600",
-//     desc: "Remaining Leads",
-//   },
-// ];
-
-const stats = [
-  {
-    title: "Total Students",
-    value: "244",
-    icon: <FaUsers />, // ðŸ‘¥ multiple users
-    color: "bg-blue-100 text-blue-600",
-    desc: "All Students",
-  },
-  {
-    title: "Total Tasks",
-    value: "44",
-    icon: <BiTask />, // ðŸ“‹ tasks
-    color: "bg-green-100 text-green-600",
-    desc: "Completed Tasks",
-  },
-  {
-    title: "Total Leads",
-    value: "349",
-    icon: <FaChartLine />, // ðŸ“ˆ leads growth
-    color: "bg-indigo-100 text-indigo-600",
-    desc: "All Leads",
-  },
-  {
-    title: "Follow Ups",
-    value: "7",
-    icon: <MdFollowTheSigns />, // ðŸ” follow up
-    color: "bg-yellow-100 text-yellow-600",
-    desc: "Pending Follow-ups",
-  },
-];
+const StatSkeleton = () => (
+  <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
+    <div className="mb-4 flex items-center justify-between">
+      <div className="h-3 w-20 animate-pulse rounded-full bg-gray-200" />
+      <div className="h-9 w-9 animate-pulse rounded-xl bg-blue-100" />
+    </div>
+    <div className="mb-2 h-7 w-16 animate-pulse rounded-lg bg-gray-200" />
+    <div className="h-2.5 w-24 animate-pulse rounded-full bg-gray-100" />
+  </div>
+);
 
 const DashboardStats = () => {
   const userId = localStorage.getItem("userId");
@@ -75,7 +23,6 @@ const DashboardStats = () => {
   const {
     data: taskData,
     isLoading: isTaskLoading,
-    isFetching,
   } = useGetAllTaskQuery({ assignedTo_id: userId });
 
   const formatDate = (date) => new Date(date).toLocaleDateString("en-CA");
@@ -101,111 +48,73 @@ const DashboardStats = () => {
       status: "Open Case",
     });
 
+  const anyLoading =
+    isLoading ||
+    isTaskLoading ||
+    isAppointmentLoading ||
+    isTotalLeadLoading ||
+    isOpenLoading;
+
+  if (anyLoading) {
+    return (
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {[1, 2, 3, 4].map((i) => (
+          <StatSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
+
+  const statCards = [
+    {
+      label: "Total",
+      sub: "Total Students",
+      value: data?.meta?.total ?? 0,
+      icon: <FaUsers />,
+      iconBg: "bg-blue-100 text-blue-600",
+    },
+    {
+      label: "Total Tasks",
+      sub: `Completed Today ${todayTask?.length ?? 0}`,
+      value: taskData?.meta?.total ?? 0,
+      icon: <BiTask />,
+      iconBg: "bg-emerald-100 text-emerald-600",
+    },
+    {
+      label: "Total Leads",
+      sub: `Open Case ${openLead?.meta?.total ?? 0}`,
+      value: totalLead?.meta?.total ?? 0,
+      icon: <FaChartLine />,
+      iconBg: "bg-indigo-100 text-indigo-600",
+    },
+    {
+      label: "Follow Ups",
+      sub: "Remaining",
+      value: todayAppointment?.meta?.total ?? 0,
+      icon: <MdFollowTheSigns />,
+      iconBg: "bg-amber-100 text-amber-600",
+    },
+  ];
+
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-      <div
-        className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100
-          hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-      >
-        {/* Top */}
-        <div className="flex items-center justify-between">
-          <p className="text-xs sm:text-sm text-slate-500 font-medium">Total</p>
-
-          <div
-            className={`p-2 sm:p-3 rounded-xl bg-blue-100 text-blue-600 text-sm sm:text-base
-              group-hover:scale-110 transition flex-shrink-0`}
-          >
-            <FaUsers />
+      {statCards.map((card) => (
+        <div
+          key={card.label}
+          className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <div className="flex items-center justify-between">
+            <p className="text-xs sm:text-sm text-slate-500 font-medium">{card.label}</p>
+            <div className={`p-2 sm:p-3 rounded-xl text-sm sm:text-base group-hover:scale-110 transition flex-shrink-0 ${card.iconBg}`}>
+              {card.icon}
+            </div>
           </div>
+          <h2 className="mt-3 sm:mt-4 text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
+            {card.value}
+          </h2>
+          <p className="text-xs text-slate-400 mt-1">{card.sub}</p>
         </div>
-
-        {/* Value */}
-        <h2 className="mt-3 sm:mt-4 text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
-          {data?.meta?.total}
-        </h2>
-
-        {/* Optional growth indicator */}
-        <p className="text-xs text-slate-400 mt-1">Total Students</p>
-      </div>
-      <div
-        className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-      >
-        {/* Top */}
-        <div className="flex items-center justify-between">
-          <p className="text-xs sm:text-sm text-slate-500 font-medium">
-            Total Tasks
-          </p>
-
-          <div
-            className={`p-2 sm:p-3 rounded-xl bg-green-100 text-green-600 text-sm sm:text-base
-              group-hover:scale-110 transition flex-shrink-0`}
-          >
-            <BiTask />
-          </div>
-        </div>
-
-        {/* Value */}
-        <h2 className="mt-3 sm:mt-4 text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
-          {taskData?.meta?.total}
-        </h2>
-
-        {/* Optional growth indicator */}
-        <p className="text-xs text-slate-400 mt-1">
-          Completed Today {todayTask?.length}
-        </p>
-      </div>
-      <div
-        className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-      >
-        {/* Top */}
-        <div className="flex items-center justify-between">
-          <p className="text-xs sm:text-sm text-slate-500 font-medium">
-            Total Leads
-          </p>
-
-          <div
-            className={`p-2 sm:p-3 rounded-xl bg-indigo-100 text-indigo-600 text-sm sm:text-base
-              group-hover:scale-110 transition flex-shrink-0`}
-          >
-            <FaChartLine />
-          </div>
-        </div>
-
-        {/* Value */}
-        <h2 className="mt-3 sm:mt-4 text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
-          {totalLead?.meta?.total}
-        </h2>
-
-        {/* Optional growth indicator */}
-        <p className="text-xs text-slate-400 mt-1">
-          Open Case {openLead?.meta?.total}
-        </p>
-      </div>
-      <div
-        className="group bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-      >
-        {/* Top */}
-        <div className="flex items-center justify-between">
-          <p className="text-xs sm:text-sm text-slate-500 font-medium">
-            Follow Ups
-          </p>
-
-          <div
-            className={`p-2 sm:p-3 rounded-xl bg-yellow-100 text-yellow-600 text-sm sm:text-base
-              group-hover:scale-110 transition flex-shrink-0`}
-          >
-            <MdFollowTheSigns />
-          </div>
-        </div>
-
-        {/* Value */}
-        <h2 className="mt-3 sm:mt-4 text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
-          {todayAppointment?.meta?.total}
-        </h2>
-
-        {/* Optional growth indicator */}
-        <p className="text-xs text-slate-400 mt-1">Remaining</p>
-      </div>
+      ))}
     </div>
   );
 };

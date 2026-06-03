@@ -1,9 +1,16 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
 import Client from "./Client";
 import History from "./History";
 import LeadDocument from "./LeadDocument";
+import { User, Clock, FileText } from "lucide-react";
+
+const STEPS = [
+  { id: "client", label: "Client", icon: User },
+  { id: "history", label: "History", icon: Clock },
+  { id: "documents", label: "Documents", icon: FileText },
+];
 
 const EditLeads = () => {
   const { id } = useParams();
@@ -26,78 +33,100 @@ const EditLeads = () => {
         setLoading(false);
       }
     };
-
     fetchUser();
   }, [id]);
 
-  // console.log("data", data.id);
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-[300px] text-sm text-gray-400">
+        Loading...
+      </div>
+    );
+  if (error) return <div className="p-6 text-red-500 text-sm">{error}</div>;
+  if (!data)
+    return <div className="p-6 text-gray-400 text-sm">No data found.</div>;
 
-  const isClient = activeTab === "client";
-  const isHistory = activeTab === "history";
-  const isDocuments = activeTab === "documents";
-
-  if (loading) return <div className="p-4">Loading user data...</div>;
-  if (error) return <div className="p-4 text-red-500">{error}</div>;
-  if (!data) return <div className="p-4 text-gray-500">No user found.</div>;
+  const activeIndex = STEPS.findIndex((s) => s.id === activeTab);
 
   return (
-    <div className="p-4 md:p-8 w-full mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 ">
-        {/* Profile Section */}
-        <div className="lg:col-span-3 col-span-1 bg-white rounded-2xl shadow p-4 flex justify-around items-center">
-          <div
-            onClick={() => setActiveTab("client")}
-            className="flex flex-col items-center cursor-pointer"
-          >
-            <div
-              className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isClient ? "bg-brandBlue text-white" : "bg-gray-200"
-              }`}
-            >
-              1
-            </div>
-            <span className="mt-1 text-xs text-gray-700">Client</span>
-          </div>
-          <div className="h-px flex-1 bg-gray-300 mx-2"></div>
-          <div
-            onClick={() => setActiveTab("history")}
-            className="flex flex-col items-center cursor-pointer"
-          >
-            <div
-              className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isHistory ? "bg-brandBlue text-white" : "bg-gray-200"
-              }`}
-            >
-              2
-            </div>
-            <span className="mt-1 text-xs text-gray-700">History</span>
-          </div>
-          <div className="h-px flex-1 bg-gray-300 mx-2"></div>
-          <div
-            onClick={() => setActiveTab("documents")}
-            className="flex flex-col items-center cursor-pointer"
-          >
-            <div
-              className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                isDocuments ? "bg-brandBlue text-white" : "bg-gray-200"
-              }`}
-            >
-              3
-            </div>
-            <span className="mt-1 text-xs text-gray-700">Documents</span>
+    <div className="w-full px-4 sm:px-8 py-6 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        {/* Stepper */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-6 py-5 mb-5">
+          <div className="flex items-center">
+            {STEPS.map((step, i) => {
+              const isActive = activeTab === step.id;
+              const isComplete = i < activeIndex;
+              const Icon = step.icon;
+
+              return (
+                <React.Fragment key={step.id}>
+                  {/* Step */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab(step.id)}
+                    className="flex flex-col items-center gap-1.5 outline-none focus:outline-none group flex-shrink-0"
+                  >
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
+                        isActive
+                          ? "bg-brandBlue text-white shadow-md shadow-brandBlue/30"
+                          : isComplete
+                            ? "bg-emerald-500 text-white"
+                            : "bg-gray-100 text-gray-400 group-hover:bg-gray-200"
+                      }`}
+                    >
+                      {isComplete ? (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2.5}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      ) : (
+                        <Icon className="w-4 h-4" />
+                      )}
+                    </div>
+                    <span
+                      className={`text-xs font-medium transition-colors ${
+                        isActive
+                          ? "text-brandBlue"
+                          : isComplete
+                            ? "text-emerald-600"
+                            : "text-gray-400"
+                      }`}
+                    >
+                      {step.label}
+                    </span>
+                  </button>
+
+                  {/* Connector */}
+                  {i < STEPS.length - 1 && (
+                    <div
+                      className={`flex-1 h-0.5 mx-3 mb-4 rounded-full transition-colors ${
+                        i < activeIndex ? "bg-emerald-400" : "bg-gray-200"
+                      }`}
+                    />
+                  )}
+                </React.Fragment>
+              );
+            })}
           </div>
         </div>
-      </div>
 
-      {/* Tab Content */}
-      <div className="mt-4 p-4 bg-white">
-        {isClient ? (
-          <Client id={id} />
-        ) : isHistory ? (
-          <History id={id} />
-        ) : (
-          <LeadDocument id={id} />
-        )}
+        {/* Tab Content */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          {activeTab === "client" && <Client id={id} />}
+          {activeTab === "history" && <History id={id} />}
+          {activeTab === "documents" && <LeadDocument id={id} />}
+        </div>
       </div>
     </div>
   );

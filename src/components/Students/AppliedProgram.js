@@ -332,7 +332,7 @@
 //                     }`}
 //                     onClick={() => setTab("kc")}
 //                   >
-//                     EduAnchor Team
+//                     EduConnect Team
 //                   </button>
 
 //                   <button
@@ -431,6 +431,7 @@ import React, { useEffect, useState } from "react";
 import { FiSend } from "react-icons/fi";
 import { useGetDataByIdQuery } from "../../features/application/application";
 import axios from "axios";
+import StatusBadge from "../StatusBadge";
 
 const AppliedProgram = ({ user_id }) => {
   const [tab, setTab] = useState("student");
@@ -713,8 +714,8 @@ const AppliedProgram = ({ user_id }) => {
                 : "border-gray-300"
             }`}
           >
-            <div className="bg-green-100 text-green-800 px-4 py-2 rounded-t-md text-sm font-medium">
-              {item.status}
+            <div className="bg-gray-50 px-4 py-2 rounded-t-md">
+              <StatusBadge status={item.status} />
             </div>
             <div className="p-4 text-sm">
               <div className="mb-2">
@@ -744,9 +745,7 @@ const AppliedProgram = ({ user_id }) => {
               <span className="text-sm">
                 {formatDateTime(selectedProgram.createdAt)}
               </span>
-              <span className="text-sm text-green-800 font-medium">
-                {selectedProgram.status}
-              </span>
+              <StatusBadge status={selectedProgram.status} />
             </div>
 
             <div className="px-4 py-2">
@@ -776,7 +775,7 @@ const AppliedProgram = ({ user_id }) => {
                     }`}
                     onClick={() => setTab("kc")}
                   >
-                    EduAnchor Team
+                    EduConnect Team
                   </button>
 
                   <button

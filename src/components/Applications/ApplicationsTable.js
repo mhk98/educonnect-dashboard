@@ -440,6 +440,7 @@ import {
 } from "../../features/application/application";
 import axios from "axios";
 import { useGetAllBranchQuery } from "../../features/branch/branch";
+import StatusBadge from "../StatusBadge";
 
 export default function ApplicationsTable() {
   const [stdId, setStdId] = useState("");
@@ -586,7 +587,9 @@ export default function ApplicationsTable() {
         <td className="p-3">
           {program.FirstName} {program.LastName}
         </td>
-        <td className="p-3">{program.status}</td>
+        <td className="p-3">
+          <StatusBadge status={program.status} />
+        </td>
         <td className="p-3">{program.assignee}</td>
         <td className="p-3 flex gap-3 text-brandBlue">
           <Link to={`/app/editprofile/${program.user_id}`}>
@@ -793,9 +796,10 @@ export default function ApplicationsTable() {
                   </p>
                 </div>
 
-                <span className="flex-shrink-0 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
-                  {program.status || "N/A"}
-                </span>
+                <StatusBadge
+                  status={program.status}
+                  className="flex-shrink-0"
+                />
               </div>
 
               <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
