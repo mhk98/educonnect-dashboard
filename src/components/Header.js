@@ -4,7 +4,7 @@ import { SidebarContext } from "../context/SidebarContext";
 import { useHistory, Link, useLocation } from "react-router-dom";
 import NotificationDropdown from "./NotificationDropdown";
 import { useGetDataByIdQuery } from "../features/notification/notification";
-import { FiBell, FiChevronDown, FiLogOut, FiUser } from "react-icons/fi";
+import { FiBell, FiChevronDown, FiLogOut, FiUser, FiArrowLeft } from "react-icons/fi";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import logo from "../assets/img/logo.png";
 import logo2 from "../assets/img/logo2.png";
@@ -83,7 +83,7 @@ export default function Header() {
     const fetchUser = async () => {
       try {
         const res = await fetch(
-          `https://backend.eaconsultancy.org/api/v1/user/${userId}`,
+          `http://localhost:5000/api/v1/user/${userId}`,
         );
         if (!res.ok) throw new Error();
         const d = await res.json();
@@ -111,6 +111,27 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleOutside);
   }, []);
 
+  const isImpersonating = localStorage.getItem("isImpersonating") === "true";
+  const originalName = `${localStorage.getItem("originalFirstName") || ""} ${localStorage.getItem("originalLastName") || ""}`.trim();
+
+  const handleExitImpersonation = () => {
+    localStorage.setItem("token", localStorage.getItem("originalToken") || "");
+    localStorage.setItem("role", localStorage.getItem("originalRole") || "");
+    localStorage.setItem("userId", localStorage.getItem("originalUserId") || "");
+    localStorage.setItem("FirstName", localStorage.getItem("originalFirstName") || "");
+    localStorage.setItem("LastName", localStorage.getItem("originalLastName") || "");
+    localStorage.setItem("image", localStorage.getItem("originalImage") || "");
+    const origBranch = localStorage.getItem("originalBranch");
+    if (origBranch) {
+      localStorage.setItem("branch", origBranch);
+    } else {
+      localStorage.removeItem("branch");
+    }
+    ["originalToken", "originalRole", "originalUserId", "originalFirstName", "originalLastName", "originalImage", "originalBranch", "isImpersonating"].forEach((k) => localStorage.removeItem(k));
+    history.push("/app/usermanagement");
+    window.location.reload();
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     history.push("/login");
@@ -132,6 +153,23 @@ export default function Header() {
   const sidebarW = isSidebarCollapsed ? 90 : 255;
 
   return (
+    <>
+    {isImpersonating && (
+      <div className="flex items-center justify-between bg-orange-500 text-white text-xs font-semibold px-4 py-2 z-50">
+        <span>
+          Impersonating as <strong>{`${localStorage.getItem("FirstName") || ""} ${localStorage.getItem("LastName") || ""}`.trim()}</strong>
+          {originalName && <span className="ml-1 opacity-80">(Admin: {originalName})</span>}
+        </span>
+        <button
+          type="button"
+          onClick={handleExitImpersonation}
+          className="flex items-center gap-1 bg-white text-orange-600 font-bold px-3 py-1 rounded-full hover:bg-orange-50 transition"
+        >
+          <FiArrowLeft size={13} />
+          Exit
+        </button>
+      </div>
+    )}
     <header
       className="flex-shrink-0 z-50 bg-white flex items-center border-b border-gray-100"
       style={{ height: "60px", boxShadow: "0 1px 4px rgba(15,23,42,0.07)" }}
@@ -242,7 +280,7 @@ export default function Header() {
                   src={
                     user.image.startsWith("http")
                       ? user.image
-                      : `https://backend.eaconsultancy.org/${user.image}`
+                      : `http://localhost:5000/${user.image}`
                   }
                   alt={displayName}
                   onError={() => setImgError(true)}
@@ -285,7 +323,7 @@ export default function Header() {
                         src={
                           user.image.startsWith("http")
                             ? user.image
-                            : `https://backend.eaconsultancy.org/${user.image}`
+                            : `http://localhost:5000/${user.image}`
                         }
                         alt={displayName}
                         onError={() => setImgError(true)}
@@ -357,5 +395,6 @@ export default function Header() {
         </div>
       </div>
     </header>
+    </>
   );
 }

@@ -143,7 +143,7 @@ function SuperAdminStatement() {
         (payment) =>
           ["Cash-In", "Offline", "Online"].includes(payment.paymentStatus) &&
           payment.status === "PAID" &&
-          payment.branch === branch,
+          String(payment.user_id) === String(user_id),
       );
 
       // setCreditPayments(filtered);
@@ -155,7 +155,7 @@ function SuperAdminStatement() {
 
       setTotalAmount(total);
     }
-  }, [data2, isLoading2, isError2, error2, branch]);
+  }, [data2, isLoading2, isError2, error2, user_id]);
 
   const {
     data: data1,
@@ -177,7 +177,7 @@ function SuperAdminStatement() {
         (payment) =>
           ["Cash-Out"].includes(payment.paymentStatus) &&
           payment.status === "PAID" &&
-          payment.branch === branch,
+          String(payment.user_id) === String(user_id),
       );
 
       // setCreditPayments(filtered);
@@ -189,7 +189,7 @@ function SuperAdminStatement() {
 
       setTotalDebitAmount(total);
     }
-  }, [data1, isLoading1, isError1, error1, branch]);
+  }, [data1, isLoading1, isError1, error1, user_id]);
 
   const balance = totalAmount - totalDebitAmount;
 
@@ -361,48 +361,13 @@ function SuperAdminStatement() {
     <>
       {role === "superAdmin" && (
         <div className="mb-4 grid grid-cols-1 gap-3 lg:grid-cols-2">
-          {/* <div></div> */}
-
-          {/* <div >
-            <select
-                            {...register("status")}
-                            className="input input-bordered w-full shadow-md p-3"
-                            onChange={(e) => setSelectBranch(e.target.value)}
-                          >
-
-                            <option value="">Select Branch</option>
-                        <option value="Edu Anchor">Edu Anchor</option>
-
-            <option value="Khulna">Khulna</option>
-            <option value="Satkhira">Satkhira</option>
-            <option value="Tangail">Tangail</option>
-            <option value="Jashore">Jashore</option>
-            <option value="Rangpur">Rangpur</option>
-            <option value="Dinajpur">Dinajpur</option>
-            <option value="Gopalganj">Gopalganj</option>
-            <option value="Savar">Savar</option>
-            <option value="Feni">Feni</option>
-                          </select>
-                          {errors.status && (
-                            <p className="text-red-500 text-sm mt-1">
-                              {errors.status.message}
-                            </p>
-        )}
-
-    </div> */}
-
           <div className="rounded-[24px] border border-red-100 bg-gradient-to-br from-red-50 to-white px-5 py-4 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
-              Balance
+              My Balance
             </p>
             <div className="mt-3 flex items-center gap-1 text-2xl font-bold text-brandBlue">
               <TbCurrencyTaka className="text-3xl" /> {balance}
             </div>
-
-            {/* Register New Student */}
-            {/* <button className="px-4 py-2 bg-brandBlue text-white rounded-md text-sm md:text-base hover:bg-brandBlue-700 transition">
-            ADD MONEY
-          </button> */}
           </div>
         </div>
       )}

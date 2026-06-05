@@ -96,10 +96,9 @@ function Amount() {
     } else if (!isLoading2 && data2) {
       const allPayments = data2?.data;
 
-      // Filter out students
-      const filtered = allPayments?.filter(
-        (payments) => payments.branch === selectBranch,
-      );
+      const filtered = selectBranch
+        ? allPayments?.filter((p) => p.branch === selectBranch)
+        : allPayments;
       setFilteringPayments(filtered);
 
       const filteredBranchCredit = filtered.filter(
@@ -126,7 +125,7 @@ function Amount() {
       });
       setTotalDebitAmount(debit);
     }
-  }, [data2, isLoading2, isError2, error2, branch, selectBranch]);
+  }, [data2, isLoading2, isError2, error2, selectBranch]);
 
   console.log("filteringPayments", filteringPayments);
 
@@ -388,7 +387,7 @@ function Amount() {
         <div className="mb-4 grid grid-cols-1 gap-3 lg:grid-cols-2">
           <div className="rounded-[24px] border border-red-100 bg-gradient-to-br from-red-50 to-white px-5 py-4 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
-              Branch Balance
+              {selectBranch ? `${selectBranch} Balance` : "Total Balance"}
             </p>
             <div className="mt-3 flex items-center gap-1 text-2xl font-bold text-brandBlue">
               <TbCurrencyTaka className="text-3xl" /> {branchBalance}

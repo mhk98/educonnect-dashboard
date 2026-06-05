@@ -8,7 +8,7 @@ const getAuthToken = () => {
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://backend.eaconsultancy.org/api/v1/",
+    baseUrl: "http://localhost:5000/api/v1/",
 
     // This will attach the token to every request that requires authorization
     prepareHeaders: (headers) => {
@@ -37,6 +37,13 @@ export const authApi = createApi({
         body: registerData,
       }),
       invalidatesTags: ["auth"],
+    }),
+
+    impersonateUser: build.mutation({
+      query: (id) => ({
+        url: `/user/impersonate/${id}`,
+        method: "POST",
+      }),
     }),
 
     deleteUser: build.mutation({
@@ -152,4 +159,5 @@ export const {
   useDeleteUserMutation,
   useGetAllStudentQuery,
   useGetUserOverviewQuery,
+  useImpersonateUserMutation,
 } = authApi;

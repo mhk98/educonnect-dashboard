@@ -42,7 +42,7 @@ const windmillTheme = {
 ReactDOM.render(
   <SidebarProvider>
     <Suspense fallback={<ThemedSuspense />}>
-      <Windmill usePreferences theme={windmillTheme}>
+      <Windmill theme={windmillTheme}>
         <App />
       </Windmill>
     </Suspense>

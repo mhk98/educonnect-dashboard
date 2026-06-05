@@ -13,7 +13,7 @@ export default function RegionalManagers() {
       try {
         setLoading(true);
         const response = await axios.get(
-          "https://backend.eaconsultancy.org/api/v1/user",
+          "http://localhost:5000/api/v1/user",
         ); // update with your actual API
         const users = response.data.data || [];
 

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const taskActivityApi = createApi({
   reducerPath: "taskActivityApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://backend.eaconsultancy.org/api/v1/",
+    baseUrl: "http://localhost:5000/api/v1/",
     // credentials: "include",
   }),
 

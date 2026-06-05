@@ -119,7 +119,7 @@
 //     const fetchUsers = async () => {
 //       try {
 //         const res = await axios.get(
-//           "https://backend.eaconsultancy.org/api/v1/user/student"
+//           "http://localhost:5000/api/v1/user/student"
 //         );
 //         const all = res.data.data;
 //         setAdmins(
@@ -539,7 +539,7 @@ export default function ApplicationsTable() {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          "https://backend.eaconsultancy.org/api/v1/user/student",
+          "http://localhost:5000/api/v1/user/student",
         );
         const all = res.data.data;
         setAdmins(

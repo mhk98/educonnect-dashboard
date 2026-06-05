@@ -122,7 +122,7 @@ function Programs() {
     const fetchUniversities = async () => {
       try {
         const res = await axios.get(
-          "https://backend.eaconsultancy.org/api/v1/programUniversity/",
+          "http://localhost:5000/api/v1/programUniversity/",
           { params: { country_id: selectedCountryId } },
         );
         if (res.data?.success) setUniversities(res.data.data);

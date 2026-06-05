@@ -11,8 +11,12 @@ export const ThemeProvider = ({ children }) => {
   useLayoutEffect(() => {
     document.documentElement.classList.remove("theme-dark");
     document.documentElement.classList.add("theme-light");
-    // Remove any old theme from localStorage
-    localStorage.removeItem("theme");
+    // Ensure theme in localStorage is explicitly set to light
+    try {
+      localStorage.setItem("theme", "light");
+    } catch (e) {
+      // ignore if localStorage is unavailable
+    }
   }, []);
 
   function toggleTheme() {

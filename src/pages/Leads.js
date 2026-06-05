@@ -163,7 +163,7 @@ function Leads() {
               page: currentPage,
               limit: itemsPerPage,
               role,
-              // user_id: id,
+              user_id: id,
             }
           : null;
 
@@ -284,7 +284,7 @@ function Leads() {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "https://backend.eaconsultancy.org/api/v1/user/student",
+          "http://localhost:5000/api/v1/user/student",
         );
         const allUsers = response.data.data;
         const filteredAdmins = allUsers.filter(
@@ -368,7 +368,7 @@ function Leads() {
             document.getElementById("user_lead_modal").showModal();
             resetAdd();
           }}
-          className="flex items-center gap-2 px-5 py-2.5 bg-brandBlue hover:bg-blue-800 active:scale-95 transition-all text-white rounded-xl text-sm font-semibold"
+          className="flex items-center gap-2 px-4 py-3 bg-brandBlue hover:bg-blue-800 active:scale-95 transition-all text-white rounded-xl text-sm font-semibold"
         >
           <Plus className="w-4 h-4" />
           Add Lead

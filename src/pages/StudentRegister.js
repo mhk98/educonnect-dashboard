@@ -56,7 +56,7 @@ export default function StudentRegister() {
     setLoading(true);
     try {
       const res = await axios.post(
-        "https://backend.eaconsultancy.org/api/v1/consultation/create",
+        "http://localhost:5000/api/v1/consultation/create",
         {
           ...data,
           type: "Website Leads",

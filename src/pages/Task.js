@@ -152,10 +152,9 @@ export default function Task() {
   //   // ✅ Filters (board + donut এর জন্য)
   const [filters, setFilters] = useState({
     searchTerm: "",
-    branch: branchLS,
-    // default: board এ “আমার assigned tasks”
+    // superAdmin সব branch দেখবে (default: All), বাকিরা নিজের branch
+    branch: role === "superAdmin" ? "" : branchLS,
     assignedTo_id: "",
-    // created by me filter দরকার হলে
     user_id: "",
   });
 
@@ -236,7 +235,7 @@ export default function Task() {
   //   const fetchUsers = async () => {
   //     try {
   //       const response = await axios.get(
-  //         "https://backend.eaconsultancy.org/api/v1/user/student",
+  //         "http://localhost:5000/api/v1/user/student",
   //       );
   //       const allUsers = response.data.data;
 
@@ -281,7 +280,7 @@ export default function Task() {
     const fetchUsers = async () => {
       try {
         const res = await fetch(
-          "https://backend.eaconsultancy.org/api/v1/user/student",
+          "http://localhost:5000/api/v1/user/student",
           {
             method: "GET",
             headers: {
@@ -588,7 +587,7 @@ export default function Task() {
   const resetFilters = () => {
     setFilters({
       searchTerm: "",
-      branch: branchLS,
+      branch: role === "superAdmin" ? "" : branchLS,
       assignedTo_id: "",
       user_id: "",
     });
@@ -663,16 +662,17 @@ export default function Task() {
                   setFilters((p) => ({ ...p, branch: e.target.value }))
                 }
                 className="w-full border rounded-md px-3 py-2 text-sm"
-                disabled={role !== "superAdmin"} // superAdmin ছাড়া branch change না
               >
-                <option value="">All</option>
-                <option value="Edu Anchor">Edu Anchor</option>
-                <option value="Dhaka">Dhaka</option>
-                <option value="Khulna">Khulna</option>
-                <option value="Satkhira">Satkhira</option>
-                <option value="Jashore">Jashore</option>
-                <option value="Feni">Feni</option>
-                <option value="Nord Edu">Nord Edu</option>
+                <option value="">All Branches</option>
+                {branchLoading && <option disabled>Loading...</option>}
+                {branchData?.data?.map((b) => {
+                  const name = b.branch || b.Branch || b.name || "";
+                  return (
+                    <option key={b.id || name} value={name}>
+                      {name}
+                    </option>
+                  );
+                })}
               </select>
             </div>
 
@@ -1036,7 +1036,7 @@ export default function Task() {
 
                     const dueBadge = getDueBadge(task?.dueDate);
 
-                    // ✅ Type pill (using status as “Type” like your screenshot)
+                    // ✅ Type pill (using status as "Type" like your screenshot)
                     const typeStyle = {
                       OPEN: "bg-blue-100 text-brandBlue border-blue-200",
                       IN_PROGRESS:
@@ -1674,13 +1674,16 @@ export default function Task() {
                   Branch
                 </label>
                 <select {...register("branch")} className="w-full border p-2">
-                  <option value="Edu Anchor">Edu Anchor</option>
-                  <option value="Dhaka">Dhaka</option>
-                  <option value="Khulna">Khulna</option>
-                  <option value="Satkhira">Satkhira</option>
-                  <option value="Jashore">Jashore</option>
-                  <option value="Feni">Feni</option>
-                  <option value="Nord Edu">Nord Edu</option>
+                  <option value="">Select Branch</option>
+                  {branchLoading && <option disabled>Loading...</option>}
+                  {branchData?.data?.map((b) => {
+                    const name = b.branch || b.Branch || b.name || "";
+                    return (
+                      <option key={b.id || name} value={name}>
+                        {name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
 

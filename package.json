@@ -28,6 +28,7 @@
     "html2pdf.js": "^0.9.0",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.563.0",
+    "pdfkit": "^0.18.0",
     "react": "^18.2.0",
     "react-chartjs-2": "2.9.0",
     "react-datepicker": "^8.3.0",

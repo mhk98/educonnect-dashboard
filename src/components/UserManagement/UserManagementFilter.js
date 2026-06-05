@@ -400,10 +400,13 @@ import {
   useDeleteUserMutation,
   useGetAllUserQuery,
   useUpdateUserMutation,
+  useImpersonateUserMutation,
 } from "../../features/auth/auth";
 import toast from "react-hot-toast";
 import { BiSolidTrashAlt } from "react-icons/bi";
 import { LiaEditSolid } from "react-icons/lia";
+import { FiLogIn, FiPower } from "react-icons/fi";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const UserManagementFilter = () => {
@@ -442,6 +445,8 @@ const UserManagementFilter = () => {
   console.log("users", users);
   const [updateUser] = useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
+  const [impersonateUser] = useImpersonateUserMutation();
+  const history = useHistory();
 
   const {
     register,
@@ -491,6 +496,57 @@ const UserManagementFilter = () => {
         refetch();
       } else {
         toast.error(res.error?.data?.message || "Deletion failed.");
+      }
+    } catch {
+      toast.error("An unexpected error occurred.");
+    }
+  };
+
+  const handleImpersonate = async (targetUser) => {
+    try {
+      const res = await impersonateUser(targetUser.id);
+      if (res.data?.success) {
+        const { accessToken, user: u } = res.data.data;
+        localStorage.setItem("originalToken", localStorage.getItem("token") || "");
+        localStorage.setItem("originalRole", localStorage.getItem("role") || "");
+        localStorage.setItem("originalUserId", localStorage.getItem("userId") || "");
+        localStorage.setItem("originalFirstName", localStorage.getItem("FirstName") || "");
+        localStorage.setItem("originalLastName", localStorage.getItem("LastName") || "");
+        localStorage.setItem("originalImage", localStorage.getItem("image") || "");
+        localStorage.setItem("originalBranch", localStorage.getItem("branch") || "");
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("role", u.Role);
+        localStorage.setItem("userId", u.id);
+        localStorage.setItem("FirstName", u.FirstName || "");
+        localStorage.setItem("LastName", u.LastName || "");
+        localStorage.setItem("image", u.image || "");
+        if (u.Branch) {
+          localStorage.setItem("branch", u.Branch);
+        } else {
+          localStorage.removeItem("branch");
+        }
+        localStorage.setItem("isImpersonating", "true");
+        toast.success(`Now logged in as ${u.FirstName} ${u.LastName}`);
+        history.push("/app");
+        window.location.reload();
+      } else {
+        toast.error(res.error?.data?.message || "Impersonation failed.");
+      }
+    } catch {
+      toast.error("An unexpected error occurred.");
+    }
+  };
+
+  const handleToggleProfile = async (targetUser) => {
+    const newProfile = targetUser.Profile === "active" ? "archive" : "active";
+    const label = newProfile === "active" ? "activated" : "deactivated";
+    try {
+      const res = await updateUser({ id: targetUser.id, data: { Profile: newProfile } });
+      if (res.data?.success) {
+        toast.success(`User ${label} successfully.`);
+        refetch();
+      } else {
+        toast.error(res.error?.data?.message || "Update failed.");
       }
     } catch {
       toast.error("An unexpected error occurred.");
@@ -581,11 +637,11 @@ const UserManagementFilter = () => {
                     </p>
                   </div>
 
-                  <div className="flex flex-shrink-0 gap-2 text-xl text-red-500">
+                  <div className="flex flex-shrink-0 gap-2 text-xl">
                     <button
                       type="button"
                       onClick={() => handleDeleteUser(user.id)}
-                      className="rounded-full bg-white p-2 shadow-sm"
+                      className="rounded-full bg-white p-2 shadow-sm text-red-500"
                       aria-label={`Delete ${user.FirstName || "user"}`}
                     >
                       <BiSolidTrashAlt />
@@ -597,6 +653,24 @@ const UserManagementFilter = () => {
                       aria-label={`Edit ${user.FirstName || "user"}`}
                     >
                       <LiaEditSolid />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleImpersonate(user)}
+                      className="rounded-full bg-white p-2 text-green-600 shadow-sm"
+                      aria-label={`Login as ${user.FirstName || "user"}`}
+                      title="Login as this user"
+                    >
+                      <FiLogIn />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleToggleProfile(user)}
+                      className={`rounded-full bg-white p-2 shadow-sm ${user.Profile === "active" ? "text-orange-500" : "text-gray-400"}`}
+                      aria-label={`${user.Profile === "active" ? "Deactivate" : "Activate"} ${user.FirstName || "user"}`}
+                      title={user.Profile === "active" ? "Deactivate user" : "Activate user"}
+                    >
+                      <FiPower />
                     </button>
                   </div>
                 </div>
@@ -670,12 +744,13 @@ const UserManagementFilter = () => {
                     <td className="p-3">{user.Branch || "N/A"}</td>
                     <td className="p-3">{user.Profile || "N/A"}</td>
                     <td className="p-3">
-                      <div className="flex gap-2 text-lg text-red-500">
+                      <div className="flex gap-2 text-lg items-center">
                         <button
                           type="button"
                           onClick={() => handleDeleteUser(user.id)}
-                          className="cursor-pointer"
+                          className="cursor-pointer text-red-500"
                           aria-label={`Delete ${user.FirstName || "user"}`}
+                          title="Delete user"
                         >
                           <BiSolidTrashAlt />
                         </button>
@@ -684,8 +759,27 @@ const UserManagementFilter = () => {
                           onClick={() => openEditModal(user)}
                           className="cursor-pointer text-brandBlue"
                           aria-label={`Edit ${user.FirstName || "user"}`}
+                          title="Edit user"
                         >
                           <LiaEditSolid />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleImpersonate(user)}
+                          className="cursor-pointer text-green-600"
+                          aria-label={`Login as ${user.FirstName || "user"}`}
+                          title="Login as this user"
+                        >
+                          <FiLogIn />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleToggleProfile(user)}
+                          className={`cursor-pointer ${user.Profile === "active" ? "text-orange-500" : "text-gray-400"}`}
+                          aria-label={`${user.Profile === "active" ? "Deactivate" : "Activate"} ${user.FirstName || "user"}`}
+                          title={user.Profile === "active" ? "Deactivate user" : "Activate user"}
+                        >
+                          <FiPower />
                         </button>
                       </div>
                     </td>
