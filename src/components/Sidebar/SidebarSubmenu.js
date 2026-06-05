@@ -103,13 +103,13 @@ function SidebarSubmenu({
       <button
         className={`group inline-flex items-center justify-between w-full text-sm font-semibold
           transition-colors duration-150 px-3 py-3 rounded-xl
-          hover:text-gray-900 dark:hover:text-gray-100
-          hover:bg-gray-100 dark:hover:bg-gray-800
+          hover:text-gray-900
+          hover:bg-gray-100
           ${
             isChildActive
               ? isMobile
                 ? "bg-blue-50 text-blue-700"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                : "bg-gray-100 text-gray-900"
               : ""
           }`}
         onClick={handleDropdownMenuClick}
@@ -141,7 +141,7 @@ function SidebarSubmenu({
         <ul
           className="p-2 mt-2 space-y-1 overflow-hidden text-sm font-medium
             text-gray-500 rounded-xl shadow-inner
-            bg-gray-50 dark:text-gray-300 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+            bg-gray-50 border border-gray-200"
           aria-label="submenu"
         >
           {(route.routes || []).map((r) => {
@@ -152,12 +152,12 @@ function SidebarSubmenu({
                 <Link
                   onClick={onNavigate}
                   className={`w-full flex items-center gap-2 px-3 py-2 rounded-md transition
-                    hover:bg-gray-100 dark:hover:bg-gray-800
+                    hover:bg-gray-100
                     ${
                       active
                         ? isMobile
                           ? "bg-blue-50 text-blue-700"
-                          : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                          : "bg-gray-100 text-gray-900"
                         : ""
                     }`}
                   to={r.path}

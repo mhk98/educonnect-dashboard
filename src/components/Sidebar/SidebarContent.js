@@ -247,10 +247,10 @@ function SidebarContent({ isMobile = false, onNavigate }) {
                   placeholder="Search Menu..."
                   className="
             w-full h-11  pr-10 rounded-xl p-1 pl-5
-            bg-gray-50 dark:bg-gray-900
-            border border-gray-200 dark:border-gray-700
-            text-gray-800 dark:text-gray-100
-            placeholder:text-gray-400 dark:placeholder:text-gray-500
+            bg-gray-50
+            border border-gray-200
+            text-gray-800
+            placeholder:text-gray-400
             outline-none
             focus:border-brandBlue/60 focus:ring-4 focus:ring-brandBlue/10
             transition
@@ -265,8 +265,7 @@ function SidebarContent({ isMobile = false, onNavigate }) {
               absolute right-2
               px-2 py-1 text-xs rounded-lg
               text-gray-500 hover:text-gray-800
-              dark:text-gray-400 dark:hover:text-gray-100
-              hover:bg-gray-100 dark:hover:bg-gray-800
+              hover:bg-gray-100
               transition
             "
                     style={{ top: "50%", transform: "translateY(-50%)" }}
@@ -277,9 +276,9 @@ function SidebarContent({ isMobile = false, onNavigate }) {
               </div>
 
               {q.trim() ? (
-                <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                <div className="mt-2 text-xs text-gray-500">
                   Showing results for:{" "}
-                  <span className="text-gray-900 dark:text-gray-100 font-medium">
+                  <span className="text-gray-900 font-medium">
                     {q}
                   </span>
                 </div>
@@ -317,13 +316,13 @@ function SidebarContent({ isMobile = false, onNavigate }) {
                   }
                   className={`group inline-flex items-center w-full text-sm font-semibold
                   transition-colors duration-150
-                  hover:text-gray-900 dark:hover:text-gray-100
-                  px-3 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800
+                  hover:text-gray-900
+                  px-3 py-3 rounded-xl hover:bg-gray-100
                   ${!isMobile && isSidebarCollapsed ? "justify-center" : ""}`}
                   activeClassName={
                     isMobile
                       ? "text-blue-700 bg-blue-50"
-                      : "text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800"
+                      : "text-gray-900 bg-gray-100"
                   }
                 >
                   <Route path={route.path} exact={route.exact}>
