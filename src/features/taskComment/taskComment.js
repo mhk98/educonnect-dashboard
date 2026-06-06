@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const taskCommentApi = createApi({
   reducerPath: "taskCommentApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/",
+    baseUrl: "https://backend.eaconsultancy.org/api/v1/",
     credentials: "include",
   }),
 
@@ -59,7 +59,7 @@ export const {
 // export const taskCommentApi = createApi({
 //   reducerPath: "taskCommentApi",
 //   baseQuery: fetchBaseQuery({
-//     baseUrl: "http://localhost:5000/api/v1/",
+//     baseUrl: "https://backend.eaconsultancy.org/api/v1/",
 //     credentials: "include",
 //   }),
 

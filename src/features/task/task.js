@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const TaskApi = createApi({
   reducerPath: "TaskApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/",
+    baseUrl: "https://backend.eaconsultancy.org/api/v1/",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {

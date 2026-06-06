@@ -3,7 +3,7 @@
 // export const PendingPaymentApi = createApi({
 //   reducerPath: "PendingPaymentApi",
 //   baseQuery: fetchBaseQuery({
-//     baseUrl: "http://localhost:5000/api/v1/",
+//     baseUrl: "https://backend.eaconsultancy.org/api/v1/",
 //   }),
 
 //   tagTypes: ["pendingPayment"], // Define the tag type
@@ -99,7 +99,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const PendingPaymentApi = createApi({
   reducerPath: "PendingPaymentApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1",
+    baseUrl: "https://backend.eaconsultancy.org/api/v1",
   }),
   tagTypes: ["pendingPayment"],
   endpoints: (build) => ({

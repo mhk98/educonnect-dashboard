@@ -11,22 +11,29 @@ const callList = [
   { name: "Nafis Hasan", phone: "+880 1896-053404" },
 ];
 
-const DashboardList = () => {
+const DashboardList = ({ selectedBranch = "" }) => {
   const userId = localStorage.getItem("userId");
+  const role = localStorage.getItem("role");
+  const branch = localStorage.getItem("branch");
+
   const [leads, setLeads] = useState([]);
   const [notices, setNotices] = useState([]);
   const [selectedNotice, setSelectedNotice] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const formatDate = (date) => new Date(date).toLocaleDateString("en-CA");
-
   const today = formatDate(new Date());
 
+  // Role-based call list query
+  const callListParams =
+    role === "superAdmin"
+      ? { appointmentDate: today, ...(selectedBranch ? { location: selectedBranch } : {}) }
+      : role === "admin"
+        ? { appointmentDate: today, location: branch }
+        : { user_id: userId, appointmentDate: today, location: branch };
+
   // Fetch consultations
-  const { data, isLoading, isError, error } = useGetAllConsultationQuery({
-    user_id: userId,
-    appointmentDate: today,
-  });
+  const { data, isLoading, isError, error } = useGetAllConsultationQuery(callListParams);
 
   // Fetch all notices
   const {

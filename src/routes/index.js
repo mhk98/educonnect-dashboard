@@ -17,6 +17,7 @@ import EditLeads from "../components/Leads/EditLeads";
 import Profile from "../components/Profile";
 import Notification from "../pages/Notification";
 import Notice from "../components/Notice/Notice";
+import Messaging from "../pages/Messaging";
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -93,6 +94,10 @@ const routes = [
   {
     path: "/notice",
     component: Notice,
+  },
+  {
+    path: "/messaging",
+    component: Messaging,
   },
   {
     path: "/profile",

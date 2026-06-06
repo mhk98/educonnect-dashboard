@@ -52,7 +52,7 @@ const FilterPanel = () => {
           Object.entries(filters).filter(([_, v]) => v !== ""),
         );
         const response = await axios.get(
-          "http://localhost:5000/api/v1/application/status",
+          "https://backend.eaconsultancy.org/api/v1/application/status",
           { params },
         );
         const rawData = response.data.data || [];

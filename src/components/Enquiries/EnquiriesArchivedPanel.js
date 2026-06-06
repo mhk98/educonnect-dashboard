@@ -215,7 +215,7 @@ const EnquiriesRequestedPanel = () => {
   // const fetchComments = async () => {
   //   try {
   //     const res = await axios.get(
-  //       `http://localhost:5000/api/v1/comment/${selected.id}?type=kc`
+  //       `https://backend.eaconsultancy.org/api/v1/comment/${selected.id}?type=kc`
   //     );
   //     setComments(res.data.data);
   //   } catch (err) {
@@ -226,7 +226,7 @@ const EnquiriesRequestedPanel = () => {
   const fetchComments = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/comment/${selected.id}?type=kc`,
+        `https://backend.eaconsultancy.org/api/v1/comment/${selected.id}?type=kc`,
       );
       const sortedComments = res.data.data.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
@@ -241,7 +241,7 @@ const EnquiriesRequestedPanel = () => {
     if (!newComment.trim()) return;
     try {
       await axios.post(
-        "http://localhost:5000/api/v1/comment/create",
+        "https://backend.eaconsultancy.org/api/v1/comment/create",
         {
           user_id: id,
           enquiry_id: selected.id,
@@ -263,7 +263,7 @@ const EnquiriesRequestedPanel = () => {
     if (!replyText?.trim()) return;
     try {
       await axios.post(
-        "http://localhost:5000/api/v1/reply/create",
+        "https://backend.eaconsultancy.org/api/v1/reply/create",
         {
           user_id: id,
           comment_id: commentId,
@@ -366,7 +366,7 @@ const EnquiriesRequestedPanel = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/user",
+          "https://backend.eaconsultancy.org/api/v1/user",
         );
         const allUsers = response.data.data;
 
@@ -391,7 +391,7 @@ const EnquiriesRequestedPanel = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/user",
+          "https://backend.eaconsultancy.org/api/v1/user",
         );
         const allUsers = response.data.data;
 

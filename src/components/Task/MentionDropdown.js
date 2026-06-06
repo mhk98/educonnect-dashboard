@@ -13,7 +13,7 @@ export default function MentionInput({ value, onChange }) {
   ---------------------------------- */
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v1/user/student")
+      .get("https://backend.eaconsultancy.org/api/v1/user/student")
       .then((res) => setUsers(res.data.data || []));
   }, []);
 

@@ -235,7 +235,7 @@ export default function Task() {
   //   const fetchUsers = async () => {
   //     try {
   //       const response = await axios.get(
-  //         "http://localhost:5000/api/v1/user/student",
+  //         "https://backend.eaconsultancy.org/api/v1/user/student",
   //       );
   //       const allUsers = response.data.data;
 
@@ -280,7 +280,7 @@ export default function Task() {
     const fetchUsers = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/v1/user/student",
+          "https://backend.eaconsultancy.org/api/v1/user/student",
           {
             method: "GET",
             headers: {

@@ -98,6 +98,13 @@ const routes = [
   },
 
   {
+    path: "/app/messaging",
+    icon: "ChatIcon",
+    name: "Messaging",
+    roles: ["admin", "superAdmin"],
+  },
+
+  {
     path: "/app/notice",
     icon: "BellIcon",
     name: "Notice",

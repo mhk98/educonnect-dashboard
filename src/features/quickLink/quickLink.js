@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const quickLinkApi = createApi({
   reducerPath: "quickLinkApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/",
+    baseUrl: "https://backend.eaconsultancy.org/api/v1/",
   }),
   tagTypes: ["quickLink"],
   endpoints: (build) => ({

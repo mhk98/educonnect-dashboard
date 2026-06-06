@@ -17,7 +17,7 @@
 //   const imageUrl = user.image
 //     ? user.image.startsWith("http")
 //       ? user.image
-//       : `http://localhost:5000/${user.image}`
+//       : `https://backend.eaconsultancy.org/${user.image}`
 //     : null;
 
 //   const isOnline = Boolean(user.isOnline);
@@ -136,7 +136,7 @@
 
 //               <div className="space-y-2">
 //                 {task.files.map((file, index) => {
-//                   const fileUrl = `http://localhost:5000/${file.path}`;
+//                   const fileUrl = `https://backend.eaconsultancy.org/${file.path}`;
 
 //                   return (
 //                     <div
@@ -300,7 +300,7 @@
 //   const imageUrl = user.image
 //     ? user.image.startsWith("http")
 //       ? user.image
-//       : `http://localhost:5000/${user.image}`
+//       : `https://backend.eaconsultancy.org/${user.image}`
 //     : null;
 
 //   const isOnline = Boolean(user.isOnline);
@@ -518,7 +518,7 @@
 //               <div className="space-y-2">
 //                 {fileList.map((file, index) => {
 //                   const fileUrl = file?.path
-//                     ? `http://localhost:5000/${file.path}`
+//                     ? `https://backend.eaconsultancy.org/${file.path}`
 //                     : file?.url || "#";
 
 //                   const name =

@@ -219,18 +219,21 @@ function getFirstNumericValue(obj, keys) {
   return 0;
 }
 
-const Overview = () => {
+const Overview = ({ selectedBranch = "" }) => {
   const branch = localStorage.getItem("branch");
+  const role = localStorage.getItem("role");
   const userId = localStorage.getItem("userId");
 
   const [students, setStudents] = useState({});
   const [tasks, setTasks] = useState({});
 
-  // 🔹 Student API
-  const { data, isLoading, isError, error } = useGetUserOverviewQuery({
-    Branch: branch,
-    Role: "student",
-  });
+  // ── Student Overview API ─────────────────────────────────────
+  const studentOverviewParams =
+    role === "superAdmin"
+      ? { Branch: selectedBranch || undefined, Role: "student" }
+      : { Branch: branch, Role: "student" };
+
+  const { data, isLoading, isError, error } = useGetUserOverviewQuery(studentOverviewParams);
 
   useEffect(() => {
     if (isError) {
@@ -240,16 +243,20 @@ const Overview = () => {
     }
   }, [data, isLoading, isError, error]);
 
-  // 🔹 Task API
+  // ── Task Overview API ────────────────────────────────────────
+  const taskOverviewParams =
+    role === "superAdmin"
+      ? { branch: selectedBranch || undefined }
+      : role === "admin"
+        ? { branch }
+        : { branch, assignedTo_id: userId };
+
   const {
     data: overviewRes,
     isLoading: isTaskLoading,
     isError: isTaskError,
     error: taskError,
-  } = useGetTaskOverviewQuery({
-    branch: branch,
-    assignedTo_id: userId,
-  });
+  } = useGetTaskOverviewQuery(taskOverviewParams);
 
   useEffect(() => {
     if (isTaskError) {

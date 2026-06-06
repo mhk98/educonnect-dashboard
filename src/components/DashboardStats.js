@@ -16,51 +16,73 @@ const StatSkeleton = () => (
   </div>
 );
 
-const DashboardStats = () => {
+const DashboardStats = ({ selectedBranch = "" }) => {
   const userId = localStorage.getItem("userId");
-
-  const { data, isLoading } = useGetAllUserQuery({ Role: "student" });
-  const {
-    data: taskData,
-    isLoading: isTaskLoading,
-  } = useGetAllTaskQuery({ assignedTo_id: userId });
+  const role = localStorage.getItem("role");
+  const branch = localStorage.getItem("branch");
 
   const formatDate = (date) => new Date(date).toLocaleDateString("en-CA");
-
   const today = formatDate(new Date());
 
+  // ── Total Students ──────────────────────────────────────────
+  const studentParams =
+    role === "superAdmin"
+      ? { roleMode: "onlyStudent", Branch: selectedBranch || undefined, Profile: "active" }
+      : { roleMode: "onlyStudent", Branch: branch, Profile: "active" };
+
+  const { data: studentData, isLoading: isStudentLoading } = useGetAllUserQuery(studentParams);
+
+  // ── Total Tasks ──────────────────────────────────────────────
+  const taskParams =
+    role === "superAdmin"
+      ? { branch: selectedBranch || undefined }
+      : role === "admin"
+        ? { branch }
+        : { assignedTo_id: userId };
+
+  const { data: taskData, isLoading: isTaskLoading } = useGetAllTaskQuery(taskParams);
+
   const todayTask = taskData?.data?.filter(
-    (item) =>
-      item.updatedAt &&
-      formatDate(item.updatedAt) === today &&
-      item.status === "COMPLETED",
+    (item) => item.updatedAt && formatDate(item.updatedAt) === today && item.status === "COMPLETED",
   );
 
+  // ── Total Leads ──────────────────────────────────────────────
+  const leadParams =
+    role === "superAdmin"
+      ? { role: "superAdmin" }
+      : role === "admin"
+        ? { location: branch, role: "admin" }
+        : { user_id: userId, location: branch, role: "employee" };
+
+  const { data: totalLead, isLoading: isTotalLeadLoading } = useGetAllConsultationQuery(leadParams);
+
+  const openLeadParams =
+    role === "superAdmin"
+      ? { status: "Open Case", role: "superAdmin" }
+      : role === "admin"
+        ? { status: "Open Case", location: branch, role: "admin" }
+        : { status: "Open Case", user_id: userId, location: branch, role: "employee" };
+
+  const { data: openLead, isLoading: isOpenLoading } = useGetAllConsultationQuery(openLeadParams);
+
+  // ── Follow Ups (today's appointments) ───────────────────────
+  const followUpParams =
+    role === "superAdmin"
+      ? { appointmentDate: today }
+      : role === "admin"
+        ? { appointmentDate: today, location: branch }
+        : { user_id: userId, appointmentDate: today, location: branch };
+
   const { data: todayAppointment, isLoading: isAppointmentLoading } =
-    useGetAllConsultationQuery({ user_id: userId, appointmentDate: today });
-
-  const { data: totalLead, isLoading: isTotalLeadLoading } =
-    useGetAllConsultationQuery({ user_id: userId });
-
-  const { data: openLead, isLoading: isOpenLoading } =
-    useGetAllConsultationQuery({
-      user_id: userId,
-      status: "Open Case",
-    });
+    useGetAllConsultationQuery(followUpParams);
 
   const anyLoading =
-    isLoading ||
-    isTaskLoading ||
-    isAppointmentLoading ||
-    isTotalLeadLoading ||
-    isOpenLoading;
+    isStudentLoading || isTaskLoading || isAppointmentLoading || isTotalLeadLoading || isOpenLoading;
 
   if (anyLoading) {
     return (
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {[1, 2, 3, 4].map((i) => (
-          <StatSkeleton key={i} />
-        ))}
+        {[1, 2, 3, 4].map((i) => <StatSkeleton key={i} />)}
       </div>
     );
   }
@@ -69,7 +91,7 @@ const DashboardStats = () => {
     {
       label: "Total",
       sub: "Total Students",
-      value: data?.meta?.total ?? 0,
+      value: studentData?.meta?.total ?? 0,
       icon: <FaUsers />,
       iconBg: "bg-blue-100 text-blue-600",
     },

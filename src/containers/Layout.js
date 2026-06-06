@@ -6,6 +6,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import ThemedSuspense from "../components/ThemedSuspense";
 import { SidebarContext } from "../context/SidebarContext";
+import ChatWidget from "../components/chat/ChatWidget";
 
 const Page404 = lazy(() => import("../pages/404"));
 
@@ -53,6 +54,7 @@ function Layout() {
           </Suspense>
         </main>
       </div>
+      <ChatWidget />
     </div>
   );
 }

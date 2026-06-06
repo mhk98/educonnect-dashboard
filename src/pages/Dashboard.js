@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FilterPanel from "../components/FilterPanel";
 import DashboardItems from "../components/DashboardItems";
 import StudentQRCard from "../components/StudentQRCard";
@@ -7,10 +7,17 @@ import RegionalManagers from "../components/RegionalManagers";
 import DashboardStats from "../components/DashboardStats";
 import Overview from "../components/Overview";
 import DashboardList from "../components/DashboardList";
+import { useGetAllBranchQuery } from "../features/branch/branch";
 
 function Dashboard() {
   const firstName = localStorage.getItem("FirstName") || "";
   const role = localStorage.getItem("role") || "User";
+
+  const [selectedBranch, setSelectedBranch] = useState("");
+
+  const { data: branchData } = useGetAllBranchQuery(undefined, {
+    skip: role !== "superAdmin",
+  });
 
   const greeting = () => {
     const h = new Date().getHours();
@@ -21,7 +28,6 @@ function Dashboard() {
 
   return (
     <div className="px-4 sm:px-5 lg:px-6 py-5 space-y-5">
-
       {/* ── Welcome Banner ── */}
       <div
         className="relative overflow-hidden rounded-2xl px-6 py-5 sm:px-8 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
@@ -38,7 +44,6 @@ function Dashboard() {
             Welcome to EduConnect Portal — here's your overview for today.
           </p>
         </div>
-        {/* decorative circles */}
         <div
           className="absolute -right-8 -top-8 w-36 h-36 rounded-full opacity-10"
           style={{ background: "#fff" }}
@@ -49,19 +54,50 @@ function Dashboard() {
         />
       </div>
 
-      {/* ── Stats Row ── */}
-      <DashboardStats />
-
       {/* ── Application Filter Card ── */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
         <FilterPanel />
       </div>
 
+      {/* ── Branch Filter (superAdmin only) ── */}
+      {role === "superAdmin" && (
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="text-sm font-medium text-slate-600">
+            Filter by Branch:
+          </span>
+          <select
+            value={selectedBranch}
+            onChange={(e) => setSelectedBranch(e.target.value)}
+            className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brandBlue shadow-sm"
+          >
+            <option value="">All Branches</option>
+            {branchData?.data?.map((b) => (
+              <option
+                key={b.id || b._id || b.name}
+                value={b.branch || b.name || b.Branch}
+              >
+                {b.branch || b.name || b.Branch}
+              </option>
+            ))}
+          </select>
+          {selectedBranch && (
+            <button
+              onClick={() => setSelectedBranch("")}
+              className="text-xs text-red-500 hover:underline"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+      )}
+      {/* ── Stats Row ── */}
+      <DashboardStats selectedBranch={selectedBranch} />
+
       {/* ── Charts ── */}
-      <Overview />
+      <Overview selectedBranch={selectedBranch} />
 
       {/* ── Call List + Notices ── */}
-      <DashboardList />
+      <DashboardList selectedBranch={selectedBranch} />
 
       {/* ── Quick Access Cards ── */}
       <div>
