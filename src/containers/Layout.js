@@ -54,7 +54,7 @@ function Layout() {
           </Suspense>
         </main>
       </div>
-      <ChatWidget />
+      {location.pathname !== "/app/messaging" && <ChatWidget />}
     </div>
   );
 }

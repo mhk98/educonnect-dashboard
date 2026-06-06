@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import toast from "react-hot-toast";
 
 const API = "https://backend.eaconsultancy.org/api/v1";
 const SOCKET_URL = "https://backend.eaconsultancy.org";
@@ -11,6 +12,9 @@ const PLATFORM_COLORS = {
   facebook: "#1877F2",
   whatsapp: "#25D366",
 };
+
+const DESTINATIONS = ["USA","UK","Canada","Australia","Germany","Belgium","Hungary","Denmark","Austria","Finland","Sweden","Cyprus","Malaysia","China","Dubai","Italy","Croatia","Malta","Others"];
+const STATUSES = ["Hot Lead","Cool Lead","Open Case","First Call Done","Very Interested","Requires Followup","Blocked","Needs Assistant","Case Closed","Case Converted"];
 
 const PlatformBadge = ({ platform }) => (
   <span
@@ -51,6 +55,58 @@ export default function Messaging() {
   const [notification, setNotification] = useState(null);
   const messagesEndRef = useRef(null);
   const socketRef = useRef(null);
+
+  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [branches, setBranches] = useState([]);
+  const [leadForm, setLeadForm] = useState({
+    fullName: "", phone: "", email: "", destination: "", status: "", location: "",
+  });
+
+  /* ── Load branches ── */
+  useEffect(() => {
+    axios.get(`${API}/branch`, { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => setBranches(res.data?.data || []))
+      .catch(() => {});
+  }, [token]);
+
+  const openLeadModal = () => {
+    const userBranch = localStorage.getItem("branch") || "";
+    setLeadForm({
+      fullName: selected?.senderName || "",
+      phone: selected?.platform === "whatsapp" ? selected?.externalId || "" : "",
+      email: "",
+      destination: "",
+      status: "",
+      location: userBranch,
+    });
+    setShowLeadModal(true);
+  };
+
+  const submitLead = async () => {
+    if (!leadForm.fullName.trim() || !leadForm.phone.trim() || !leadForm.location) {
+      toast.error("Full Name, Phone এবং Location আবশ্যক");
+      return;
+    }
+    setLeadSubmitting(true);
+    try {
+      await axios.post(
+        `${API}/consultation/create`,
+        {
+          ...leadForm,
+          type: "Office Visits",
+          url: "leads",
+          userId: localStorage.getItem("userId"),
+        },
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      toast.success("Lead সফলভাবে add হয়েছে!");
+      setShowLeadModal(false);
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Lead add করতে সমস্যা হয়েছে");
+    }
+    setLeadSubmitting(false);
+  };
 
   /* ── Load conversations ── */
   const loadConversations = useCallback(async () => {
@@ -198,12 +254,44 @@ export default function Messaging() {
         <div
           style={{
             background: BRAND_GRADIENT,
-            padding: "16px 18px",
+            padding: "14px 16px",
             color: "#fff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          <div style={{ fontWeight: 700, fontSize: 16 }}>Messaging</div>
-          <div style={{ fontSize: 12, opacity: 0.8 }}>Facebook & WhatsApp</div>
+          <div>
+            <div style={{ fontWeight: 700, fontSize: 16 }}>Messaging</div>
+            <div style={{ fontSize: 12, opacity: 0.8 }}>Facebook & WhatsApp</div>
+          </div>
+          <button
+            onClick={openLeadModal}
+            title="Add Lead"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+              background: "rgba(255,255,255,0.18)",
+              color: "#fff",
+              border: "1.5px solid rgba(255,255,255,0.35)",
+              borderRadius: 8,
+              padding: "5px 11px",
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: "pointer",
+              backdropFilter: "blur(4px)",
+              transition: "background 0.15s",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.28)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.18)")}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>
+            </svg>
+            Add Lead
+          </button>
         </div>
 
         {/* Conversation list */}
@@ -500,6 +588,183 @@ export default function Messaging() {
           </>
         )}
       </div>
+
+      {/* ── Add Lead Modal ── */}
+      {showLeadModal && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.45)",
+            zIndex: 10000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 16,
+          }}
+          onClick={(e) => { if (e.target === e.currentTarget) setShowLeadModal(false); }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: 16,
+              width: "100%",
+              maxWidth: 560,
+              maxHeight: "90vh",
+              overflowY: "auto",
+              boxShadow: "0 16px 60px rgba(27,46,107,0.2)",
+            }}
+          >
+            {/* Modal header */}
+            <div
+              style={{
+                background: BRAND_GRADIENT,
+                borderRadius: "16px 16px 0 0",
+                padding: "18px 24px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                color: "#fff",
+              }}
+            >
+              <span style={{ fontWeight: 700, fontSize: 16 }}>Add New Lead</span>
+              <button
+                onClick={() => setShowLeadModal(false)}
+                style={{ background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", borderRadius: 8, padding: "4px 10px", cursor: "pointer", fontSize: 18, lineHeight: 1 }}
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Form */}
+            <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 16 }}>
+              {selected && (
+                <div style={{ background: "#EFF6FF", borderRadius: 10, padding: "10px 14px", fontSize: 13, color: BRAND, fontWeight: 500 }}>
+                  Conversation: <strong>{selected.senderName || selected.externalId}</strong> ({selected.platform})
+                </div>
+              )}
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                {/* Full Name */}
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: "#374151", display: "block", marginBottom: 4 }}>
+                    Full Name <span style={{ color: "#ef4444" }}>*</span>
+                  </label>
+                  <input
+                    value={leadForm.fullName}
+                    onChange={(e) => setLeadForm((p) => ({ ...p, fullName: e.target.value }))}
+                    placeholder="Lead এর নাম"
+                    style={{ width: "100%", border: "1.5px solid #e2e8f0", borderRadius: 10, padding: "9px 12px", fontSize: 13, outline: "none", boxSizing: "border-box" }}
+                    onFocus={(e) => (e.target.style.borderColor = BRAND)}
+                    onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
+                  />
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: "#374151", display: "block", marginBottom: 4 }}>
+                    Phone <span style={{ color: "#ef4444" }}>*</span>
+                  </label>
+                  <input
+                    value={leadForm.phone}
+                    onChange={(e) => setLeadForm((p) => ({ ...p, phone: e.target.value }))}
+                    placeholder="+8801XXXXXXXXX"
+                    style={{ width: "100%", border: "1.5px solid #e2e8f0", borderRadius: 10, padding: "9px 12px", fontSize: 13, outline: "none", boxSizing: "border-box" }}
+                    onFocus={(e) => (e.target.style.borderColor = BRAND)}
+                    onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: "#374151", display: "block", marginBottom: 4 }}>Email</label>
+                  <input
+                    type="email"
+                    value={leadForm.email}
+                    onChange={(e) => setLeadForm((p) => ({ ...p, email: e.target.value }))}
+                    placeholder="email@example.com"
+                    style={{ width: "100%", border: "1.5px solid #e2e8f0", borderRadius: 10, padding: "9px 12px", fontSize: 13, outline: "none", boxSizing: "border-box" }}
+                    onFocus={(e) => (e.target.style.borderColor = BRAND)}
+                    onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
+                  />
+                </div>
+
+                {/* Destination */}
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: "#374151", display: "block", marginBottom: 4 }}>Destination</label>
+                  <select
+                    value={leadForm.destination}
+                    onChange={(e) => setLeadForm((p) => ({ ...p, destination: e.target.value }))}
+                    style={{ width: "100%", border: "1.5px solid #e2e8f0", borderRadius: 10, padding: "9px 12px", fontSize: 13, outline: "none", background: "#fff", boxSizing: "border-box" }}
+                  >
+                    <option value="">Select Destination</option>
+                    {DESTINATIONS.map((d) => <option key={d}>{d}</option>)}
+                  </select>
+                </div>
+
+                {/* Lead Status */}
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: "#374151", display: "block", marginBottom: 4 }}>Lead Status</label>
+                  <select
+                    value={leadForm.status}
+                    onChange={(e) => setLeadForm((p) => ({ ...p, status: e.target.value }))}
+                    style={{ width: "100%", border: "1.5px solid #e2e8f0", borderRadius: 10, padding: "9px 12px", fontSize: 13, outline: "none", background: "#fff", boxSizing: "border-box" }}
+                  >
+                    <option value="">Select Status</option>
+                    {STATUSES.map((s) => <option key={s}>{s}</option>)}
+                  </select>
+                </div>
+
+                {/* Branch / Location */}
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: "#374151", display: "block", marginBottom: 4 }}>
+                    Branch <span style={{ color: "#ef4444" }}>*</span>
+                  </label>
+                  <select
+                    value={leadForm.location}
+                    onChange={(e) => setLeadForm((p) => ({ ...p, location: e.target.value }))}
+                    style={{ width: "100%", border: "1.5px solid #e2e8f0", borderRadius: 10, padding: "9px 12px", fontSize: 13, outline: "none", background: "#fff", boxSizing: "border-box" }}
+                  >
+                    <option value="">Select Branch</option>
+                    {branches.map((b) => (
+                      <option key={b.id || b.branch} value={b.branch || b.name || b.Branch}>
+                        {b.branch || b.name || b.Branch}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", marginTop: 4 }}>
+                <button
+                  onClick={() => setShowLeadModal(false)}
+                  style={{ padding: "10px 20px", borderRadius: 10, border: "1.5px solid #e2e8f0", background: "#f8fafc", fontSize: 13, fontWeight: 600, cursor: "pointer", color: "#64748b" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={submitLead}
+                  disabled={leadSubmitting}
+                  style={{
+                    padding: "10px 24px",
+                    borderRadius: 10,
+                    border: "none",
+                    background: leadSubmitting ? "#cbd5e1" : BRAND_GRADIENT,
+                    color: "#fff",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: leadSubmitting ? "not-allowed" : "pointer",
+                    boxShadow: leadSubmitting ? "none" : "0 2px 8px rgba(27,46,107,0.25)",
+                  }}
+                >
+                  {leadSubmitting ? "Saving..." : "Save Lead"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

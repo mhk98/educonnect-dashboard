@@ -153,7 +153,7 @@ export default function Header() {
       "originalBranch",
       "isImpersonating",
     ].forEach((k) => localStorage.removeItem(k));
-    history.push("/app/usermanagement");
+    history.push("/");
     window.location.reload();
   };
 
