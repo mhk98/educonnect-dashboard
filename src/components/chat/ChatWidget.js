@@ -80,13 +80,15 @@ function ActionPopup({ anchor, onEdit, onDelete, onClose }) {
     return () => document.removeEventListener("mousedown", handler);
   }, [anchor, onClose]);
 
+  const safeRight = Math.max(right, 8);
+
   return (
     <div
       ref={popupRef}
       style={{
         position: "fixed",
         top,
-        right,
+        right: safeRight,
         transform: "translateY(-100%)",
         background: "#fff",
         borderRadius: "12px",
@@ -207,7 +209,7 @@ function MessageBubble({ message, currentUserId, onEdit, onDelete }) {
         {/* Bubble */}
         <div
           style={{
-            maxWidth: "72%",
+            maxWidth: "78%",
             borderRadius: mine ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
             padding: "9px 13px",
             fontSize: "13.5px",
@@ -340,6 +342,16 @@ function EditForm({ message, onSave, onCancel }) {
 }
 
 /* ─── Main widget ─── */
+const useWindowWidth = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handler = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return width;
+};
+
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
@@ -352,6 +364,10 @@ const ChatWidget = () => {
   const [unreadTotal, setUnreadTotal] = useState(0);
   const [socketConnected, setSocketConnected] = useState(false);
   const [editingId, setEditingId] = useState(null);
+
+  const windowWidth = useWindowWidth();
+  const isMobile = windowWidth <= 640;
+  const isTablet = windowWidth > 640 && windowWidth <= 1024;
 
   const socketRef = useRef(null);
   const selectedConvRef = useRef(null);
@@ -619,21 +635,26 @@ const ChatWidget = () => {
 
   if (!canUseChat) return null;
 
+  const widgetWidth = isMobile ? "100%" : isTablet ? "320px" : "360px";
+  const widgetHeight = isMobile ? "100%" : isTablet ? "520px" : "590px";
+  const wrapperStyle =
+    isMobile && isOpen
+      ? { position: "fixed", inset: 0, zIndex: 9999 }
+      : { position: "fixed", bottom: "20px", right: "20px", zIndex: 9999 };
+
   return (
-    <div
-      style={{ position: "fixed", bottom: "20px", right: "20px", zIndex: 9999 }}
-    >
+    <div style={wrapperStyle}>
       {isOpen ? (
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "360px",
-            height: "590px",
+            width: widgetWidth,
+            height: widgetHeight,
             background: "#fff",
-            borderRadius: "16px",
-            boxShadow: "0 8px 40px rgba(27,46,107,0.18)",
-            border: "1px solid #e2e8f0",
+            borderRadius: isMobile ? 0 : "16px",
+            boxShadow: isMobile ? "none" : "0 8px 40px rgba(27,46,107,0.18)",
+            border: isMobile ? "none" : "1px solid #e2e8f0",
             overflow: "hidden",
           }}
         >
@@ -1101,8 +1122,8 @@ const ChatWidget = () => {
           onClick={() => setIsOpen(true)}
           title="Open chat"
           style={{
-            width: "56px",
-            height: "56px",
+            width: isMobile ? "50px" : "56px",
+            height: isMobile ? "50px" : "56px",
             borderRadius: "50%",
             background: BRAND_GRADIENT,
             color: "#fff",
