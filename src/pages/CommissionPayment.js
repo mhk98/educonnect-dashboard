@@ -78,7 +78,7 @@ function CommissionPayment() {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "https://backend.eaconsultancy.org/api/v1/user/student",
+          "https://api.alnawrasplus.com/api/v1/user/student",
         );
         const allUsers = response.data.data;
 

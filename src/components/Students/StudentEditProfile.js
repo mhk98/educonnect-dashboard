@@ -30,7 +30,7 @@ const StudentEditProfile = () => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          `https://backend.eaconsultancy.org/api/v1/user/${id}`,
+          `https://api.alnawrasplus.com/api/v1/user/${id}`,
         );
         setData(res.data.data);
       } catch (err) {

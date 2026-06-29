@@ -22,6 +22,7 @@ import { EnquiriesApi } from "../features/enquiries/enquiries";
 import { CommissionApi } from "../features/commission/commission";
 import { TaskApi } from "../features/task/task";
 import { taskActivityApi } from "../features/taskActivity/taskActivity";
+import { logHistoryApi } from "../features/logHistory/logHistory";
 import { taskCommentApi } from "../features/taskComment/taskComment";
 import { ContractApi } from "../features/contract/contract";
 import { eaDocumentApi } from "../features/eaDocument/eaDocument";
@@ -61,6 +62,7 @@ const store = configureStore({
     [TaskApi.reducerPath]: TaskApi.reducer,
     [taskCommentApi.reducerPath]: taskCommentApi.reducer,
     [taskActivityApi.reducerPath]: taskActivityApi.reducer,
+    [logHistoryApi.reducerPath]: logHistoryApi.reducer,
     [ContractApi.reducerPath]: ContractApi.reducer,
     [eaDocumentApi.reducerPath]: eaDocumentApi.reducer,
     [ConsultationApi.reducerPath]: ConsultationApi.reducer,
@@ -96,6 +98,7 @@ const store = configureStore({
       TaskApi.middleware,
       taskCommentApi.middleware,
       taskActivityApi.middleware,
+      logHistoryApi.middleware,
       ContractApi.middleware,
       applicationApi.middleware,
       eaDocumentApi.middleware,

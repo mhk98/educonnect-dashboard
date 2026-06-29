@@ -8,7 +8,7 @@ const getAuthToken = () => {
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://backend.eaconsultancy.org/api/v1/",
+    baseUrl: "https://api.alnawrasplus.com/api/v1/",
 
     // This will attach the token to every request that requires authorization
     prepareHeaders: (headers) => {

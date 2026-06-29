@@ -12,8 +12,8 @@ import {
 import { io } from "socket.io-client";
 import toast from "react-hot-toast";
 
-const API_BASE_URL = "https://backend.eaconsultancy.org/api/v1";
-const SOCKET_URL = "https://backend.eaconsultancy.org";
+const API_BASE_URL = "https://api.alnawrasplus.com/api/v1";
+const SOCKET_URL = "https://api.alnawrasplus.com";
 const CHAT_ALLOWED_ROLES = ["employee", "admin", "superAdmin"];
 
 const BRAND = "#1B2E6B";

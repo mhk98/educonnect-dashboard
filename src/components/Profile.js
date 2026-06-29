@@ -80,7 +80,7 @@ const Profile = () => {
     const fetchUser = async () => {
       try {
         const response = await fetch(
-          `https://backend.eaconsultancy.org/api/v1/user/${id}`,
+          `https://api.alnawrasplus.com/api/v1/user/${id}`,
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

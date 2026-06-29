@@ -36,7 +36,7 @@ const History = ({ id }) => {
   const fetchComments = async () => {
     try {
       const res = await axios.get(
-        `https://backend.eaconsultancy.org/api/v1/leadComment/${id}`,
+        `https://api.alnawrasplus.com/api/v1/leadComment/${id}`,
       );
       setComments(res.data.data); // Assuming `res.data.data` holds array
     } catch (err) {
@@ -56,7 +56,7 @@ const History = ({ id }) => {
       if (newCommentFile) formData.append("file", newCommentFile);
 
       await axios.post(
-        "https://backend.eaconsultancy.org/api/v1/leadComment/create",
+        "https://api.alnawrasplus.com/api/v1/leadComment/create",
         formData,
       );
       setNewComment("");
@@ -82,7 +82,7 @@ const History = ({ id }) => {
       if (file) formData.append("file", file);
 
       await axios.post(
-        "https://backend.eaconsultancy.org/api/v1/leadReply/create",
+        "https://api.alnawrasplus.com/api/v1/leadReply/create",
         formData,
       );
       setReplyContent((prev) => ({ ...prev, [commentId]: "" }));

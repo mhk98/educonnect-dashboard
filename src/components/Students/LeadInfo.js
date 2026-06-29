@@ -14,7 +14,7 @@ const LeadInfo = ({ id }) => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          `https://backend.eaconsultancy.org/api/v1/consultation/lead-info/${id}`,
+          `https://api.alnawrasplus.com/api/v1/consultation/lead-info/${id}`,
         );
         setData(res.data.data);
       } catch (err) {

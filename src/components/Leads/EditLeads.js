@@ -23,7 +23,7 @@ const EditLeads = () => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          `https://backend.eaconsultancy.org/api/v1/consultation/${id}`,
+          `https://api.alnawrasplus.com/api/v1/consultation/${id}`,
         );
         setData(res.data.data);
       } catch (err) {

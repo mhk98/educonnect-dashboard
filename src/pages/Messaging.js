@@ -3,8 +3,8 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import toast from "react-hot-toast";
 
-const API = "https://backend.eaconsultancy.org/api/v1";
-const SOCKET_URL = "https://backend.eaconsultancy.org";
+const API = "https://api.alnawrasplus.com/api/v1";
+const SOCKET_URL = "https://api.alnawrasplus.com";
 const BRAND = "#1B2E6B";
 const BRAND_GRADIENT = "linear-gradient(135deg, #1B2E6B 0%, #2563EB 100%)";
 

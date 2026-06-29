@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const NotificationApi = createApi({
   reducerPath: "NotificationApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://backend.eaconsultancy.org/api/v1/",
+    baseUrl: "https://api.alnawrasplus.com/api/v1/",
   }),
 
   tagTypes: ["notification"], // Define the tag type

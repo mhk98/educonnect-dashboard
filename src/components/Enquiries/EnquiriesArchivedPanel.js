@@ -215,7 +215,7 @@ const EnquiriesRequestedPanel = () => {
   // const fetchComments = async () => {
   //   try {
   //     const res = await axios.get(
-  //       `https://backend.eaconsultancy.org/api/v1/comment/${selected.id}?type=kc`
+  //       `https://api.alnawrasplus.com/api/v1/comment/${selected.id}?type=kc`
   //     );
   //     setComments(res.data.data);
   //   } catch (err) {
@@ -226,7 +226,7 @@ const EnquiriesRequestedPanel = () => {
   const fetchComments = async () => {
     try {
       const res = await axios.get(
-        `https://backend.eaconsultancy.org/api/v1/comment/${selected.id}?type=kc`,
+        `https://api.alnawrasplus.com/api/v1/comment/${selected.id}?type=kc`,
       );
       const sortedComments = res.data.data.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
@@ -240,16 +240,13 @@ const EnquiriesRequestedPanel = () => {
   const handleCommentSubmit = async () => {
     if (!newComment.trim()) return;
     try {
-      await axios.post(
-        "https://backend.eaconsultancy.org/api/v1/comment/create",
-        {
-          user_id: id,
-          enquiry_id: selected.id,
-          text: newComment,
-          type: "kc",
-          hidden: false,
-        },
-      );
+      await axios.post("https://api.alnawrasplus.com/api/v1/comment/create", {
+        user_id: id,
+        enquiry_id: selected.id,
+        text: newComment,
+        type: "kc",
+        hidden: false,
+      });
       setNewComment("");
       fetchComments();
       document.activeElement.blur();
@@ -262,14 +259,11 @@ const EnquiriesRequestedPanel = () => {
     const replyText = replyContent[commentId];
     if (!replyText?.trim()) return;
     try {
-      await axios.post(
-        "https://backend.eaconsultancy.org/api/v1/reply/create",
-        {
-          user_id: id,
-          comment_id: commentId,
-          text: replyText,
-        },
-      );
+      await axios.post("https://api.alnawrasplus.com/api/v1/reply/create", {
+        user_id: id,
+        comment_id: commentId,
+        text: replyText,
+      });
       setReplyContent((prev) => ({ ...prev, [commentId]: "" }));
       fetchComments();
     } catch (err) {
@@ -366,7 +360,7 @@ const EnquiriesRequestedPanel = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "https://backend.eaconsultancy.org/api/v1/user",
+          "https://api.alnawrasplus.com/api/v1/user",
         );
         const allUsers = response.data.data;
 
@@ -391,7 +385,7 @@ const EnquiriesRequestedPanel = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "https://backend.eaconsultancy.org/api/v1/user",
+          "https://api.alnawrasplus.com/api/v1/user",
         );
         const allUsers = response.data.data;
 

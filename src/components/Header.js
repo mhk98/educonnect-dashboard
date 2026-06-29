@@ -89,7 +89,7 @@ export default function Header() {
     const fetchUser = async () => {
       try {
         const res = await fetch(
-          `https://backend.eaconsultancy.org/api/v1/user/${userId}`,
+          `https://api.alnawrasplus.com/api/v1/user/${userId}`,
         );
         if (!res.ok) throw new Error();
         const d = await res.json();
@@ -310,7 +310,7 @@ export default function Header() {
                     src={
                       user.image.startsWith("http")
                         ? user.image
-                        : `https://backend.eaconsultancy.org/${user.image}`
+                        : `https://api.alnawrasplus.com/${user.image}`
                     }
                     alt={displayName}
                     onError={() => setImgError(true)}
@@ -353,7 +353,7 @@ export default function Header() {
                           src={
                             user.image.startsWith("http")
                               ? user.image
-                              : `https://backend.eaconsultancy.org/${user.image}`
+                              : `https://api.alnawrasplus.com/${user.image}`
                           }
                           alt={displayName}
                           onError={() => setImgError(true)}

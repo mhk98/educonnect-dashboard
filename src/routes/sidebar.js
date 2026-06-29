@@ -103,6 +103,12 @@ const routes = [
     name: "Messaging",
     roles: ["admin", "superAdmin"],
   },
+  {
+    path: "/app/log-history",
+    icon: "TablesIcon",
+    name: "Log History",
+    roles: ["admin", "superAdmin"],
+  },
 
   {
     path: "/app/notice",
