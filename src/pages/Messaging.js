@@ -318,6 +318,19 @@ export default function Messaging() {
       setTimeout(() => setNotification(null), 5000);
       loadConversations();
     });
+    socket.on("messaging:seen", ({ conversationId, seenAt }) => {
+      const seenTime = new Date(seenAt);
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.conversationId === conversationId &&
+          msg.direction === "outgoing" &&
+          !msg.seenAt &&
+          new Date(msg.createdAt) <= seenTime
+            ? { ...msg, seenAt }
+            : msg,
+        ),
+      );
+    });
     return () => socket.disconnect();
   }, [token, loadConversations]);
 
@@ -384,6 +397,13 @@ export default function Messaging() {
       sendReply();
     }
   };
+
+  const latestOutgoingMessage = [...messages]
+    .reverse()
+    .find((msg) => msg.direction === "outgoing");
+  const seenMessageId = latestOutgoingMessage?.seenAt
+    ? latestOutgoingMessage.id
+    : null;
 
   return (
     <>
@@ -703,12 +723,15 @@ export default function Messaging() {
                 )}
                 {messages.map((msg) => {
                   const isOut = msg.direction === "outgoing";
+                  const showSeen = isOut && msg.id === seenMessageId;
                   return (
                     <div
                       key={msg.id}
                       style={{
                         display: "flex",
                         justifyContent: isOut ? "flex-end" : "flex-start",
+                        flexDirection: "column",
+                        alignItems: isOut ? "flex-end" : "flex-start",
                       }}
                     >
                       <div
@@ -753,6 +776,19 @@ export default function Messaging() {
                           {timeAgo(msg.createdAt)}
                         </div>
                       </div>
+                      {showSeen && (
+                        <div
+                          style={{
+                            fontSize: 11,
+                            color: "#64748b",
+                            marginTop: 4,
+                            marginRight: 6,
+                            fontWeight: 600,
+                          }}
+                        >
+                          Seen
+                        </div>
+                      )}
                     </div>
                   );
                 })}
