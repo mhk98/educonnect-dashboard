@@ -318,14 +318,15 @@ export default function Messaging() {
       setTimeout(() => setNotification(null), 5000);
       loadConversations();
     });
-    socket.on("messaging:seen", ({ conversationId, seenAt }) => {
+    socket.on("messaging:seen", ({ conversationId, messageIds = [], seenAt }) => {
       const seenTime = new Date(seenAt);
+      const seenIds = new Set(messageIds.map((id) => String(id)));
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.conversationId === conversationId &&
+          String(msg.conversationId) === String(conversationId) &&
           msg.direction === "outgoing" &&
-          !msg.seenAt &&
-          new Date(msg.createdAt) <= seenTime
+          (seenIds.has(String(msg.id)) ||
+            (!messageIds.length && new Date(msg.createdAt) <= seenTime))
             ? { ...msg, seenAt }
             : msg,
         ),
@@ -398,12 +399,10 @@ export default function Messaging() {
     }
   };
 
-  const latestOutgoingMessage = [...messages]
+  const latestSeenOutgoingMessage = [...messages]
     .reverse()
-    .find((msg) => msg.direction === "outgoing");
-  const seenMessageId = latestOutgoingMessage?.seenAt
-    ? latestOutgoingMessage.id
-    : null;
+    .find((msg) => msg.direction === "outgoing" && msg.seenAt);
+  const seenMessageId = latestSeenOutgoingMessage?.id || null;
 
   return (
     <>
