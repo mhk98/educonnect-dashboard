@@ -401,8 +401,10 @@ export default function Messaging() {
 
   const latestSeenOutgoingMessage = [...messages]
     .reverse()
-    .find((msg) => msg.direction === "outgoing" && msg.seenAt);
-  const seenMessageId = latestSeenOutgoingMessage?.id || null;
+    .find((msg) => msg.direction === "outgoing" && Boolean(msg.seenAt));
+  const seenMessageId = latestSeenOutgoingMessage
+    ? String(latestSeenOutgoingMessage.id)
+    : null;
 
   return (
     <>
@@ -722,7 +724,7 @@ export default function Messaging() {
                 )}
                 {messages.map((msg) => {
                   const isOut = msg.direction === "outgoing";
-                  const showSeen = isOut && msg.id === seenMessageId;
+                  const showSeen = isOut && String(msg.id) === seenMessageId;
                   return (
                     <div
                       key={msg.id}
