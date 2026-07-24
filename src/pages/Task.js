@@ -1417,10 +1417,9 @@ export default function Task() {
         </ModalBody>
       </Modal> */}
 
-      <dialog id="task_modal" className="modal">
+      <dialog id="task_modal" className="modal overflow-hidden">
         <div
-          className="modal-box w-11/12 max-w-2xl p-4 sm:p-6 overflow-y-auto"
-          style={{ maxHeight: "90vh" }}
+          className="modal-box w-11/12 max-w-2xl max-h-[90vh] p-4 sm:p-6 overflow-y-auto"
         >
           {/* HEADER */}
           <h3 className="font-semibold text-lg text-gray-900 mb-4">Add Task</h3>
